@@ -1,929 +1,558 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lee Muriithi Kingori – Care × Code × Vision</title>
-  <meta name="description" content="21 • Nursing Student • Freelance Developer • Head of HBS Tunnelytics">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lee Muriithi Kingori</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;700&family=Courier+Prime&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+html,body{
+  height:100vh;overflow:hidden;
+  background:#000;color:#fff;
+  font-family:'Courier Prime',monospace;
+}
 
-  <style>
-    :root {
-      --bg: #050a12;
-      --text: #d8f0ff;
-      --accent: #00f0ff;
-      --glow: rgba(0,240,255,0.82);
-      --card: rgba(8,18,38,0.78);
-      --border: #0c2540;
-    }
+/* ─── PAPER TEAR ─── */
+#tear-wrap{position:fixed;inset:0;z-index:9000;pointer-events:none;}
+#tear-top,#tear-bot{
+  position:absolute;inset:0;background:#fff;
+  transition:transform 0.9s cubic-bezier(0.68,0,0.25,1);
+}
+#tear-top{transform-origin:center top;}
+#tear-bot{transform-origin:center bottom;}
+#tear-top.torn{transform:translateY(-108%) rotate(-2deg);}
+#tear-bot.torn{transform:translateY(108%) rotate(1.8deg);}
+#tear-wrap.gone{display:none;}
 
-    * { margin:0; padding:0; box-sizing:border-box; }
+/* ─── CURSOR ─── */
+#cur{
+  position:fixed;width:7px;height:7px;background:#fff;border-radius:50%;
+  pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
+  mix-blend-mode:difference;transition:width .16s,height .16s;
+}
+#cur.big{width:24px;height:24px;}
 
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
+/* ─── NAV BELT ─── */
+#nav-outer{
+  position:fixed;top:1.5rem;left:0;right:0;z-index:800;
+  display:flex;justify-content:center;
+  opacity:0;transition:opacity .8s ease;pointer-events:none;
+}
+#nav-outer.show{opacity:1;pointer-events:all;}
 
-    /* Alive luminous background */
-    #bg-alive {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      pointer-events: none;
-      background: radial-gradient(circle at 50% 50%, rgba(0,240,255,0.12) 0%, transparent 70%);
-      animation: breathe 18s ease-in-out infinite;
-    }
+#belt{
+  display:flex;gap:0.4rem;align-items:center;
+  overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;-ms-overflow-style:none;
+  cursor:grab;user-select:none;
+  padding:0.2rem 0.8rem;
+  max-width:88vw;
+}
+#belt::-webkit-scrollbar{display:none;}
+#belt.drag{cursor:grabbing;}
 
-    @keyframes breathe {
-      0%,100% { opacity: 0.6; transform: scale(1); }
-      50%     { opacity: 1;   transform: scale(1.08); }
-    }
+.tab{
+  font-family:'Courier Prime',monospace;
+  font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;
+  padding:0.48rem 1.35rem;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.13);
+  background:transparent;
+  color:rgba(255,255,255,0.28);
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  scroll-snap-align:start;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  transition:color .28s,border-color .28s,background .28s;
+}
+.tab:hover{color:rgba(255,255,255,0.65);border-color:rgba(255,255,255,0.28);background:rgba(255,255,255,0.05);}
+.tab.active{color:#fff;border-color:rgba(255,255,255,0.45);background:rgba(255,255,255,0.08);}
 
-    /* Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(5,10,18,0.88);
-      backdrop-filter: blur(14px);
-      z-index: 100;
-      padding: 1.2rem 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2.5rem;
-      overflow-x: auto;
-      white-space: nowrap;
-      scrollbar-width: none;
-    }
+/* ─── ARROWS ─── */
+.arr{
+  position:fixed;top:50%;transform:translateY(-50%);
+  z-index:700;background:none;border:none;cursor:pointer;
+  font-family:'Cinzel',serif;font-size:1.5rem;
+  color:rgba(255,255,255,0.18);
+  padding:1.2rem 0.8rem;
+  transition:color .25s,opacity .4s;
+  opacity:0;pointer-events:none;
+  line-height:1;
+}
+.arr.show{opacity:1;pointer-events:all;}
+.arr:hover{color:rgba(255,255,255,0.65);}
+.arr:disabled{opacity:0!important;pointer-events:none!important;}
+#al{left:0.5rem;}
+#ar{right:0.5rem;}
 
-    nav::-webkit-scrollbar { display: none; }
+/* ─── STAGE ─── */
+#vp{overflow:hidden;width:100vw;height:100vh;}
+#stage{display:flex;width:600vw;height:100vh;will-change:transform;}
 
-    .logo-nav {
-      height: 42px;
-      width: auto;
-      margin-right: 1rem;
-      filter: drop-shadow(0 0 15px rgba(0,240,255,0.6));
-    }
+.panel{
+  width:100vw;height:100vh;flex-shrink:0;
+  position:relative;overflow:hidden;background:#000;
+}
+.psv{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible;}
 
-    nav a {
-      color: var(--accent);
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.45s cubic-bezier(0.23,1,0.32,1);
-      position: relative;
-      padding: 0.6rem 0;
-      flex-shrink: 0;
-    }
+/* ─── P0: NAME ─── */
+#p0{display:flex;align-items:center;justify-content:center;}
+.nw{text-align:center;z-index:2;}
+.nl{
+  display:block;font-family:'Cinzel',serif;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 1s ease,transform 1s ease;
+}
+.nl.in{opacity:1;transform:translateY(0);}
+.nla{font-size:clamp(4rem,13vw,12rem);font-weight:700;letter-spacing:.06em;transition-delay:0s;}
+.nlb{font-size:clamp(1.6rem,5vw,4rem);font-weight:300;letter-spacing:.36em;transition-delay:.25s;}
+.nlc{font-size:clamp(.7rem,1.8vw,1.6rem);font-weight:300;letter-spacing:.55em;color:rgba(255,255,255,.28);transition-delay:.5s;}
+.wire{
+  position:absolute;height:1px;
+  background:linear-gradient(to right,rgba(255,255,255,0),rgba(255,255,255,.5));
+  transform-origin:left center;transform:scaleX(0);
+  transition:transform .95s cubic-bezier(.4,0,.2,1);
+}
+.wire.on{transform:scaleX(1);}
+#w0{top:50%;left:50%;width:50vw;margin-top:-.5px;}
 
-    nav a:hover, nav a.active {
-      color: white;
-      text-shadow: 0 0 22px var(--glow);
-    }
+/* ─── P1: PROFILE ─── */
+#p1{display:flex;align-items:center;padding:0 11vw;}
+.wb{max-width:540px;z-index:2;}
+.tag{font-size:.55rem;letter-spacing:.3em;color:rgba(255,255,255,.2);margin-bottom:1.2rem;opacity:0;transition:opacity .6s ease;}
+.wh{font-family:'Cinzel',serif;font-size:clamp(1.5rem,3vw,2.7rem);font-weight:300;line-height:1.35;margin-bottom:1.6rem;opacity:0;transform:translateY(12px);transition:opacity .85s ease .12s,transform .85s ease .12s;}
+.wp{font-size:.82rem;line-height:2.1;color:rgba(255,255,255,.4);margin-bottom:.8rem;opacity:0;transition:opacity .8s ease .3s;}
+.mo{margin-top:1.5rem;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.42em;color:rgba(255,255,255,.18);opacity:0;transition:opacity .8s ease .58s;}
+.p1on .tag,.p1on .wp,.p1on .mo{opacity:1;}
+.p1on .wh{opacity:1;transform:translateY(0);}
 
-    nav a.active::after {
-      content: '';
-      position: absolute;
-      bottom: -7px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60%;
-      height: 3px;
-      background: var(--accent);
-      border-radius: 3px;
-      box-shadow: 0 0 18px var(--glow);
-    }
+/* ─── P2: EXPERIENCE ─── */
+#p2{display:flex;align-items:center;padding:0 11vw;}
+.eb{max-width:640px;z-index:2;}
+.eh{font-family:'Cinzel',serif;font-size:clamp(.85rem,1.7vw,1.3rem);font-weight:300;letter-spacing:.22em;margin-bottom:2rem;color:rgba(255,255,255,.45);opacity:0;transition:opacity .8s ease;}
+.eh.in{opacity:1;}
+.ei{display:flex;gap:1.3rem;align-items:flex-start;padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.05);opacity:0;transform:translateX(-14px);transition:opacity .55s ease,transform .55s ease;}
+.ei.in{opacity:1;transform:translateX(0);}
+.dot{width:5px;height:5px;border-radius:50%;border:1px solid rgba(255,255,255,.3);margin-top:.4rem;flex-shrink:0;}
+.er{font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.06em;margin-bottom:.15rem;}
+.eo{font-size:.7rem;color:rgba(255,255,255,.32);margin-bottom:.1rem;}
+.ey{font-size:.58rem;color:rgba(255,255,255,.15);letter-spacing:.06em;}
 
-    #pages { padding-top: 6.5rem; }
+/* ─── P3: SOCIALS ─── */
+#p3{display:flex;align-items:center;padding:0 11vw;}
+.sb{max-width:560px;z-index:2;}
+.sh{font-family:'Cinzel',serif;font-size:clamp(.85rem,1.7vw,1.3rem);font-weight:300;letter-spacing:.22em;margin-bottom:2rem;color:rgba(255,255,255,.45);opacity:0;transition:opacity .8s ease;}
+.sh.in{opacity:1;}
+.si{
+  display:flex;align-items:center;gap:1.2rem;
+  padding:.95rem 0;border-bottom:1px solid rgba(255,255,255,.05);
+  opacity:0;transform:translateX(-14px);
+  transition:opacity .5s ease,transform .5s ease,color .25s;
+  text-decoration:none;color:inherit;cursor:pointer;
+}
+.si.in{opacity:1;transform:translateX(0);}
+.si:hover .sn{color:#fff;}
+.sic{
+  width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.18);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.55rem;flex-shrink:0;color:rgba(255,255,255,.45);
+  font-family:'Cinzel',serif;letter-spacing:.01em;
+  transition:border-color .25s,color .25s;
+}
+.si:hover .sic{border-color:rgba(255,255,255,.45);color:#fff;}
+.sn{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.06em;margin-bottom:.14rem;color:rgba(255,255,255,.85);transition:color .25s;}
+.sh2{font-size:.67rem;color:rgba(255,255,255,.28);}
 
-    .page {
-      opacity: 0;
-      visibility: hidden;
-      position: absolute;
-      inset: 0;
-      padding: 2rem 1.5rem 8rem;
-      transition: opacity 0.9s cubic-bezier(0.23,1,0.32,1), transform 0.9s cubic-bezier(0.23,1,0.32,1);
-      transform: translateY(40px) scale(0.98);
-      pointer-events: none;
-    }
+/* ─── P4: CONTACT ─── */
+#p4{display:flex;align-items:center;padding:0 11vw;}
+.cb{max-width:540px;z-index:2;}
+.csh{font-family:'Cinzel',serif;font-size:clamp(.85rem,1.7vw,1.3rem);font-weight:300;letter-spacing:.22em;margin-bottom:2rem;color:rgba(255,255,255,.45);opacity:0;transition:opacity .8s ease;}
+.csh.in{opacity:1;}
+.ci{
+  display:flex;align-items:flex-start;gap:1.3rem;
+  padding:1.1rem 0;border-bottom:1px solid rgba(255,255,255,.05);
+  opacity:0;transform:translateX(-14px);
+  transition:opacity .5s ease,transform .5s ease;
+  text-decoration:none;color:inherit;
+}
+.ci.in{opacity:1;transform:translateX(0);}
+.cic{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.72rem;color:rgba(255,255,255,.38);flex-shrink:0;margin-top:.05rem;
+  transition:border-color .25s,color .25s;
+}
+.ci:hover .cic{border-color:rgba(255,255,255,.4);color:#fff;}
+.ct{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;color:rgba(255,255,255,.3);margin-bottom:.28rem;}
+.cv{font-size:.9rem;color:#fff;letter-spacing:.02em;}
 
-    .page.active {
-      opacity: 1;
-      visibility: visible;
-      position: relative;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-    }
+/* ─── L MARK ─── */
+#lmark{
+  position:fixed;bottom:1.6rem;left:1.6rem;z-index:700;
+  width:22px;height:28px;
+  opacity:0;transition:opacity .8s ease;
+}
+#lmark.show{opacity:1;}
 
-    .container { max-width: 1140px; margin: 0 auto; }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(4.8rem,10vw,9.5rem);
-      text-align: center;
-      background: linear-gradient(90deg,var(--accent),#7df8ff,var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 75px var(--glow);
-      margin: 1rem 0 2rem;
-    }
-
-    h2 { color: var(--accent); text-shadow: 0 0 25px var(--glow); margin: 3rem 0 1.5rem; text-align: center; font-size: 2.6rem; }
-
-    .tagline { text-align:center; font-size:1.65rem; opacity:0.92; margin-bottom:3.5rem; }
-
-    .socials { display:flex; justify-content:center; gap:2.2rem; margin:3rem 0 4rem; }
-
-    .social i {
-      font-size: 2.6rem;
-      color: var(--accent);
-      transition: all 0.55s cubic-bezier(0.175,0.885,0.32,1.275);
-    }
-
-    .social i:hover {
-      transform: translateY(-12px) rotate(10deg) scale(1.2);
-      color: white;
-      text-shadow: 0 0 40px var(--glow);
-    }
-
-    @media (max-width: 768px) {
-      .socials { gap: 1.8rem; }
-      .social i { font-size: 2.2rem; }
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin: 4rem 0;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 2.4rem;
-      transition: all 0.65s cubic-bezier(0.23,1,0.32,1);
-      opacity: 0;
-      transform: translateY(50px);
-    }
-
-    .card.visible { opacity:1; transform:translateY(0); }
-
-    .card:hover { transform:translateY(-15px); box-shadow:0 0 60px var(--glow); }
-
-    .logo-big {
-      display: block;
-      max-width: 380px;
-      margin: 3rem auto;
-      filter: drop-shadow(0 0 35px rgba(0,240,255,0.7));
-    }
-
-    /* Advanced sub-tabs in Connect */
-    .sub-tabs-container {
-      overflow-x: auto;
-      padding-bottom: 1rem;
-      scrollbar-width: none;
-      margin: 2rem 0 3rem;
-    }
-
-    .sub-tabs-container::-webkit-scrollbar { display: none; }
-
-    .sub-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      min-width: max-content;
-    }
-
-    .sub-tab {
-      color: var(--text);
-      background: rgba(0,240,255,0.08);
-      border: 1px solid rgba(0,240,255,0.3);
-      border-radius: 999px;
-      padding: 0.9rem 2.2rem;
-      cursor: pointer;
-      transition: all 0.35s ease;
-      font-weight: 500;
-      white-space: nowrap;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    .sub-tab.active {
-      background: linear-gradient(135deg, var(--accent), #0099cc);
-      color: #000;
-      box-shadow: 0 0 35px var(--glow);
-      transform: scale(1.06);
-    }
-
-    .sub-tab:hover:not(.active) {
-      background: rgba(0,240,255,0.18);
-      color: white;
-      border-color: var(--accent);
-      transform: scale(1.03);
-    }
-
-    .sub-content-wrapper {
-      position: relative;
-      min-height: 600px;
-    }
-
-    .sub-content {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      position: absolute;
-      width: 100%;
-      pointer-events: none;
-    }
-
-    .sub-content.active {
-      opacity: 1;
-      transform: translateY(0);
-      position: relative;
-      pointer-events: auto;
-    }
-
-    /* Tier columns for one-time services */
-    .tier-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-    }
-
-    .tier-column {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .tier-title {
-      font-size: 1.8rem;
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    .low-tier { color: #80fcff; }
-    .mid-tier { color: var(--accent); }
-    .high-tier { color: #00b7eb; text-shadow: 0 0 15px #00b7eb; }
-
-    .donate-icons {
-      display: flex;
-      justify-content: center;
-      gap: 5rem;
-      margin: 2.5rem 0;
-    }
-
-    .donate-icon {
-      font-size: 5.5rem;
-      transition: all 0.4s;
-      cursor: pointer;
-    }
-
-    .donate-icon:hover {
-      transform: scale(1.2);
-      filter: drop-shadow(0 0 30px var(--glow));
-    }
-
-    .btc-address {
-      word-break: break-all;
-      font-family: monospace;
-      background: rgba(0,0,0,0.4);
-      padding: 0.8rem;
-      border-radius: 8px;
-      margin: 1.5rem auto;
-      max-width: 400px;
-      text-align: center;
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-
-    footer {
-      text-align:center;
-      padding:6rem 1rem 4rem;
-      opacity:0.82;
-      font-size:1.1rem;
-      border-top:1px solid rgba(0,240,255,0.15);
-    }
-
-    .footer-links {
-      margin:2rem 0;
-      display:flex;
-      justify-content:center;
-      gap:1.8rem;
-      flex-wrap:wrap;
-    }
-
-    .footer-links a {
-      color:var(--accent);
-      text-decoration:none;
-      transition:all 0.4s;
-    }
-
-    .footer-links a:hover { color:white; text-shadow:0 0 15px var(--glow); }
-
-    /* Agreement popup */
-    #agreement-popup {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.88);
-      backdrop-filter: blur(12px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-
-    #agreement-content {
-      background: var(--card);
-      border: 1px solid var(--accent);
-      border-radius: 20px;
-      max-width: 640px;
-      padding: 2.8rem;
-      max-height: 82vh;
-      overflow-y: auto;
-      box-shadow: 0 0 70px var(--glow);
-    }
-
-    #agreement-content h2 { color: var(--accent); margin-bottom: 1.8rem; }
-
-    .agreement-buttons {
-      margin-top: 2.5rem;
-      display: flex;
-      gap: 1.8rem;
-      justify-content: center;
-    }
-
-    .btn-agree, .btn-decline {
-      padding: 1rem 2.8rem;
-      border-radius: 50px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.4s;
-    }
-
-    .btn-agree { background: var(--accent); color: #000; border: none; }
-    .btn-agree:hover { transform: scale(1.06); box-shadow: 0 0 30px var(--glow); }
-
-    .btn-decline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
-    .btn-decline:hover { background: rgba(255,255,255,0.08); }
-
-    /* Cookies banner */
-    #cookies-banner {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.9);
-      backdrop-filter: blur(10px);
-      color: white;
-      padding: 1.2rem 2.5rem;
-      border-radius: 16px;
-      max-width: 90%;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.7);
-      z-index: 9998;
-      display: none;
-      justify-content: space-between;
-      align-items: center;
-      gap: 2rem;
-      border: 1px solid rgba(0,240,255,0.3);
-    }
-
-    #cookies-banner button {
-      padding: 0.7rem 1.8rem;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    #cookies-accept { background: var(--accent); color: #000; border: none; }
-    #cookies-accept:hover { transform: scale(1.08); }
-
-    #cookies-decline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
-    #cookies-decline:hover { background: rgba(255,255,255,0.08); }
-
-    /* Copy toast */
-    #copy-toast {
-      position: fixed;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,240,255,0.9);
-      color: #000;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-weight: bold;
-      opacity: 0;
-      transition: opacity 0.4s;
-      z-index: 9999;
-      pointer-events: none;
-    }
-
-    #copy-toast.visible { opacity: 1; }
-  </style>
+/* ─── FOOTER ─── */
+#foot{
+  position:fixed;bottom:1.6rem;left:0;right:0;text-align:center;
+  font-size:.48rem;letter-spacing:.22em;color:rgba(255,255,255,.1);
+  pointer-events:none;opacity:0;transition:opacity 1s ease;
+}
+</style>
 </head>
 <body>
 
-<div id="bg-alive"></div>
-
-<nav>
-  <img src="YOUR_LOGO_URL_HERE.png" alt="HBS Tunnelytics Logo" class="logo-nav" style="height:42px;">
-  <a href="#home" class="active">Home</a>
-  <a href="#about">About</a>
-  <a href="#resume">Resume</a>
-  <a href="#projects">Projects</a>
-  <a href="#connect">Connect</a>
-</nav>
-
-<div id="pages">
-
-  <!-- Home -->
-  <section id="home" class="page active">
-    <div class="container">
-      <h1 id="typing">Lee Muriithi Kingori</h1>
-      <p class="tagline">Nursing heart • Developer logic • Tunnelytics vision</p>
-
-      <div class="socials">
-        <a class="social" href="https://github.com/lee-muriithi-kingori" target="_blank"><i class="fab fa-github"></i></a>
-        <a class="social" href="https://instagram.com/leetesticals" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a class="social" href="mailto:leekingori54@gmail.com"><i class="fas fa-envelope"></i></a>
-        <a class="social" href="https://paypal.me/leekingori54" target="_blank"><i class="fab fa-paypal"></i></a>
-      </div>
-
-      <div class="grid">
-        <div class="card"><h3>21</h3><p>Nursing Student</p></div>
-        <div class="card"><h3>Freelance</h3><p>Full-Stack Developer</p></div>
-        <div class="card"><h3>Head</h3><p>HBS Tunnelytics</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="page">
-    <div class="container">
-      <h1>About</h1>
-      <p style="text-align:center; font-size:1.45rem; max-width:920px; margin:2.5rem auto; opacity:0.92;">
-        21-year-old nursing student driven by patient care and healthcare innovation.<br>
-        Freelance full-stack developer building clean, purposeful tools.<br>
-        Leading <strong>HBS Tunnelytics</strong> — transforming complex data tunnels into clear, actionable insights.
-      </p>
-
-      <img src="YOUR_LOGO_URL_HERE.png" alt="HBS Tunnelytics Logo" class="logo-big">
-
-      <div class="grid">
-        <div class="card"><h3>Education</h3><p>Current nursing studies</p></div>
-        <div class="card"><h3>Skills</h3><p>JavaScript • React • Python • UI/UX basics</p></div>
-        <div class="card"><h3>Leadership</h3><p>Head of HBS Tunnelytics</p></div>
-        <div class="card"><h3>Interests</h3><p>Healthcare tech • Gaming • Problem solving</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Resume -->
-  <section id="resume" class="page">
-    <div class="container">
-      <h1>Resume</h1>
-      <p style="text-align:center; font-size:1.4rem; max-width:900px; margin:2rem auto 4rem; opacity:0.9;">
-        Professional overview — combining clinical empathy with technical precision
-      </p>
-
-      <div style="max-width:900px; margin:0 auto;">
-        <div style="margin-bottom:2.5rem; padding-bottom:1.5rem; border-bottom:1px solid rgba(0,240,255,0.12);">
-          <div style="font-size:1.5rem; color:var(--accent); margin-bottom:0.6rem;">Professional Summary</div>
-          <p>21-year-old nursing student and freelance full-stack developer with proven leadership in data analytics. Passionate about bridging human-centered healthcare thinking with modern web development to create impactful digital solutions. Currently heading HBS Tunnelytics.</p>
-        </div>
-
-        <div style="margin-bottom:2.5rem; padding-bottom:1.5rem; border-bottom:1px solid rgba(0,240,255,0.12);">
-          <div style="font-size:1.5rem; color:var(--accent); margin-bottom:0.6rem;">Education</div>
-          <div style="font-size:1.15rem; opacity:0.9; margin-bottom:0.8rem;">Bachelor of Science in Nursing (Ongoing)</div>
-          <p>Expected completion: 2027 • Key focus areas: patient assessment, clinical procedures, healthcare systems, medical ethics, public health</p>
-        </div>
-
-        <div style="margin-bottom:2.5rem; padding-bottom:1.5rem; border-bottom:1px solid rgba(0,240,255,0.12);">
-          <div style="font-size:1.5rem; color:var(--accent); margin-bottom:0.6rem;">Professional Experience</div>
-          <div style="font-size:1.15rem; opacity:0.9; margin-bottom:0.8rem;">Head of HBS Tunnelytics</div>
-          <p style="margin-bottom:1rem;">
-            2024 – Present • Founded and lead data analytics initiative specializing in tunnel/infrastructure visualization.<br>
-            • Developed interactive dashboards for complex geospatial and sensor data<br>
-            • Directed project strategy, team coordination and client communication<br>
-            • Applied healthcare systems thinking to improve data interpretability
-          </p>
-
-          <div style="font-size:1.15rem; opacity:0.9; margin-bottom:0.8rem;">Freelance Full-Stack Developer</div>
-          <p>
-            2023 – Present • Delivered custom web solutions for small businesses and individuals.<br>
-            • Built responsive websites, internal tools, and prototypes using modern JavaScript stack<br>
-            • Integrated APIs, handled deployment and basic server setup
-          </p>
-        </div>
-
-        <div style="margin-bottom:2.5rem; padding-bottom:1.5rem; border-bottom:1px solid rgba(0,240,255,0.12);">
-          <div style="font-size:1.5rem; color:var(--accent); margin-bottom:0.6rem;">Technical Skills</div>
-          <div class="grid" style="margin:1.5rem 0;">
-            <div class="card"><h3>Frontend</h3><p>HTML5 • CSS3 • JavaScript (ES6+) • React</p></div>
-            <div class="card"><h3>Backend / Tools</h3><p>Node.js • Python • Git • REST APIs</p></div>
-            <div class="card"><h3>Data / Analytics</h3><p>Data visualization • Dashboard design • Basic SQL / NoSQL</p></div>
-            <div class="card"><h3>Other</h3><p>UI/UX principles • Responsive design • Problem solving</p></div>
-          </div>
-        </div>
-
-        <div style="margin-bottom:2.5rem;">
-          <div style="font-size:1.5rem; color:var(--accent); margin-bottom:0.6rem;">Soft Skills & Strengths</div>
-          <p>
-            • Strong empathy and communication (from nursing training)<br>
-            • Leadership & team coordination (HBS Tunnelytics)<br>
-            • Fast learner • Self-motivated • High attention to detail<br>
-            • Comfortable in both independent and collaborative environments
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects" class="page">
-    <div class="container">
-      <h1>Projects</h1>
-      <p style="text-align:center; font-size:1.45rem; max-width:920px; margin:2.5rem auto; opacity:0.92;">
-        From personal experiments to team analytics platforms — here's what I've been building.
-      </p>
-
-      <div class="grid">
-        <div class="card">
-          <h3>HBS Tunnelytics Dashboard</h3>
-          <p>Data visualization & tunnel analytics platform (ongoing leadership project)</p>
-        </div>
-        <div class="card">
-          <h3>Freelance Web Tools</h3>
-          <p>Custom websites, small SaaS prototypes, utility apps for clients</p>
-        </div>
-        <div class="card">
-          <h3>Personal Experiments</h3>
-          <p>React components, Python scripts, UI playgrounds & concept demos</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Connect with advanced sub-tabs -->
-  <section id="connect" class="page">
-    <div class="container">
-      <h1>Connect & Services</h1>
-      <p style="text-align:center; font-size:1.55rem; max-width:920px; margin:2.5rem auto 3rem; opacity:0.94;">
-        Choose a category below to see available options.<br>
-        All payments via PayPal only.
-      </p>
-
-      <!-- Sub-tabs -->
-      <div class="sub-tabs-container">
-        <div class="sub-tabs">
-          <button class="sub-tab active" data-tab="one-time">One-Time Services</button>
-          <button class="sub-tab" data-tab="subscriptions">Subscriptions</button>
-          <button class="sub-tab" data-tab="tasker">Ongoing Tasker</button>
-          <button class="sub-tab" data-tab="custom">Custom / Enterprise</button>
-          <button class="sub-tab" data-tab="donate">Support / Donate</button>
-        </div>
-      </div>
-
-      <!-- Tab content wrapper -->
-      <div class="sub-content-wrapper">
-
-        <!-- One-Time Services -->
-        <div class="sub-content active" id="one-time">
-          <h2>One-Time Services</h2>
-          <p style="text-align:center; opacity:0.85; margin-bottom:3rem;">Choose based on scope and budget.</p>
-
-          <div class="tier-grid">
-            <div class="tier-column">
-              <h3 class="tier-title low-tier">Low Tier</h3>
-              <div class="service-card">
-                <h4>Landing Page / Simple Site</h4>
-                <p>1–3 pages, basic design + contact form</p>
-                <div class="service-price">$100 – $250</div>
-                <a href="https://paypal.me/leekingori54" target="_blank" class="btn-order" onclick="return showAgreement('Landing Page - $100–$250')">Order</a>
-              </div>
-              <div class="service-card">
-                <h4>Basic Script / Automation</h4>
-                <p>Simple Python tool or small automation</p>
-                <div class="service-price">$80 – $180</div>
-                <a href="https://paypal.me/leekingori54" target="_blank" class="btn-order" onclick="return showAgreement('Basic Script - $80–$180')">Order</a>
-              </div>
-            </div>
-
-            <div class="tier-column">
-              <h3 class="tier-title mid-tier">Mid Tier</h3>
-              <div class="service-card">
-                <h4>Full Website (up to 7 pages)</h4>
-                <p>Responsive multi-page site, basic CMS if needed</p>
-                <div class="service-price">$300 – $650</div>
-                <a href="https://paypal.me/leekingori54" target="_blank" class="btn-order" onclick="return showAgreement('Full Website - $300–$650')">Order</a>
-              </div>
-              <div class="service-card">
-                <h4>Custom Tool / Small Web App</h4>
-                <p>Interactive utility, dashboard, basic backend</p>
-                <div class="service-price">$500 – $1,100</div>
-                <a href="https://paypal.me/leekingori54" target="_blank" class="btn-order" onclick="return showAgreement('Custom Tool - $500–$1,100')">Order</a>
-              </div>
-            </div>
-
-            <div class="tier-column">
-              <h3 class="tier-title high-tier">High Tier</h3>
-              <div class="service-card">
-                <h4>Advanced Dashboard / Analytics</h4>
-                <p>Complex data viz, API integrations, Tunnelytics-style</p>
-                <div class="service-price">$1,200 – $3,000+</div>
-                <a href="https://paypal.me/leekingori54" target="_blank" class="btn-order" onclick="return showAgreement('Advanced Dashboard - $1,200–$3,000+')">Order</a>
-              </div>
-              <div class="service-card">
-                <h4>Full Custom Project / MVP</h4>
-                <p>Complete solution, multi-user app, SaaS prototype</p>
-                <div class="service-price">$2,000 – $5,000+</div>
-                <a href="https://paypal.me/leekingori54" target="_blank" class="btn-order" onclick="return showAgreement('Full Custom Project - $2,000–$5,000+')">Order</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Subscriptions -->
-        <div class="sub-content" id="subscriptions">
-          <h2>Subscriptions & Recurring</h2>
-          <p style="text-align:center; opacity:0.85; margin-bottom:3rem;">Ongoing support — billed monthly.</p>
-
-          <div class="grid">
-            <div class="card service-card">
-              <h2>Monthly Tasker</h2>
-              <p>10 hours/month small tasks, fixes, updates</p>
-              <div class="service-price">$250 / month</div>
-              <a href="https://paypal.me/leekingori54" target="_blank" class="btn-order" onclick="return showAgreement('Monthly Tasker - $250/month')">Subscribe</a>
-            </div>
-
-            <div class="card service-card">
-              <h2>Premium Package</h2>
-              <p>20 hours/month priority + unlimited small requests</p>
-              <div class="service-price">$500 / month</div>
-              <a href="https://paypal.me/leekingori54" target="_blank" class="btn-order" onclick="return showAgreement('Premium Package - $500/month')">Subscribe</a>
-            </div>
-
-            <div class="card service-card">
-              <h2>Enterprise / Dedicated</h2>
-              <p>Dedicated time, custom roadmap, ongoing dev</p>
-              <div class="service-price">$1,200+ / month</div>
-              <a href="https://paypal.me/leekingori54" target="_blank" class="btn-order" onclick="return showAgreement('Enterprise Package - $1,200+/month')">Get Quote</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Ongoing Tasker -->
-        <div class="sub-content" id="tasker">
-          <h2>Ongoing Tasker Support</h2>
-          <p style="text-align:center; opacity:0.85; margin-bottom:3rem;">Flexible recurring help without long-term commitment.</p>
-
-          <div class="grid">
-            <div class="card service-card">
-              <h2>Hourly Tasker</h2>
-              <p>Pay-as-you-go small tasks (min 2 h)</p>
-              <div class="service-price">$60 / hour</div>
-              <a href="https://paypal.me/leekingori54" target="_blank" class="btn-order" onclick="return showAgreement('Hourly Tasker - $60/hr')">Start</a>
-            </div>
-
-            <div class="card service-card">
-              <h2>Weekly Check-in</h2>
-              <p>4 hours/week + priority response</p>
-              <div class="service-price">$220 / week</div>
-              <a href="https://paypal.me/leekingori54" target="_blank" class="btn-order" onclick="return showAgreement('Weekly Check-in - $220/week')">Subscribe</a>
-            </div>
-
-            <div class="card service-card">
-              <h2>Flexible Retainer</h2>
-              <p>10–40 hours/month ongoing support</p>
-              <div class="service-price">$400 – $1,500 / month</div>
-              <a href="https://paypal.me/leekingori54" target="_blank" class="btn-order" onclick="return showAgreement('Retainer - $400–$1,500/month')">Start</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Custom / Enterprise -->
-        <div class="sub-content" id="custom">
-          <h2>Custom & Enterprise Solutions</h2>
-          <p style="text-align:center; opacity:0.85; margin-bottom:3rem;">Need something unique or large-scale? Let's build it together.</p>
-
-          <div style="text-align:center; margin:4rem 0;">
-            <p style="font-size:1.3rem; margin-bottom:2rem;">Drop a message or book a discovery call.</p>
-            <div class="socials" style="margin:0; justify-content:center; gap:4rem;">
-              <a class="social" href="mailto:leekingori54@gmail.com"><i class="fas fa-envelope" style="font-size:4.5rem;"></i></a>
-              <a class="social" href="https://cal.com/your-cal-link" target="_blank"><i class="fas fa-calendar-check" style="font-size:4.5rem;"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Donation -->
-        <div class="sub-content" id="donate">
-          <h2>Support / Donate</h2>
-          <p style="text-align:center; opacity:0.85; margin-bottom:3rem;">Want to fuel the work without ordering services?</p>
-
-          <div class="donate" style="margin:4rem auto; max-width:620px; padding:4rem 2.8rem; background:rgba(0,240,255,0.07); border:2px dashed var(--accent); border-radius:32px; text-align:center;">
-            <h2 style="margin-bottom:2rem;">Fuel Future Projects</h2>
-
-            <div class="donate-icons">
-              <a href="https://paypal.me/leekingori54" target="_blank" title="Donate via PayPal">
-                <i class="fab fa-paypal donate-icon"></i>
-              </a>
-              <div title="Click to copy Bitcoin address" onclick="copyBTC()">
-                <i class="fab fa-bitcoin donate-icon" style="color:#f7931a;"></i>
-              </div>
-            </div>
-
-            <p style="margin-top:1.5rem; font-size:1.1rem;">
-              Bitcoin Address:<br>
-              <span class="btc-address">16TXenysyAAzHbBMNzFsbYawx6F4BRxozu</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
+<!-- PAPER TEAR -->
+<div id="tear-wrap">
+  <div id="tear-top"></div>
+  <div id="tear-bot"></div>
 </div>
 
-<footer>
-  <div style="margin-bottom:1.5rem;">
-    <img src="YOUR_LOGO_URL_HERE.png" alt="HBS Tunnelytics Logo" style="height:60px; filter:drop-shadow(0 0 20px rgba(0,240,255,0.6));">
-  </div>
-  <p>© 2026 Lee Muriithi Kingori • All rights reserved</p>
-  <div class="footer-links">
-    <a href="https://github.com/lee-muriithi-kingori" target="_blank"><i class="fab fa-github" style="font-size:2.4rem;"></i></a>
-    <a href="https://instagram.com/leetesticals" target="_blank"><i class="fab fa-instagram" style="font-size:2.4rem;"></i></a>
-    <a href="mailto:leekingori54@gmail.com"><i class="fas fa-envelope" style="font-size:2.4rem;"></i></a>
-    <a href="https://paypal.me/leekingori54" target="_blank"><i class="fab fa-paypal" style="font-size:2.4rem;"></i></a>
-  </div>
-  <p style="margin-top:2rem; font-size:0.95rem; opacity:0.7;">
-    Made with passion for healthcare, code, and innovation • Keep scrolling, keep building.
-  </p>
-</footer>
+<!-- CURSOR -->
+<div id="cur"></div>
 
-<!-- Copy Toast -->
-<div id="copy-toast">Copied Bitcoin address!</div>
-
-<!-- Cookies Banner -->
-<div id="cookies-banner">
-  <p>We use cookies to improve your experience. Accept?</p>
-  <div>
-    <button id="cookies-accept">Accept</button>
-    <button id="cookies-decline">Decline</button>
+<!-- NAV BELT -->
+<div id="nav-outer">
+  <div id="belt">
+    <button class="tab active"   onclick="goTo(0)">Identity</button>
+    <button class="tab"          onclick="goTo(1)">Profile</button>
+    <button class="tab"          onclick="goTo(2)">Experience</button>
+    <button class="tab"          onclick="goTo(3)">Socials</button>
+    <button class="tab"          onclick="goTo(4)">Contact</button>
   </div>
 </div>
 
-<!-- Agreement Popup -->
-<div id="agreement-popup">
-  <div id="agreement-content">
-    <h2>User Agreement & Terms</h2>
-    <p style="margin-bottom:1.5rem;">
-      By proceeding to payment, you agree to the following terms:
-    </p>
-    <ul style="list-style:disc; padding-left:1.5rem; margin-bottom:2rem; font-size:0.98rem; line-height:1.6;">
-      <li>All services are provided on a freelance basis by Lee Muriithi Kingori.</li>
-      <li>Payment is strictly via PayPal only. No refunds after work begins unless mutually agreed.</li>
-      <li>50% deposit required for projects over $400 before work starts. Balance due on completion.</li>
-      <li>Copyright & ownership: Full rights transfer only upon final payment and explicit written agreement. Otherwise, Lee retains copyright and grants non-exclusive usage license.</li>
-      <li>No warranty of fitness for a particular purpose beyond what is mutually agreed in writing.</li>
-      <li>Timeline estimates are approximate. Delays due to client feedback or scope changes are not counted against delivery.</li>
-      <li>Lee is not liable for third-party service issues (hosting, domains, APIs, etc.).</li>
-      <li>By clicking "Accept", you confirm you are 18+ and authorized to make this transaction.</li>
-    </ul>
+<!-- ARROWS -->
+<button class="arr" id="al" onclick="goTo(cp-1)" disabled>‹</button>
+<button class="arr" id="ar" onclick="goTo(cp+1)">›</button>
 
-    <div class="agreement-buttons">
-      <button class="btn-agree" onclick="acceptAgreement()">Accept & Proceed</button>
-      <button class="btn-decline" onclick="closeAgreement()">Decline</button>
+<!-- STAGE -->
+<div id="vp">
+  <div id="stage">
+
+    <!-- P0: NAME -->
+    <div class="panel" id="p0">
+      <div class="nw">
+        <span class="nl nla">LEE</span>
+        <span class="nl nlb">MURIITHI</span>
+        <span class="nl nlc">KINGORI</span>
+      </div>
+      <div class="wire" id="w0"></div>
     </div>
+
+    <!-- P1: PROFILE -->
+    <div class="panel" id="p1">
+      <svg class="psv" id="s1"></svg>
+      <div class="wb">
+        <div class="tag">// identity</div>
+        <div class="wh">Who is<br>Lee Muriithi Kingori?</div>
+        <p class="wp">Founder &amp; CEO of LESTRAMK — a Nairobi-based software company and talent marketplace, built from the ground up in late 2025.</p>
+        <p class="wp">A self-taught developer and BSN nursing student at Dedan Kimathi University of Technology, building at the intersection of fintech, Android security, and open-source innovation.</p>
+        <div class="mo">Innovate &nbsp;·&nbsp; Create &nbsp;·&nbsp; Connect</div>
+      </div>
+    </div>
+
+    <!-- P2: EXPERIENCE -->
+    <div class="panel" id="p2">
+      <svg class="psv" id="s2"></svg>
+      <div class="eb">
+        <div class="eh" id="exh">Background &amp; Experience</div>
+        <ul style="list-style:none">
+          <li class="ei" id="e0"><div class="dot"></div><div><div class="er">Founder &amp; CEO</div><div class="eo">LESTRAMK · Software &amp; Talent Marketplace</div><div class="ey">2025 — Present · Nairobi, Kenya</div></div></li>
+          <li class="ei" id="e1"><div class="dot"></div><div><div class="er">Lead Developer — Fintech</div><div class="eo">HBSend · Cross-border Payment Platform</div><div class="ey">2025 — Present</div></div></li>
+          <li class="ei" id="e2"><div class="dot"></div><div><div class="er">Android Systems Engineer</div><div class="eo">KernelSU Suite · LESTRAMK Modules</div><div class="ey">2025 — Present</div></div></li>
+          <li class="ei" id="e3"><div class="dot"></div><div><div class="er">Web Architect — AgriTech</div><div class="eo">Mkulima Mkuu · Agricultural Platform</div><div class="ey">2025 — Present</div></div></li>
+          <li class="ei" id="e4"><div class="dot"></div><div><div class="er">Student Nurse (BSN)</div><div class="eo">Dedan Kimathi University of Technology</div><div class="ey">2024 — Present · Nyeri, Kenya</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- P3: SOCIALS -->
+    <div class="panel" id="p3">
+      <svg class="psv" id="s3"></svg>
+      <div class="sb">
+        <div class="sh" id="soch">Connect &amp; Follow</div>
+        <a class="si" id="si0" href="https://t.me/hbstunnelytics" target="_blank">
+          <div class="sic">TG</div><div><div class="sn">Telegram</div><div class="sh2">@Girltalisha · t.me/hbstunnelytics</div></div>
+        </a>
+        <a class="si" id="si1" href="https://discord.com" target="_blank">
+          <div class="sic">DC</div><div><div class="sn">Discord</div><div class="sh2">@girltalisha</div></div>
+        </a>
+        <a class="si" id="si2" href="https://github.com/lee-muriithi-kingori" target="_blank">
+          <div class="sic">GH</div><div><div class="sn">GitHub</div><div class="sh2">lee-muriithi-kingori</div></div>
+        </a>
+        <a class="si" id="si3" href="https://instagram.com/leetesticals" target="_blank">
+          <div class="sic">IG</div><div><div class="sn">Instagram</div><div class="sh2">@leetesticals</div></div>
+        </a>
+        <a class="si" id="si4" href="https://t.me/hbstunnelytics" target="_blank">
+          <div class="sic" style="font-size:.42rem;letter-spacing:.01em">LMK</div><div><div class="sn">LESTRAMK</div><div class="sh2">Official Channel · t.me/hbstunnelytics</div></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- P4: CONTACT -->
+    <div class="panel" id="p4">
+      <svg class="psv" id="s4"></svg>
+      <div class="cb">
+        <div class="csh" id="conh">Get In Touch</div>
+        <a class="ci" id="ci0" href="tel:+254114752255">
+          <div class="cic">☎</div><div><div class="ct">Phone</div><div class="cv">+254 114 752 255</div></div>
+        </a>
+        <a class="ci" id="ci1" href="mailto:leekingori54@gmail.com">
+          <div class="cic">@</div><div><div class="ct">Email</div><div class="cv">leekingori54@gmail.com</div></div>
+        </a>
+        <a class="ci" id="ci2" href="https://t.me/hbstunnelytics" target="_blank">
+          <div class="cic">→</div><div><div class="ct">Telegram</div><div class="cv">@Girltalisha</div></div>
+        </a>
+        <a class="ci" id="ci3" href="https://github.com/lee-muriithi-kingori" target="_blank">
+          <div class="cic">&lt;/&gt;</div><div><div class="ct">GitHub</div><div class="cv">lee-muriithi-kingori</div></div>
+        </a>
+      </div>
+    </div>
+
   </div>
 </div>
+
+<!-- LESTRAMK L MARK -->
+<div id="lmark">
+  <svg viewBox="0 0 22 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path id="lpath" d="M5 2 L5 28 L19 28" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+
+<div id="foot">© 2026 Lee Muriithi Kingori · LESTRAMK · Innovate Create Connect</div>
 
 <script>
-// Page switching (main tabs)
-const pages = document.querySelectorAll('.page');
-const navLinks = document.querySelectorAll('nav a');
+const G = id => document.getElementById(id);
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const NS = 'http://www.w3.org/2000/svg';
+let cp = 0;
+const PANELS = 5;
+const animated = new Set();
 
-function switchPage(id) {
-  pages.forEach(p => {
-    p.classList.remove('active');
-    if (p.id === id) p.classList.add('active');
-  });
-  navLinks.forEach(a => {
-    a.classList.remove('active');
-    if (a.getAttribute('href') === '#' + id) a.classList.add('active');
-  });
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function handleHash() {
-  let hash = location.hash.replace('#','') || 'home';
-  switchPage(hash);
-}
-
-window.addEventListener('hashchange', handleHash);
-handleHash();
-
-navLinks.forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const target = link.getAttribute('href').substring(1);
-    switchPage(target);
-    history.pushState(null, '', '#' + target);
-  });
+/* ── CURSOR ── */
+const cur = G('cur');
+document.addEventListener('mousemove', e => { cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px'; });
+document.querySelectorAll('.tab,.ei,.si,.ci,.arr').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
 });
 
-// Typing
-const typing = document.getElementById('typing');
-if (typing) {
-  const text = typing.textContent;
-  typing.textContent = '';
-  let i = 0;
-  function type() {
-    if (i < text.length) typing.textContent += text.charAt(i++);
-    setTimeout(type, 68);
+/* ── BELT DRAG ── */
+const belt = G('belt');
+let dragging=false, bx=0, bl=0;
+belt.addEventListener('mousedown', e=>{dragging=true;belt.classList.add('drag');bx=e.pageX-belt.offsetLeft;bl=belt.scrollLeft;});
+document.addEventListener('mousemove', e=>{if(!dragging)return;e.preventDefault();belt.scrollLeft=bl-(e.pageX-belt.offsetLeft-bx);});
+document.addEventListener('mouseup',()=>{dragging=false;belt.classList.remove('drag');});
+belt.addEventListener('touchstart', e=>{dragging=true;bx=e.touches[0].pageX-belt.offsetLeft;bl=belt.scrollLeft;},{passive:true});
+belt.addEventListener('touchmove', e=>{if(!dragging)return;belt.scrollLeft=bl-(e.touches[0].pageX-belt.offsetLeft-bx);},{passive:true});
+belt.addEventListener('touchend',()=>dragging=false);
+
+/* ── NAVIGATE ── */
+function syncUI(i){
+  cp = i;
+  document.querySelectorAll('.tab').forEach((t,k)=>t.classList.toggle('active',k===i));
+  G('al').disabled = i===0;
+  G('ar').disabled = i===PANELS-1;
+  const tab = document.querySelectorAll('.tab')[i];
+  tab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+function pan(i, dur=1100){
+  G('stage').style.transition=`transform ${dur}ms cubic-bezier(0.86,0,0.07,1)`;
+  G('stage').style.transform=`translateX(calc(-${i} * 100vw))`;
+  syncUI(i);
+  return wait(dur+80);
+}
+
+async function goTo(i){
+  if(i<0||i>=PANELS||i===cp) return;
+  await pan(i, 900);
+  triggerPanel(i);
+}
+
+/* ── SVG HELPERS ── */
+function drawPath(parent, d, stroke, sw, dur){
+  return new Promise(r=>{
+    const p=document.createElementNS(NS,'path');
+    p.setAttribute('d',d);p.setAttribute('fill','none');
+    p.setAttribute('stroke',stroke);p.setAttribute('stroke-width',sw);
+    p.setAttribute('stroke-linecap','round');
+    parent.appendChild(p);
+    const len=p.getTotalLength();
+    p.style.strokeDasharray=len;p.style.strokeDashoffset=len;
+    p.getBoundingClientRect();
+    p.style.transition=`stroke-dashoffset ${dur}ms cubic-bezier(.4,0,.2,1)`;
+    p.style.strokeDashoffset=0;
+    setTimeout(r,dur+30);
+  });
+}
+
+function slither(x0,y0,x1,y1,waves=4,amp=24){
+  let d=`M ${x0} ${y0}`;
+  for(let i=1;i<=60;i++){
+    const t=i/60;
+    d+=` L ${x0+(x1-x0)*t} ${y0+(y1-y0)*t+Math.sin(t*Math.PI*waves)*amp*Math.sin(t*Math.PI)}`;
   }
-  setTimeout(type, 700);
+  return d;
 }
 
-// Card stagger
-const cards = document.querySelectorAll('.card');
-const cardObs = new IntersectionObserver(entries => {
-  entries.forEach((entry, idx) => {
-    if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), idx * 140);
-  });
-}, { threshold: 0.18 });
-cards.forEach(c => cardObs.observe(c));
-
-// Sub-tabs in Connect
-const subTabs = document.querySelectorAll('.sub-tab');
-const subContents = document.querySelectorAll('.sub-content');
-
-subTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    subTabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-
-    subContents.forEach(c => c.classList.remove('active'));
-    document.getElementById(tab.dataset.tab).classList.add('active');
-  });
-});
-
-// Cookies banner
-const cookiesBanner = document.getElementById('cookies-banner');
-if (!localStorage.getItem('cookiesAccepted')) {
-  cookiesBanner.style.display = 'flex';
+function snakeThrough(els){
+  const pts=Array.from(els).map(el=>{const r=el.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2};});
+  if(pts.length<2)return null;
+  let d=`M ${pts[0].x} ${pts[0].y}`;
+  for(let i=1;i<pts.length;i++){
+    const a=pts[i-1],b=pts[i],ox=i%2===0?26:-16;
+    d+=` C ${a.x+ox} ${a.y+14}, ${b.x+ox} ${b.y-14}, ${b.x} ${b.y}`;
+  }
+  return d;
 }
 
-document.getElementById('cookies-accept').onclick = () => {
-  localStorage.setItem('cookiesAccepted', 'true');
-  cookiesBanner.style.display = 'none';
-};
+/* ── PANEL ANIMATIONS (triggered on first visit) ── */
+async function triggerPanel(i){
+  if(animated.has(i)) return;
+  animated.add(i);
+  const vw=window.innerWidth, vh=window.innerHeight;
 
-document.getElementById('cookies-decline').onclick = () => {
-  localStorage.setItem('cookiesAccepted', 'false');
-  cookiesBanner.style.display = 'none';
-};
+  if(i===1){
+    const sv=G('s1'); sv.setAttribute('viewBox',`0 0 ${vw} ${vh}`);
+    const my=vh/2, px=vw*.11;
+    await drawPath(sv,`M 0 ${my} L ${px-8} ${my}`,'rgba(255,255,255,.4)','0.8',420);
+    await drawPath(sv,`M ${px-8} ${my} Q ${px} ${my} ${px} ${my-vh*.17}`,'rgba(255,255,255,.3)','.6',330);
+    G('p1').classList.add('p1on');
 
-// Agreement popup
-let pendingLink = null;
+  } else if(i===2){
+    const sv=G('s2'); sv.setAttribute('viewBox',`0 0 ${vw} ${vh}`);
+    const fd=G('p2').querySelector('.dot').getBoundingClientRect();
+    const ey=fd.top+fd.height/2, ex=fd.left+fd.width/2;
+    await drawPath(sv,`M 0 ${ey} L ${ex-4} ${ey}`,'rgba(255,255,255,.4)','.75',400);
+    G('exh').classList.add('in');
+    await wait(300);
+    const sk=snakeThrough(G('p2').querySelectorAll('.dot'));
+    if(sk) drawPath(sv,sk,'rgba(255,255,255,.12)','1',2000);
+    for(const id of['e0','e1','e2','e3','e4']){await wait(270);G(id).classList.add('in');}
 
-function showAgreement(service) {
-  document.getElementById('agreement-popup').style.display = 'flex';
-  pendingLink = event.currentTarget.href;
-  return false;
+  } else if(i===3){
+    const sv=G('s3'); sv.setAttribute('viewBox',`0 0 ${vw} ${vh}`);
+    const fd=G('p3').querySelector('.sic').getBoundingClientRect();
+    const ey=fd.top+fd.height/2;
+    await drawPath(sv,`M 0 ${ey} L ${fd.left-4} ${ey}`,'rgba(255,255,255,.4)','.75',380);
+    G('soch').classList.add('in');
+    await wait(280);
+    const sk=snakeThrough(G('p3').querySelectorAll('.sic'));
+    if(sk) drawPath(sv,sk,'rgba(255,255,255,.1)','1',1800);
+    for(let k=0;k<5;k++){await wait(250);G(`si${k}`).classList.add('in');}
+
+  } else if(i===4){
+    const sv=G('s4'); sv.setAttribute('viewBox',`0 0 ${vw} ${vh}`);
+    const fd=G('p4').querySelector('.cic').getBoundingClientRect();
+    const ey=fd.top+fd.height/2;
+    await drawPath(sv,`M 0 ${ey} L ${fd.left-4} ${ey}`,'rgba(255,255,255,.4)','.75',380);
+    G('conh').classList.add('in');
+    await wait(280);
+    const sk=snakeThrough(G('p4').querySelectorAll('.cic'));
+    if(sk) drawPath(sv,sk,'rgba(255,255,255,.1)','1',1400);
+    for(let k=0;k<4;k++){await wait(270);G(`ci${k}`).classList.add('in');}
+    await wait(600);
+    G('foot').style.opacity='1';
+  }
 }
 
-function acceptAgreement() {
-  document.getElementById('agreement-popup').style.display = 'none';
-  if (pendingLink) window.open(pendingLink, '_blank');
-  pendingLink = null;
+/* ── LESTRAMK L ANIMATION ── */
+function animL(){
+  const path=G('lpath');
+  const len=path.getTotalLength();
+  path.style.transition='none';
+  path.style.opacity='1';
+  path.style.strokeDasharray=len;
+  path.style.strokeDashoffset=len;
+  path.getBoundingClientRect();
+  path.style.transition=`stroke-dashoffset 1.1s cubic-bezier(.4,0,.2,1)`;
+  path.style.strokeDashoffset=0;
+  setTimeout(()=>{
+    path.style.transition='stroke-dashoffset .7s ease-in, opacity .45s ease .3s';
+    path.style.strokeDashoffset=-len;
+    path.style.opacity='0';
+    setTimeout(()=>{ path.style.opacity='1'; setTimeout(animL,300); }, 900);
+  }, 2400);
 }
 
-function closeAgreement() {
-  document.getElementById('agreement-popup').style.display = 'none';
-  pendingLink = null;
+/* ── PAPER TEAR ── */
+async function runTear(){
+  const vw=window.innerWidth, vh=window.innerHeight, my=vh/2;
+  const pts=[];
+  for(let x=0;x<=vw+20;x+=16){
+    pts.push({x:Math.min(x,vw), y:my+(Math.random()-.44)*30});
+  }
+
+  // Build clip polygons (coords relative to each div which is inset:0)
+  let topPoly=`polygon(0px 0px, ${vw}px 0px, ${vw}px ${pts[pts.length-1].y}px`;
+  for(let i=pts.length-1;i>=0;i--) topPoly+=`, ${pts[i].x}px ${pts[i].y}px`;
+  topPoly+=`, 0px ${pts[0].y}px)`;
+
+  let botPoly=`polygon(0px ${pts[0].y}px`;
+  for(let i=0;i<pts.length;i++) botPoly+=`, ${pts[i].x}px ${pts[i].y}px`;
+  botPoly+=`, ${vw}px ${pts[pts.length-1].y}px, ${vw}px ${vh}px, 0px ${vh}px)`;
+
+  G('tear-top').style.clipPath=topPoly;
+  G('tear-bot').style.clipPath=botPoly;
+
+  await wait(550); // pause on white
+  G('tear-top').classList.add('torn');
+  G('tear-bot').classList.add('torn');
+  await wait(950);
+  G('tear-wrap').classList.add('gone');
 }
 
-// Copy BTC
-function copyBTC() {
-  navigator.clipboard.writeText('16TXenysyAAzHbBMNzFsbYawx6F4BRxozu').then(() => {
-    const toast = document.getElementById('copy-toast');
-    toast.textContent = 'Copied Bitcoin address!';
-    toast.classList.add('visible');
-    setTimeout(() => toast.classList.remove('visible'), 2000);
-  });
+/* ── MAIN SEQUENCE ── */
+async function main(){
+  const vw=window.innerWidth, vh=window.innerHeight;
+  syncUI(0);
+  G('al').disabled=true;
+
+  // Tear open
+  await runTear();
+  await wait(150);
+
+  // P0: name
+  animated.add(0);
+  document.querySelectorAll('.nl').forEach(el=>el.classList.add('in'));
+  await wait(1850);
+
+  // Show UI chrome
+  G('nav-outer').classList.add('show');
+  G('al').classList.add('show');
+  G('ar').classList.add('show');
+  G('lmark').classList.add('show');
+  animL();
+
+  // Wire from P0
+  G('w0').classList.add('on');
+  await wait(1000);
+
+  // Auto-play P0 → P1 → P2
+  await pan(1);
+  await triggerPanel(1);
+  await wait(600);
+
+  const my=vh/2;
+  const sv1=G('s1');
+  const exitD=slither(vw*.68,my,vw,my);
+  await drawPath(sv1,exitD,'rgba(255,255,255,.35)','.75',950);
+  await wait(150);
+
+  await pan(2);
+  await triggerPanel(2);
+  await wait(800);
+  G('foot').style.opacity='1';
 }
+
+document.fonts.ready.then(main);
 </script>
-
-<!-- Copy Toast -->
-<div id="copy-toast">Copied!</div>
 </body>
 </html>
