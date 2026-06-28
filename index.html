@@ -1,558 +1,611 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lee Muriithi Kingori</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;700&family=Courier+Prime&display=swap" rel="stylesheet">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lee Muriithi Kingori — Lestramk</title>
+<meta name="description" content="Lee Muriithi Kingori. Founder of Lestramk, BSN nursing student, building systems across fintech, Android, and healthcare." />
+<meta property="og:title" content="Lee Muriithi Kingori" />
+<meta property="og:description" content="One foot in the ward, one in the terminal. Founder of Lestramk, BSN, builder." />
+<meta property="og:type" content="profile" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ivory:#F2EDE2;
+    --ivory-2:#ECE5D6;
+    --ink:#0E0E0C;
+    --ink-2:#2A2823;
+    --muted:#7A7468;
+    --rule:#D7CFBE;
+    --accent:#C5302B;
+    --accent-2:#8B1A18;
+    --paper-shadow: 0 1px 0 rgba(14,14,12,.04), 0 20px 60px -30px rgba(14,14,12,.25);
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:var(--ivory)}
 
-html,body{
-  height:100vh;overflow:hidden;
-  background:#000;color:#fff;
-  font-family:'Courier Prime',monospace;
-}
+  /* ── TOP META BAR ── */
+  .meta{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:.9rem 2rem;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);
+    background:rgba(242,237,226,.82);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--rule);
+  }
+  .meta a{color:var(--ink);text-decoration:none;transition:color .2s}
+  .meta a:hover{color:var(--accent)}
+  .meta-left{display:flex;gap:1.5rem;align-items:center}
+  .meta-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.4;transform:scale(.85)}50%{opacity:1;transform:scale(1)}}
 
-/* ─── PAPER TEAR ─── */
-#tear-wrap{position:fixed;inset:0;z-index:9000;pointer-events:none;}
-#tear-top,#tear-bot{
-  position:absolute;inset:0;background:#fff;
-  transition:transform 0.9s cubic-bezier(0.68,0,0.25,1);
-}
-#tear-top{transform-origin:center top;}
-#tear-bot{transform-origin:center bottom;}
-#tear-top.torn{transform:translateY(-108%) rotate(-2deg);}
-#tear-bot.torn{transform:translateY(108%) rotate(1.8deg);}
-#tear-wrap.gone{display:none;}
+  /* ── LAYOUT ── */
+  main{max-width:1280px;margin:0 auto;padding:0 2rem}
+  section{padding:7rem 0;border-bottom:1px solid var(--rule)}
+  section:last-of-type{border-bottom:none}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:1.4rem;display:flex;align-items:center;gap:.8rem;
+  }
+  .eyebrow::before{content:"";display:inline-block;width:24px;height:1px;background:var(--muted)}
 
-/* ─── CURSOR ─── */
-#cur{
-  position:fixed;width:7px;height:7px;background:#fff;border-radius:50%;
-  pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
-  mix-blend-mode:difference;transition:width .16s,height .16s;
-}
-#cur.big{width:24px;height:24px;}
+  /* ── HERO ── */
+  .hero{padding-top:9rem;padding-bottom:5rem;border-bottom:none}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:3rem}
+  .kicker{
+    font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:2rem;display:flex;gap:1rem;align-items:center;
+  }
+  .kicker-num{color:var(--muted);font-weight:400}
+  h1.thesis{
+    font-family:'Fraunces',serif;
+    font-variation-settings:'opsz' 144,'SOFT' 50,'WONK' 1;
+    font-weight:400;
+    font-size:clamp(2.8rem,7vw,6.4rem);
+    line-height:.98;
+    letter-spacing:-.025em;
+    margin:0 0 2.5rem;
+    color:var(--ink);
+  }
+  h1.thesis em{
+    font-style:italic;font-weight:300;
+    color:var(--accent);
+    font-variation-settings:'opsz' 144,'SOFT' 80,'WONK' 1;
+  }
+  .hero-sub{
+    max-width:680px;
+    font-size:1.18rem;line-height:1.55;color:var(--ink-2);
+    font-weight:400;
+  }
+  .hero-sub strong{font-weight:500;color:var(--ink)}
+  .hero-meta{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:2rem;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--rule);
+  }
+  .hero-meta-item .lbl{
+    font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;
+  }
+  .hero-meta-item .val{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:400;letter-spacing:-.01em}
 
-/* ─── NAV BELT ─── */
-#nav-outer{
-  position:fixed;top:1.5rem;left:0;right:0;z-index:800;
-  display:flex;justify-content:center;
-  opacity:0;transition:opacity .8s ease;pointer-events:none;
-}
-#nav-outer.show{opacity:1;pointer-events:all;}
+  /* ── EKG LINE — signature element ── */
+  .ekg-wrap{
+    position:relative;margin:3rem 0 1rem;height:54px;overflow:hidden;
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  }
+  .ekg-svg{position:absolute;inset:0;width:100%;height:100%}
+  .ekg-cap{
+    position:absolute;right:1rem;top:50%;transform:translateY(-50%);
+    font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.2em;
+    color:var(--muted);text-transform:uppercase;background:var(--ivory);padding-left:.8rem;
+  }
 
-#belt{
-  display:flex;gap:0.4rem;align-items:center;
-  overflow-x:auto;scroll-snap-type:x mandatory;
-  scrollbar-width:none;-ms-overflow-style:none;
-  cursor:grab;user-select:none;
-  padding:0.2rem 0.8rem;
-  max-width:88vw;
-}
-#belt::-webkit-scrollbar{display:none;}
-#belt.drag{cursor:grabbing;}
+  /* ── MANIFESTO ── */
+  .manifesto{padding:8rem 0;background:var(--ivory-2);border-bottom:1px solid var(--rule)}
+  .manifesto-inner{max-width:1100px;margin:0 auto;padding:0 2rem}
+  .manifesto-text{
+    font-family:'Fraunces',serif;
+    font-variation-settings:'opsz' 60,'SOFT' 50;
+    font-weight:300;
+    font-size:clamp(1.4rem,2.6vw,2.1rem);
+    line-height:1.4;
+    letter-spacing:-.015em;
+    color:var(--ink);
+    max-width:920px;
+  }
+  .manifesto-text em{
+    font-style:italic;font-weight:400;color:var(--accent);
+    font-variation-settings:'opsz' 60,'SOFT' 100;
+  }
+  .manifesto-text strong{font-weight:500;background:linear-gradient(transparent 60%,rgba(197,48,43,.18) 60%);padding:0 .05em}
+  .manifesto-sign{
+    margin-top:3rem;font-family:'JetBrains Mono',monospace;font-size:.7rem;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+    display:flex;gap:1rem;align-items:center;
+  }
 
-.tab{
-  font-family:'Courier Prime',monospace;
-  font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;
-  padding:0.48rem 1.35rem;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.13);
-  background:transparent;
-  color:rgba(255,255,255,0.28);
-  cursor:pointer;white-space:nowrap;flex-shrink:0;
-  scroll-snap-align:start;
-  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-  transition:color .28s,border-color .28s,background .28s;
-}
-.tab:hover{color:rgba(255,255,255,0.65);border-color:rgba(255,255,255,0.28);background:rgba(255,255,255,0.05);}
-.tab.active{color:#fff;border-color:rgba(255,255,255,0.45);background:rgba(255,255,255,0.08);}
+  /* ── WORK / PROJECTS ── */
+  .projects-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;gap:2rem;flex-wrap:wrap}
+  .projects-head h2{
+    font-family:'Fraunces',serif;font-variation-settings:'opsz' 144,'SOFT' 30;
+    font-weight:400;font-size:clamp(2.2rem,4vw,3.4rem);line-height:1;letter-spacing:-.02em;
+    margin:0;max-width:680px;
+  }
+  .projects-count{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
 
-/* ─── ARROWS ─── */
-.arr{
-  position:fixed;top:50%;transform:translateY(-50%);
-  z-index:700;background:none;border:none;cursor:pointer;
-  font-family:'Cinzel',serif;font-size:1.5rem;
-  color:rgba(255,255,255,0.18);
-  padding:1.2rem 0.8rem;
-  transition:color .25s,opacity .4s;
-  opacity:0;pointer-events:none;
-  line-height:1;
-}
-.arr.show{opacity:1;pointer-events:all;}
-.arr:hover{color:rgba(255,255,255,0.65);}
-.arr:disabled{opacity:0!important;pointer-events:none!important;}
-#al{left:0.5rem;}
-#ar{right:0.5rem;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:0;border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
+  .card{
+    border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);
+    padding:1.8rem 1.6rem;background:var(--ivory);
+    text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:.8rem;
+    transition:background .25s,color .25s;position:relative;min-height:240px;
+  }
+  .card:hover{background:var(--ink);color:var(--ivory)}
+  .card:hover .card-tag{color:var(--ivory);border-color:rgba(242,237,226,.3)}
+  .card:hover .card-arrow{transform:translate(4px,-4px);color:var(--accent)}
+  .card:hover .card-desc{color:rgba(242,237,226,.7)}
+  .card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+  .card-tag{
+    font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);
+    border:1px solid var(--rule);padding:.25rem .55rem;border-radius:2px;
+    transition:color .25s,border-color .25s;
+  }
+  .card-arrow{font-size:1.1rem;color:var(--muted);transition:transform .25s,color .25s;line-height:1}
+  .card-name{
+    font-family:'Fraunces',serif;font-variation-settings:'opsz' 60,'SOFT' 30;
+    font-weight:500;font-size:1.55rem;letter-spacing:-.015em;line-height:1.05;margin-top:auto;
+  }
+  .card-desc{font-size:.9rem;line-height:1.5;color:var(--ink-2);transition:color .25s}
 
-/* ─── STAGE ─── */
-#vp{overflow:hidden;width:100vw;height:100vh;}
-#stage{display:flex;width:600vw;height:100vh;will-change:transform;}
+  /* ── TWO LIVES / DOMAINS ── */
+  .domains{padding:8rem 0}
+  .domains-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .domain{
+    padding:3.5rem 2.5rem;border-right:1px solid var(--rule);
+    display:flex;flex-direction:column;gap:1.5rem;position:relative;
+  }
+  .domain:last-child{border-right:none;background:var(--ink);color:var(--ivory)}
+  .domain:last-child .d-label{color:var(--accent)}
+  .domain:last-child .d-list li{border-bottom-color:rgba(242,237,226,.1);color:rgba(242,237,226,.85)}
+  .domain:last-child .d-foot{color:rgba(242,237,226,.4)}
+  .d-label{
+    font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:.7rem;
+  }
+  .d-label::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;display:inline-block}
+  .d-headline{
+    font-family:'Fraunces',serif;font-variation-settings:'opsz' 144,'SOFT' 40,'WONK' 1;
+    font-weight:400;font-size:clamp(1.6rem,2.8vw,2.4rem);line-height:1.05;
+    letter-spacing:-.018em;
+  }
+  .d-headline em{font-style:italic;color:var(--accent);font-weight:300}
+  .domain:last-child .d-headline em{color:#E06B66}
+  .d-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.7rem}
+  .d-list li{
+    font-size:.95rem;line-height:1.5;padding-bottom:.7rem;border-bottom:1px solid var(--rule);
+    display:flex;gap:.9rem;align-items:baseline;
+  }
+  .d-list li::before{
+    content:"";display:inline-block;width:5px;height:5px;flex-shrink:0;
+    border:1px solid currentColor;border-radius:50%;transform:translateY(-3px);
+  }
+  .d-foot{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
 
-.panel{
-  width:100vw;height:100vh;flex-shrink:0;
-  position:relative;overflow:hidden;background:#000;
-}
-.psv{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible;}
+  /* ── NOW / NEXT ── */
+  .now{padding:6rem 0}
+  .now-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-top:1px solid var(--ink)}
+  .now-item{padding:1.6rem 1.4rem;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .now-item:nth-child(3n){border-right:none}
+  .now-yr{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:.4rem}
+  .now-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:500;letter-spacing:-.01em;margin-bottom:.3rem}
+  .now-body{font-size:.85rem;line-height:1.55;color:var(--ink-2)}
 
-/* ─── P0: NAME ─── */
-#p0{display:flex;align-items:center;justify-content:center;}
-.nw{text-align:center;z-index:2;}
-.nl{
-  display:block;font-family:'Cinzel',serif;
-  opacity:0;transform:translateY(20px);
-  transition:opacity 1s ease,transform 1s ease;
-}
-.nl.in{opacity:1;transform:translateY(0);}
-.nla{font-size:clamp(4rem,13vw,12rem);font-weight:700;letter-spacing:.06em;transition-delay:0s;}
-.nlb{font-size:clamp(1.6rem,5vw,4rem);font-weight:300;letter-spacing:.36em;transition-delay:.25s;}
-.nlc{font-size:clamp(.7rem,1.8vw,1.6rem);font-weight:300;letter-spacing:.55em;color:rgba(255,255,255,.28);transition-delay:.5s;}
-.wire{
-  position:absolute;height:1px;
-  background:linear-gradient(to right,rgba(255,255,255,0),rgba(255,255,255,.5));
-  transform-origin:left center;transform:scaleX(0);
-  transition:transform .95s cubic-bezier(.4,0,.2,1);
-}
-.wire.on{transform:scaleX(1);}
-#w0{top:50%;left:50%;width:50vw;margin-top:-.5px;}
+  /* ── CONTACT ── */
+  .contact{padding:8rem 0;background:var(--ink);color:var(--ivory);border-bottom:none}
+  .contact .eyebrow{color:rgba(242,237,226,.5)}
+  .contact .eyebrow::before{background:rgba(242,237,226,.5)}
+  .contact h2{
+    font-family:'Fraunces',serif;font-variation-settings:'opsz' 144,'SOFT' 40,'WONK' 1;
+    font-weight:400;font-size:clamp(2.4rem,5.5vw,4.6rem);line-height:1;letter-spacing:-.022em;
+    margin:0 0 1rem;color:var(--ivory);
+  }
+  .contact h2 em{font-style:italic;color:var(--accent);font-weight:300}
+  .contact-sub{font-size:1.1rem;color:rgba(242,237,226,.65);max-width:560px;margin-bottom:3.5rem}
+  .channels{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border-top:1px solid rgba(242,237,226,.2)}
+  .ch{
+    padding:1.6rem 1.4rem;border-right:1px solid rgba(242,237,226,.1);border-bottom:1px solid rgba(242,237,226,.1);
+    text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:.4rem;
+    transition:background .25s;
+  }
+  .ch:hover{background:rgba(197,48,43,.15)}
+  .ch-lbl{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(242,237,226,.5)}
+  .ch-val{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:400;letter-spacing:-.01em;color:var(--ivory);margin-top:.2rem}
+  .ch-arrow{margin-left:auto;font-size:1rem;color:var(--accent);transition:transform .25s}
+  .ch:hover .ch-arrow{transform:translate(3px,-3px)}
 
-/* ─── P1: PROFILE ─── */
-#p1{display:flex;align-items:center;padding:0 11vw;}
-.wb{max-width:540px;z-index:2;}
-.tag{font-size:.55rem;letter-spacing:.3em;color:rgba(255,255,255,.2);margin-bottom:1.2rem;opacity:0;transition:opacity .6s ease;}
-.wh{font-family:'Cinzel',serif;font-size:clamp(1.5rem,3vw,2.7rem);font-weight:300;line-height:1.35;margin-bottom:1.6rem;opacity:0;transform:translateY(12px);transition:opacity .85s ease .12s,transform .85s ease .12s;}
-.wp{font-size:.82rem;line-height:2.1;color:rgba(255,255,255,.4);margin-bottom:.8rem;opacity:0;transition:opacity .8s ease .3s;}
-.mo{margin-top:1.5rem;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.42em;color:rgba(255,255,255,.18);opacity:0;transition:opacity .8s ease .58s;}
-.p1on .tag,.p1on .wp,.p1on .mo{opacity:1;}
-.p1on .wh{opacity:1;transform:translateY(0);}
+  /* ── FOOTER ── */
+  footer{
+    padding:2.5rem 2rem;
+    background:var(--ink);color:rgba(242,237,226,.4);
+    border-top:1px solid rgba(242,237,226,.08);
+    font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  }
+  footer a{color:rgba(242,237,226,.6);text-decoration:none;transition:color .2s}
+  footer a:hover{color:var(--accent)}
 
-/* ─── P2: EXPERIENCE ─── */
-#p2{display:flex;align-items:center;padding:0 11vw;}
-.eb{max-width:640px;z-index:2;}
-.eh{font-family:'Cinzel',serif;font-size:clamp(.85rem,1.7vw,1.3rem);font-weight:300;letter-spacing:.22em;margin-bottom:2rem;color:rgba(255,255,255,.45);opacity:0;transition:opacity .8s ease;}
-.eh.in{opacity:1;}
-.ei{display:flex;gap:1.3rem;align-items:flex-start;padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.05);opacity:0;transform:translateX(-14px);transition:opacity .55s ease,transform .55s ease;}
-.ei.in{opacity:1;transform:translateX(0);}
-.dot{width:5px;height:5px;border-radius:50%;border:1px solid rgba(255,255,255,.3);margin-top:.4rem;flex-shrink:0;}
-.er{font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.06em;margin-bottom:.15rem;}
-.eo{font-size:.7rem;color:rgba(255,255,255,.32);margin-bottom:.1rem;}
-.ey{font-size:.58rem;color:rgba(255,255,255,.15);letter-spacing:.06em;}
+  /* ── SCROLL REVEAL ── */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.in{opacity:1;transform:translateY(0)}
+  .reveal[data-d="1"]{transition-delay:.08s}
+  .reveal[data-d="2"]{transition-delay:.16s}
+  .reveal[data-d="3"]{transition-delay:.24s}
 
-/* ─── P3: SOCIALS ─── */
-#p3{display:flex;align-items:center;padding:0 11vw;}
-.sb{max-width:560px;z-index:2;}
-.sh{font-family:'Cinzel',serif;font-size:clamp(.85rem,1.7vw,1.3rem);font-weight:300;letter-spacing:.22em;margin-bottom:2rem;color:rgba(255,255,255,.45);opacity:0;transition:opacity .8s ease;}
-.sh.in{opacity:1;}
-.si{
-  display:flex;align-items:center;gap:1.2rem;
-  padding:.95rem 0;border-bottom:1px solid rgba(255,255,255,.05);
-  opacity:0;transform:translateX(-14px);
-  transition:opacity .5s ease,transform .5s ease,color .25s;
-  text-decoration:none;color:inherit;cursor:pointer;
-}
-.si.in{opacity:1;transform:translateX(0);}
-.si:hover .sn{color:#fff;}
-.sic{
-  width:34px;height:34px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.18);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.55rem;flex-shrink:0;color:rgba(255,255,255,.45);
-  font-family:'Cinzel',serif;letter-spacing:.01em;
-  transition:border-color .25s,color .25s;
-}
-.si:hover .sic{border-color:rgba(255,255,255,.45);color:#fff;}
-.sn{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.06em;margin-bottom:.14rem;color:rgba(255,255,255,.85);transition:color .25s;}
-.sh2{font-size:.67rem;color:rgba(255,255,255,.28);}
-
-/* ─── P4: CONTACT ─── */
-#p4{display:flex;align-items:center;padding:0 11vw;}
-.cb{max-width:540px;z-index:2;}
-.csh{font-family:'Cinzel',serif;font-size:clamp(.85rem,1.7vw,1.3rem);font-weight:300;letter-spacing:.22em;margin-bottom:2rem;color:rgba(255,255,255,.45);opacity:0;transition:opacity .8s ease;}
-.csh.in{opacity:1;}
-.ci{
-  display:flex;align-items:flex-start;gap:1.3rem;
-  padding:1.1rem 0;border-bottom:1px solid rgba(255,255,255,.05);
-  opacity:0;transform:translateX(-14px);
-  transition:opacity .5s ease,transform .5s ease;
-  text-decoration:none;color:inherit;
-}
-.ci.in{opacity:1;transform:translateX(0);}
-.cic{
-  width:36px;height:36px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.15);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.72rem;color:rgba(255,255,255,.38);flex-shrink:0;margin-top:.05rem;
-  transition:border-color .25s,color .25s;
-}
-.ci:hover .cic{border-color:rgba(255,255,255,.4);color:#fff;}
-.ct{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;color:rgba(255,255,255,.3);margin-bottom:.28rem;}
-.cv{font-size:.9rem;color:#fff;letter-spacing:.02em;}
-
-/* ─── L MARK ─── */
-#lmark{
-  position:fixed;bottom:1.6rem;left:1.6rem;z-index:700;
-  width:22px;height:28px;
-  opacity:0;transition:opacity .8s ease;
-}
-#lmark.show{opacity:1;}
-
-/* ─── FOOTER ─── */
-#foot{
-  position:fixed;bottom:1.6rem;left:0;right:0;text-align:center;
-  font-size:.48rem;letter-spacing:.22em;color:rgba(255,255,255,.1);
-  pointer-events:none;opacity:0;transition:opacity 1s ease;
-}
+  /* ── RESPONSIVE ── */
+  @media (max-width:880px){
+    main{padding:0 1.4rem}
+    section{padding:5rem 0}
+    .hero{padding-top:7rem}
+    .meta{padding:.7rem 1.2rem;font-size:.6rem}
+    .meta-left{gap:1rem}
+    .domains-grid{grid-template-columns:1fr}
+    .domain{border-right:none;border-bottom:1px solid var(--rule)}
+    .domain:last-child{border-bottom:none}
+    .grid{grid-template-columns:1fr}
+    .now-item:nth-child(3n){border-right:none}
+    .now-item{border-right:none}
+    .hero-meta{grid-template-columns:1fr 1fr}
+    .projects-head{flex-direction:column;align-items:flex-start}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+  }
 </style>
 </head>
 <body>
 
-<!-- PAPER TEAR -->
-<div id="tear-wrap">
-  <div id="tear-top"></div>
-  <div id="tear-bot"></div>
-</div>
-
-<!-- CURSOR -->
-<div id="cur"></div>
-
-<!-- NAV BELT -->
-<div id="nav-outer">
-  <div id="belt">
-    <button class="tab active"   onclick="goTo(0)">Identity</button>
-    <button class="tab"          onclick="goTo(1)">Profile</button>
-    <button class="tab"          onclick="goTo(2)">Experience</button>
-    <button class="tab"          onclick="goTo(3)">Socials</button>
-    <button class="tab"          onclick="goTo(4)">Contact</button>
+<!-- TOP META BAR -->
+<div class="meta" role="banner">
+  <div class="meta-left">
+    <span><span class="meta-dot" aria-hidden="true"></span> Available · Nairobi · UTC+3</span>
+  </div>
+  <div class="meta-right">
+    <a href="#work">Work</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="#domains">Two Lives</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="#contact">Contact</a>
   </div>
 </div>
 
-<!-- ARROWS -->
-<button class="arr" id="al" onclick="goTo(cp-1)" disabled>‹</button>
-<button class="arr" id="ar" onclick="goTo(cp+1)">›</button>
+<main>
 
-<!-- STAGE -->
-<div id="vp">
-  <div id="stage">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="kicker reveal"><span class="kicker-num">01 /</span> Lee Muriithi Kingori — Founder, Lestramk</div>
 
-    <!-- P0: NAME -->
-    <div class="panel" id="p0">
-      <div class="nw">
-        <span class="nl nla">LEE</span>
-        <span class="nl nlb">MURIITHI</span>
-        <span class="nl nlc">KINGORI</span>
+    <h1 class="thesis reveal" data-d="1">
+      One foot in the ward,<br/>
+      one in the <em>terminal.</em>
+    </h1>
+
+    <p class="hero-sub reveal" data-d="2">
+      I'm Lee. By day I write code that moves money and hides root.
+      By night I'm a BSN nursing student reading vital signs.
+      Both are the same job — <strong>keeping systems alive</strong> — so I built Lestramk to keep doing both at once.
+    </p>
+
+    <div class="hero-meta reveal" data-d="3">
+      <div class="hero-meta-item">
+        <div class="lbl">Currently</div>
+        <div class="val">Founder, Lestramk</div>
       </div>
-      <div class="wire" id="w0"></div>
-    </div>
-
-    <!-- P1: PROFILE -->
-    <div class="panel" id="p1">
-      <svg class="psv" id="s1"></svg>
-      <div class="wb">
-        <div class="tag">// identity</div>
-        <div class="wh">Who is<br>Lee Muriithi Kingori?</div>
-        <p class="wp">Founder &amp; CEO of LESTRAMK — a Nairobi-based software company and talent marketplace, built from the ground up in late 2025.</p>
-        <p class="wp">A self-taught developer and BSN nursing student at Dedan Kimathi University of Technology, building at the intersection of fintech, Android security, and open-source innovation.</p>
-        <div class="mo">Innovate &nbsp;·&nbsp; Create &nbsp;·&nbsp; Connect</div>
+      <div class="hero-meta-item">
+        <div class="lbl">Studying</div>
+        <div class="val">BSN Nursing, DeKUT</div>
       </div>
-    </div>
-
-    <!-- P2: EXPERIENCE -->
-    <div class="panel" id="p2">
-      <svg class="psv" id="s2"></svg>
-      <div class="eb">
-        <div class="eh" id="exh">Background &amp; Experience</div>
-        <ul style="list-style:none">
-          <li class="ei" id="e0"><div class="dot"></div><div><div class="er">Founder &amp; CEO</div><div class="eo">LESTRAMK · Software &amp; Talent Marketplace</div><div class="ey">2025 — Present · Nairobi, Kenya</div></div></li>
-          <li class="ei" id="e1"><div class="dot"></div><div><div class="er">Lead Developer — Fintech</div><div class="eo">HBSend · Cross-border Payment Platform</div><div class="ey">2025 — Present</div></div></li>
-          <li class="ei" id="e2"><div class="dot"></div><div><div class="er">Android Systems Engineer</div><div class="eo">KernelSU Suite · LESTRAMK Modules</div><div class="ey">2025 — Present</div></div></li>
-          <li class="ei" id="e3"><div class="dot"></div><div><div class="er">Web Architect — AgriTech</div><div class="eo">Mkulima Mkuu · Agricultural Platform</div><div class="ey">2025 — Present</div></div></li>
-          <li class="ei" id="e4"><div class="dot"></div><div><div class="er">Student Nurse (BSN)</div><div class="eo">Dedan Kimathi University of Technology</div><div class="ey">2024 — Present · Nyeri, Kenya</div></div></li>
-        </ul>
+      <div class="hero-meta-item">
+        <div class="lbl">Based</div>
+        <div class="val">Nairobi, Kenya</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="lbl">Status</div>
+        <div class="val" style="color:var(--accent)">Building · Open to interesting work</div>
       </div>
     </div>
 
-    <!-- P3: SOCIALS -->
-    <div class="panel" id="p3">
-      <svg class="psv" id="s3"></svg>
-      <div class="sb">
-        <div class="sh" id="soch">Connect &amp; Follow</div>
-        <a class="si" id="si0" href="https://t.me/hbstunnelytics" target="_blank">
-          <div class="sic">TG</div><div><div class="sn">Telegram</div><div class="sh2">@Girltalisha · t.me/hbstunnelytics</div></div>
-        </a>
-        <a class="si" id="si1" href="https://discord.com" target="_blank">
-          <div class="sic">DC</div><div><div class="sn">Discord</div><div class="sh2">@girltalisha</div></div>
-        </a>
-        <a class="si" id="si2" href="https://github.com/lee-muriithi-kingori" target="_blank">
-          <div class="sic">GH</div><div><div class="sn">GitHub</div><div class="sh2">lee-muriithi-kingori</div></div>
-        </a>
-        <a class="si" id="si3" href="https://instagram.com/leetesticals" target="_blank">
-          <div class="sic">IG</div><div><div class="sn">Instagram</div><div class="sh2">@leetesticals</div></div>
-        </a>
-        <a class="si" id="si4" href="https://t.me/hbstunnelytics" target="_blank">
-          <div class="sic" style="font-size:.42rem;letter-spacing:.01em">LMK</div><div><div class="sn">LESTRAMK</div><div class="sh2">Official Channel · t.me/hbstunnelytics</div></div>
-        </a>
-      </div>
+    <!-- EKG signature line -->
+    <div class="ekg-wrap reveal" data-d="3" aria-hidden="true">
+      <svg class="ekg-svg" id="ekg" viewBox="0 0 1600 54" preserveAspectRatio="none">
+        <path d="M0,27 L80,27 L100,27 L120,27 L130,12 L140,42 L150,18 L160,30 L200,27 L240,27 L260,27 L280,27 L290,12 L300,42 L310,18 L320,30 L360,27 L440,27 L460,27 L480,27 L490,12 L500,42 L510,18 L520,30 L560,27 L640,27 L660,27 L680,27 L690,12 L700,42 L710,18 L720,30 L760,27 L840,27 L860,27 L880,27 L890,12 L900,42 L910,18 L920,30 L960,27 L1040,27 L1060,27 L1080,27 L1090,12 L1100,42 L1110,18 L1120,30 L1160,27 L1240,27 L1260,27 L1280,27 L1290,12 L1300,42 L1310,18 L1320,30 L1360,27 L1440,27 L1460,27 L1480,27 L1490,12 L1500,42 L1510,18 L1520,30 L1600,27"
+              fill="none" stroke="#C5302B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="ekg-cap">— vital signs steady</div>
     </div>
+  </div>
+</section>
 
-    <!-- P4: CONTACT -->
-    <div class="panel" id="p4">
-      <svg class="psv" id="s4"></svg>
-      <div class="cb">
-        <div class="csh" id="conh">Get In Touch</div>
-        <a class="ci" id="ci0" href="tel:+254114752255">
-          <div class="cic">☎</div><div><div class="ct">Phone</div><div class="cv">+254 114 752 255</div></div>
-        </a>
-        <a class="ci" id="ci1" href="mailto:leekingori54@gmail.com">
-          <div class="cic">@</div><div><div class="ct">Email</div><div class="cv">leekingori54@gmail.com</div></div>
-        </a>
-        <a class="ci" id="ci2" href="https://t.me/hbstunnelytics" target="_blank">
-          <div class="cic">→</div><div><div class="ct">Telegram</div><div class="cv">@Girltalisha</div></div>
-        </a>
-        <a class="ci" id="ci3" href="https://github.com/lee-muriithi-kingori" target="_blank">
-          <div class="cic">&lt;/&gt;</div><div><div class="ct">GitHub</div><div class="cv">lee-muriithi-kingori</div></div>
-        </a>
-      </div>
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-inner">
+    <div class="eyebrow reveal">02 / On Building</div>
+    <p class="manifesto-text reveal" data-d="1">
+      I don't believe in the <em>"either/or"</em> myth — code or care, business or study,
+      founder or student. The interesting work lives in the seams.
+      I've shipped a root-hiding module that lets Uber drivers in Nairobi keep their phone,
+      a money-movement API, and an operating system kernel in the same year I learned to chart a patient.
+      <strong>None of it was a detour.</strong>
+    </p>
+    <div class="manifesto-sign reveal" data-d="2">
+      — Lee Muriithi Kingori · Nyeri / Nairobi · 2026
     </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="projects-head">
+    <div class="eyebrow reveal" style="margin-bottom:0">03 / Selected Work</div>
+    <div class="projects-count reveal" data-d="1">9 of 27 public · lestramk.org</div>
+  </div>
+  <h2 class="reveal" data-d="2" style="margin-top:1.5rem">A trail of small tools and one or two larger ones.</h2>
+
+  <div class="grid" style="margin-top:3rem">
+
+    <a class="card" href="https://github.com/lee-muriithi-kingori/UBLESTRAMK" target="_blank" rel="noopener">
+      <div class="card-head">
+        <span class="card-tag">Android · Magisk</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-name">UBLESTRAMK</div>
+      <p class="card-desc">A Magisk/KernelSU/APatch module that hides root from banking apps and Uber — because drivers shouldn't have to choose between tools.</p>
+    </a>
+
+    <a class="card" href="https://github.com/lee-muriithi-kingori/LestraOS" target="_blank" rel="noopener">
+      <div class="card-head">
+        <span class="card-tag">Systems · C / x86_64</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-name">LestraOS</div>
+      <p class="card-desc">A from-scratch x86_64 operating system — kernel, drivers, libc, userspace. Foundation work, not a finished OS, but honest about it.</p>
+    </a>
+
+    <a class="card" href="https://github.com/lee-muriithi-kingori/Lespoof" target="_blank" rel="noopener">
+      <div class="card-head">
+        <span class="card-tag">Android · Samsung</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-name">Lespoof</div>
+      <p class="card-desc">A precision-engineered Samsung spoofing and system-utility module. Quiet where it matters, loud only when it needs to be.</p>
+    </a>
+
+    <a class="card" href="https://github.com/lee-muriithi-kingori/aamt" target="_blank" rel="noopener">
+      <div class="card-head">
+        <span class="card-tag">Web · Marketplace</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-name">AAMT</div>
+      <p class="card-desc">A vetted talent marketplace for Africa — built to put credentials on people who don't have the privilege of a LinkedIn signal.</p>
+    </a>
+
+    <a class="card" href="https://github.com/lee-muriithi-kingori/aamt-lestramk" target="_blank" rel="noopener">
+      <div class="card-head">
+        <span class="card-tag">CLI · Tooling</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-name">AAMT CLI</div>
+      <p class="card-desc">Official command-line client for AAMT — manage resumes, jobs, and accounts from a terminal. Built for the kind of person who lives there.</p>
+    </a>
+
+    <a class="card" href="https://github.com/lee-muriithi-kingori/AnonRoute-LESTRAMK" target="_blank" rel="noopener">
+      <div class="card-head">
+        <span class="card-tag">Networking · Privacy</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-name">AnonRoute</div>
+      <p class="card-desc">A SOCKS5 proxy tunnel for Android. Not for everyone, but the few who need it know.</p>
+    </a>
+
+    <a class="card" href="https://github.com/lee-muriithi-kingori/LESTRAMK-TOOLKIT" target="_blank" rel="noopener">
+      <div class="card-head">
+        <span class="card-tag">Toolkit · Diagnostic</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-name">LESTRAMK-TOOLKIT</div>
+      <p class="card-desc">A diagnostic toolkit for the root community — helps users figure out what's actually broken before they blame the kernel.</p>
+    </a>
+
+    <a class="card" href="https://github.com/lee-muriithi-kingori/lestramk-agent-skills" target="_blank" rel="noopener">
+      <div class="card-head">
+        <span class="card-tag">AI · Open Standard</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-name">lestramk-agent-skills</div>
+      <p class="card-desc">A production-grade collection of agent skills released under the open Agent Skills standard. Because the tooling shouldn't be locked up either.</p>
+    </a>
+
+    <a class="card" href="https://github.com/lee-muriithi-kingori/Mkulima-mkuu" target="_blank" rel="noopener">
+      <div class="card-head">
+        <span class="card-tag">Web · AgriTech</span>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-name">Mkulima Mkuu</div>
+      <p class="card-desc">An agricultural platform to help farmers find each other, share what works, and stop being the last to know.</p>
+    </a>
 
   </div>
-</div>
+</section>
 
-<!-- LESTRAMK L MARK -->
-<div id="lmark">
-  <svg viewBox="0 0 22 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path id="lpath" d="M5 2 L5 28 L19 28" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-</div>
+<!-- TWO LIVES / DOMAINS -->
+<section id="domains" class="domains">
+  <div class="eyebrow reveal" style="max-width:1280px;margin:0 auto 3rem;padding:0 2rem">04 / Two Lives</div>
+  <div class="domains-grid" style="max-width:1280px;margin:0 auto;padding:0 2rem;width:100%">
+    <div class="domain reveal" data-d="1">
+      <div class="d-label">The Engineer</div>
+      <div class="d-headline">Builds things that <em>move</em>.</div>
+      <ul class="d-list">
+        <li>Native Android — Java, Kotlin, NDK / JNI, Magisk modules</li>
+        <li>Systems — C, x86_64, kernel work, Linux from scratch</li>
+        <li>Web — full-stack TypeScript, Node, Postgres</li>
+        <li>Infra — SOCKS5 tunnels, proxies, privacy-grade networking</li>
+        <li>AI tooling — agent skills, prompt ops, LLM integration</li>
+      </ul>
+      <div class="d-foot">Since 2020 · Self-taught · Still shipping</div>
+    </div>
+    <div class="domain reveal" data-d="2">
+      <div class="d-label">The Nurse</div>
+      <div class="d-headline">Reads vital signs. <em>Holds steady.</em></div>
+      <ul class="d-list">
+        <li>BSN, Dedan Kimathi University of Technology</li>
+        <li>Patient assessment · Vital signs · Clinical documentation</li>
+        <li>Pharmacology basics · Wound care · Triage</li>
+        <li>Infection prevention and control</li>
+        <li>Quietly learning to keep humans alive while keeping systems alive</li>
+      </ul>
+      <div class="d-foot">Since 2024 · Nyeri, Kenya · Active</div>
+    </div>
+  </div>
+</section>
 
-<div id="foot">© 2026 Lee Muriithi Kingori · LESTRAMK · Innovate Create Connect</div>
+<!-- NOW / NEXT -->
+<section class="now">
+  <div style="max-width:1280px;margin:0 auto;padding:0 2rem">
+    <div class="eyebrow reveal">05 / Where The Hours Go</div>
+    <h2 class="reveal" data-d="1" style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:1.05;letter-spacing:-.018em;margin:0 0 2.5rem">Right now, in this order.</h2>
+    <div class="now-list">
+      <div class="now-item reveal" data-d="1">
+        <div class="now-yr">01</div>
+        <div class="now-title">UBLESTRAMK hardening</div>
+        <div class="now-body">Pushing the module past its beta — real hardware-attestation research, not just prop spoofing.</div>
+      </div>
+      <div class="now-item reveal" data-d="2">
+        <div class="now-yr">02</div>
+        <div class="now-title">Lestramk as a real company</div>
+        <div class="now-body">Hiring the second engineer, formalizing the brand, getting the contracts in place.</div>
+      </div>
+      <div class="now-item reveal" data-d="3">
+        <div class="now-yr">03</div>
+        <div class="now-title">BSN Year 2</div>
+        <div class="now-body">Pharmacology and clinical rotations. Will pause shipping for four months — it has to.</div>
+      </div>
+      <div class="now-item reveal">
+        <div class="now-yr">04</div>
+        <div class="now-title">HBSend payments</div>
+        <div class="now-body">Cross-border money movement with rails that don't punish small transfers.</div>
+      </div>
+      <div class="now-item reveal" data-d="1">
+        <div class="now-yr">05</div>
+        <div class="now-title">LestraOS kernel</div>
+        <div class="now-body">Paging and a scheduler. Will probably write a long post when it boots for real.</div>
+      </div>
+      <div class="now-item reveal" data-d="2">
+        <div class="now-yr">06</div>
+        <div class="now-title">This site</div>
+        <div class="now-body">Updated every few months when something about the work actually changes. Not before.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div style="max-width:1280px;margin:0 auto;padding:0 2rem">
+    <div class="eyebrow reveal">06 / Say Hello</div>
+    <h2 class="reveal" data-d="1">Tell me about <em>the thing</em><br/>you're trying to build.</h2>
+    <p class="contact-sub reveal" data-d="2">I read everything. I don't always reply the same day. But I always reply.</p>
+
+    <div class="channels">
+      <a class="ch reveal" href="mailto:leekingori54@gmail.com">
+        <span class="ch-lbl">Email</span>
+        <span class="ch-val">leekingori54@gmail.com</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+      <a class="ch reveal" data-d="1" href="https://t.me/hbstunnelytics" target="_blank" rel="noopener">
+        <span class="ch-lbl">Telegram</span>
+        <span class="ch-val">@hbstunnelytics</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+      <a class="ch reveal" data-d="2" href="https://github.com/lee-muriithi-kingori" target="_blank" rel="noopener">
+        <span class="ch-lbl">GitHub</span>
+        <span class="ch-val">@lee-muriithi-kingori</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+      <a class="ch reveal" data-d="3" href="tel:+254114752255">
+        <span class="ch-lbl">Phone</span>
+        <span class="ch-val">+254 114 752 255</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+      <a class="ch reveal" href="https://lestramk.org" target="_blank" rel="noopener">
+        <span class="ch-lbl">Lestramk</span>
+        <span class="ch-val">lestramk.org</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+      <a class="ch reveal" data-d="1" href="https://instagram.com/leetesticals" target="_blank" rel="noopener">
+        <span class="ch-lbl">Instagram</span>
+        <span class="ch-val">@leetesticals</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div>© 2026 Lee Muriithi Kingori · lestramk.org</div>
+  <div><a href="#work">Work</a> · <a href="#domains">Two Lives</a> · <a href="#contact">Contact</a></div>
+  <div>Built by hand · No framework</div>
+</footer>
 
 <script>
-const G = id => document.getElementById(id);
-const wait = ms => new Promise(r => setTimeout(r, ms));
-const NS = 'http://www.w3.org/2000/svg';
-let cp = 0;
-const PANELS = 5;
-const animated = new Set();
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+    });
+  },{rootMargin:'-40px 0px -40px 0px',threshold:.05});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-/* ── CURSOR ── */
-const cur = G('cur');
-document.addEventListener('mousemove', e => { cur.style.left=e.clientX+'px'; cur.style.top=e.clientY+'px'; });
-document.querySelectorAll('.tab,.ei,.si,.ci,.arr').forEach(el=>{
-  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
-  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
-});
+  // Animate the EKG signature line on first paint
+  (function ekgInit(){
+    const p = document.querySelector('#ekg path');
+    if(!p) return;
+    const len = p.getTotalLength();
+    p.style.strokeDasharray = len;
+    p.style.strokeDashoffset = len;
+    requestAnimationFrame(()=>{
+      p.style.transition = 'stroke-dashoffset 2.6s cubic-bezier(.4,0,.2,1)';
+      p.style.strokeDashoffset = '0';
+    });
+  })();
 
-/* ── BELT DRAG ── */
-const belt = G('belt');
-let dragging=false, bx=0, bl=0;
-belt.addEventListener('mousedown', e=>{dragging=true;belt.classList.add('drag');bx=e.pageX-belt.offsetLeft;bl=belt.scrollLeft;});
-document.addEventListener('mousemove', e=>{if(!dragging)return;e.preventDefault();belt.scrollLeft=bl-(e.pageX-belt.offsetLeft-bx);});
-document.addEventListener('mouseup',()=>{dragging=false;belt.classList.remove('drag');});
-belt.addEventListener('touchstart', e=>{dragging=true;bx=e.touches[0].pageX-belt.offsetLeft;bl=belt.scrollLeft;},{passive:true});
-belt.addEventListener('touchmove', e=>{if(!dragging)return;belt.scrollLeft=bl-(e.touches[0].pageX-belt.offsetLeft-bx);},{passive:true});
-belt.addEventListener('touchend',()=>dragging=false);
-
-/* ── NAVIGATE ── */
-function syncUI(i){
-  cp = i;
-  document.querySelectorAll('.tab').forEach((t,k)=>t.classList.toggle('active',k===i));
-  G('al').disabled = i===0;
-  G('ar').disabled = i===PANELS-1;
-  const tab = document.querySelectorAll('.tab')[i];
-  tab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
-}
-
-function pan(i, dur=1100){
-  G('stage').style.transition=`transform ${dur}ms cubic-bezier(0.86,0,0.07,1)`;
-  G('stage').style.transform=`translateX(calc(-${i} * 100vw))`;
-  syncUI(i);
-  return wait(dur+80);
-}
-
-async function goTo(i){
-  if(i<0||i>=PANELS||i===cp) return;
-  await pan(i, 900);
-  triggerPanel(i);
-}
-
-/* ── SVG HELPERS ── */
-function drawPath(parent, d, stroke, sw, dur){
-  return new Promise(r=>{
-    const p=document.createElementNS(NS,'path');
-    p.setAttribute('d',d);p.setAttribute('fill','none');
-    p.setAttribute('stroke',stroke);p.setAttribute('stroke-width',sw);
-    p.setAttribute('stroke-linecap','round');
-    parent.appendChild(p);
-    const len=p.getTotalLength();
-    p.style.strokeDasharray=len;p.style.strokeDashoffset=len;
-    p.getBoundingClientRect();
-    p.style.transition=`stroke-dashoffset ${dur}ms cubic-bezier(.4,0,.2,1)`;
-    p.style.strokeDashoffset=0;
-    setTimeout(r,dur+30);
-  });
-}
-
-function slither(x0,y0,x1,y1,waves=4,amp=24){
-  let d=`M ${x0} ${y0}`;
-  for(let i=1;i<=60;i++){
-    const t=i/60;
-    d+=` L ${x0+(x1-x0)*t} ${y0+(y1-y0)*t+Math.sin(t*Math.PI*waves)*amp*Math.sin(t*Math.PI)}`;
-  }
-  return d;
-}
-
-function snakeThrough(els){
-  const pts=Array.from(els).map(el=>{const r=el.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2};});
-  if(pts.length<2)return null;
-  let d=`M ${pts[0].x} ${pts[0].y}`;
-  for(let i=1;i<pts.length;i++){
-    const a=pts[i-1],b=pts[i],ox=i%2===0?26:-16;
-    d+=` C ${a.x+ox} ${a.y+14}, ${b.x+ox} ${b.y-14}, ${b.x} ${b.y}`;
-  }
-  return d;
-}
-
-/* ── PANEL ANIMATIONS (triggered on first visit) ── */
-async function triggerPanel(i){
-  if(animated.has(i)) return;
-  animated.add(i);
-  const vw=window.innerWidth, vh=window.innerHeight;
-
-  if(i===1){
-    const sv=G('s1'); sv.setAttribute('viewBox',`0 0 ${vw} ${vh}`);
-    const my=vh/2, px=vw*.11;
-    await drawPath(sv,`M 0 ${my} L ${px-8} ${my}`,'rgba(255,255,255,.4)','0.8',420);
-    await drawPath(sv,`M ${px-8} ${my} Q ${px} ${my} ${px} ${my-vh*.17}`,'rgba(255,255,255,.3)','.6',330);
-    G('p1').classList.add('p1on');
-
-  } else if(i===2){
-    const sv=G('s2'); sv.setAttribute('viewBox',`0 0 ${vw} ${vh}`);
-    const fd=G('p2').querySelector('.dot').getBoundingClientRect();
-    const ey=fd.top+fd.height/2, ex=fd.left+fd.width/2;
-    await drawPath(sv,`M 0 ${ey} L ${ex-4} ${ey}`,'rgba(255,255,255,.4)','.75',400);
-    G('exh').classList.add('in');
-    await wait(300);
-    const sk=snakeThrough(G('p2').querySelectorAll('.dot'));
-    if(sk) drawPath(sv,sk,'rgba(255,255,255,.12)','1',2000);
-    for(const id of['e0','e1','e2','e3','e4']){await wait(270);G(id).classList.add('in');}
-
-  } else if(i===3){
-    const sv=G('s3'); sv.setAttribute('viewBox',`0 0 ${vw} ${vh}`);
-    const fd=G('p3').querySelector('.sic').getBoundingClientRect();
-    const ey=fd.top+fd.height/2;
-    await drawPath(sv,`M 0 ${ey} L ${fd.left-4} ${ey}`,'rgba(255,255,255,.4)','.75',380);
-    G('soch').classList.add('in');
-    await wait(280);
-    const sk=snakeThrough(G('p3').querySelectorAll('.sic'));
-    if(sk) drawPath(sv,sk,'rgba(255,255,255,.1)','1',1800);
-    for(let k=0;k<5;k++){await wait(250);G(`si${k}`).classList.add('in');}
-
-  } else if(i===4){
-    const sv=G('s4'); sv.setAttribute('viewBox',`0 0 ${vw} ${vh}`);
-    const fd=G('p4').querySelector('.cic').getBoundingClientRect();
-    const ey=fd.top+fd.height/2;
-    await drawPath(sv,`M 0 ${ey} L ${fd.left-4} ${ey}`,'rgba(255,255,255,.4)','.75',380);
-    G('conh').classList.add('in');
-    await wait(280);
-    const sk=snakeThrough(G('p4').querySelectorAll('.cic'));
-    if(sk) drawPath(sv,sk,'rgba(255,255,255,.1)','1',1400);
-    for(let k=0;k<4;k++){await wait(270);G(`ci${k}`).classList.add('in');}
-    await wait(600);
-    G('foot').style.opacity='1';
-  }
-}
-
-/* ── LESTRAMK L ANIMATION ── */
-function animL(){
-  const path=G('lpath');
-  const len=path.getTotalLength();
-  path.style.transition='none';
-  path.style.opacity='1';
-  path.style.strokeDasharray=len;
-  path.style.strokeDashoffset=len;
-  path.getBoundingClientRect();
-  path.style.transition=`stroke-dashoffset 1.1s cubic-bezier(.4,0,.2,1)`;
-  path.style.strokeDashoffset=0;
-  setTimeout(()=>{
-    path.style.transition='stroke-dashoffset .7s ease-in, opacity .45s ease .3s';
-    path.style.strokeDashoffset=-len;
-    path.style.opacity='0';
-    setTimeout(()=>{ path.style.opacity='1'; setTimeout(animL,300); }, 900);
-  }, 2400);
-}
-
-/* ── PAPER TEAR ── */
-async function runTear(){
-  const vw=window.innerWidth, vh=window.innerHeight, my=vh/2;
-  const pts=[];
-  for(let x=0;x<=vw+20;x+=16){
-    pts.push({x:Math.min(x,vw), y:my+(Math.random()-.44)*30});
-  }
-
-  // Build clip polygons (coords relative to each div which is inset:0)
-  let topPoly=`polygon(0px 0px, ${vw}px 0px, ${vw}px ${pts[pts.length-1].y}px`;
-  for(let i=pts.length-1;i>=0;i--) topPoly+=`, ${pts[i].x}px ${pts[i].y}px`;
-  topPoly+=`, 0px ${pts[0].y}px)`;
-
-  let botPoly=`polygon(0px ${pts[0].y}px`;
-  for(let i=0;i<pts.length;i++) botPoly+=`, ${pts[i].x}px ${pts[i].y}px`;
-  botPoly+=`, ${vw}px ${pts[pts.length-1].y}px, ${vw}px ${vh}px, 0px ${vh}px)`;
-
-  G('tear-top').style.clipPath=topPoly;
-  G('tear-bot').style.clipPath=botPoly;
-
-  await wait(550); // pause on white
-  G('tear-top').classList.add('torn');
-  G('tear-bot').classList.add('torn');
-  await wait(950);
-  G('tear-wrap').classList.add('gone');
-}
-
-/* ── MAIN SEQUENCE ── */
-async function main(){
-  const vw=window.innerWidth, vh=window.innerHeight;
-  syncUI(0);
-  G('al').disabled=true;
-
-  // Tear open
-  await runTear();
-  await wait(150);
-
-  // P0: name
-  animated.add(0);
-  document.querySelectorAll('.nl').forEach(el=>el.classList.add('in'));
-  await wait(1850);
-
-  // Show UI chrome
-  G('nav-outer').classList.add('show');
-  G('al').classList.add('show');
-  G('ar').classList.add('show');
-  G('lmark').classList.add('show');
-  animL();
-
-  // Wire from P0
-  G('w0').classList.add('on');
-  await wait(1000);
-
-  // Auto-play P0 → P1 → P2
-  await pan(1);
-  await triggerPanel(1);
-  await wait(600);
-
-  const my=vh/2;
-  const sv1=G('s1');
-  const exitD=slither(vw*.68,my,vw,my);
-  await drawPath(sv1,exitD,'rgba(255,255,255,.35)','.75',950);
-  await wait(150);
-
-  await pan(2);
-  await triggerPanel(2);
-  await wait(800);
-  G('foot').style.opacity='1';
-}
-
-document.fonts.ready.then(main);
+  // Subtle parallax on the hero EKG
+  let lastY = 0;
+  window.addEventListener('scroll',()=>{
+    const y = window.scrollY;
+    const ekg = document.querySelector('.ekg-wrap');
+    if(ekg && y < 800){
+      ekg.style.transform = `translateY(${y * 0.04}px)`;
+    }
+    lastY = y;
+  },{passive:true});
 </script>
 </body>
 </html>
