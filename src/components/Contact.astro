@@ -1,0 +1,284 @@
+---
+---
+
+<section id="contact" class="contact">
+  <div class="contact-inner">
+    <div class="eyebrow reveal">07 / Say Hello</div>
+    <h2 class="reveal" data-d="1">
+      Tell me about <em>the thing</em><br />
+      you're trying to build.
+    </h2>
+    <p class="contact-sub reveal" data-d="2">
+      I read everything. I don't always reply the same day. But I always reply.
+    </p>
+
+    <form class="contact-form reveal" data-d="3" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact" />
+      <p class="hidden">
+        <label>Don't fill this out: <input name="bot-field" /></label>
+      </p>
+      <div class="form-row">
+        <label>
+          <span class="form-lbl mono">Name</span>
+          <input type="text" name="name" required placeholder="Who are you?" />
+        </label>
+        <label>
+          <span class="form-lbl mono">Email</span>
+          <input type="email" name="email" required placeholder="Where do I reply?" />
+        </label>
+      </div>
+      <label>
+        <span class="form-lbl mono">Subject</span>
+        <input type="text" name="subject" required placeholder="One-line summary" />
+      </label>
+      <label>
+        <span class="form-lbl mono">Brief</span>
+        <textarea name="message" rows="5" required placeholder="What are you building? What's the timeline? Anything I should know?"></textarea>
+      </label>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          <span>Send the brief</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <span class="form-hint mono">— or reach me directly below</span>
+      </div>
+    </form>
+
+    <div class="channels">
+      <a class="ch reveal" href="mailto:leekingori54@gmail.com">
+        <span class="ch-lbl mono">Email</span>
+        <span class="ch-val">leekingori54@gmail.com</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+      <a class="ch reveal" data-d="1" href="https://t.me/hbstunnelytics" target="_blank" rel="noopener">
+        <span class="ch-lbl mono">Telegram</span>
+        <span class="ch-val">@hbstunnelytics</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+      <a class="ch reveal" data-d="2" href="https://github.com/lee-muriithi-kingori" target="_blank" rel="noopener">
+        <span class="ch-lbl mono">GitHub</span>
+        <span class="ch-val">@lee-muriithi-kingori</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+      <a class="ch reveal" data-d="3" href="https://www.linkedin.com/in/lee-muriithi-kingori-a291712b4" target="_blank" rel="noopener">
+        <span class="ch-lbl mono">LinkedIn</span>
+        <span class="ch-val">Lee Muriithi Kingori</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+      <a class="ch reveal" href="https://instagram.com/leetesticals" target="_blank" rel="noopener">
+        <span class="ch-lbl mono">Instagram</span>
+        <span class="ch-val">@leetesticals</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+      <a class="ch reveal" data-d="1" href="https://orcid.org/0009-0008-8647-2813" target="_blank" rel="noopener">
+        <span class="ch-lbl mono">ORCID</span>
+        <span class="ch-val">0009-0008-8647-2813</span>
+        <span class="ch-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding: 8rem 0;
+    background: var(--ink);
+    color: var(--ivory);
+    border-bottom: none;
+  }
+  .contact-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(242, 237, 226, 0.5);
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: rgba(242, 237, 226, 0.5);
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: 'opsz' 144, 'SOFT' 40, 'WONK' 1;
+    font-weight: 400;
+    font-size: clamp(2.4rem, 5.5vw, 4.6rem);
+    line-height: 1;
+    letter-spacing: -0.022em;
+    margin: 0 0 1rem;
+    color: var(--ivory);
+  }
+  h2 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+  .contact-sub {
+    font-size: 1.1rem;
+    color: rgba(242, 237, 226, 0.65);
+    max-width: 560px;
+    margin: 0 0 3.5rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 4rem;
+    max-width: 760px;
+    padding: 2rem;
+    background: rgba(242, 237, 226, 0.04);
+    border: 1px solid rgba(242, 237, 226, 0.12);
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  .contact-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .form-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(242, 237, 226, 0.5);
+  }
+  .contact-form input,
+  .contact-form textarea {
+    background: rgba(242, 237, 226, 0.04);
+    border: 1px solid rgba(242, 237, 226, 0.18);
+    color: var(--ivory);
+    padding: 0.8rem 1rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.25s, background 0.25s;
+    border-radius: 0;
+  }
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {
+    color: rgba(242, 237, 226, 0.3);
+  }
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(242, 237, 226, 0.06);
+  }
+  .contact-form textarea { resize: vertical; min-height: 120px; }
+  .form-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .form-hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: rgba(242, 237, 226, 0.4);
+    text-transform: uppercase;
+  }
+  .hidden {
+    display: none;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--ivory);
+    color: var(--ink);
+    border: 1px solid var(--ivory);
+  }
+  .btn-primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--ivory);
+    transform: translateY(-1px);
+  }
+  .btn-primary svg { transition: transform 0.25s ease; }
+  .btn-primary:hover svg { transform: translateX(3px); }
+
+  .channels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+    border-top: 1px solid rgba(242, 237, 226, 0.2);
+  }
+  .ch {
+    padding: 1.6rem 1.4rem;
+    border-right: 1px solid rgba(242, 237, 226, 0.1);
+    border-bottom: 1px solid rgba(242, 237, 226, 0.1);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    transition: background 0.25s;
+  }
+  .ch:hover { background: rgba(197, 48, 43, 0.15); }
+  .ch-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(242, 237, 226, 0.5);
+  }
+  .ch-val {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--ivory);
+    margin-top: 0.2rem;
+  }
+  .ch-arrow {
+    margin-left: auto;
+    font-size: 1rem;
+    color: var(--accent);
+    transition: transform 0.25s;
+  }
+  .ch:hover .ch-arrow { transform: translate(3px, -3px); }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal[data-d="1"] { transition-delay: 0.08s; }
+  .reveal[data-d="2"] { transition-delay: 0.16s; }
+  .reveal[data-d="3"] { transition-delay: 0.24s; }
+
+  @media (max-width: 720px) {
+    .form-row { grid-template-columns: 1fr; }
+    .contact-form { padding: 1.4rem; }
+  }
+</style>

@@ -1,0 +1,292 @@
+---
+---
+
+<section class="hero">
+  <div class="hero-grid">
+    <div class="kicker reveal">
+      <span class="kicker-num">01 /</span>
+      <span>Lee Muriithi Kingori — Founder, Lestramk</span>
+    </div>
+
+    <div class="hero-row">
+      <div class="hero-text">
+        <h1 class="thesis reveal" data-d="1">
+          One foot in the ward,<br />
+          one in the <em>terminal.</em>
+        </h1>
+
+        <p class="hero-sub reveal" data-d="2">
+          I'm Lee. By day I write code that moves money and hides root.
+          By night I'm a BSN nursing student reading vital signs.
+          Both are the same job — <strong>keeping systems alive</strong> — so I built Lestramk to keep doing both at once.
+        </p>
+
+        <div class="hero-cta reveal" data-d="3">
+          <a class="btn btn-primary" href="#contact">
+            <span>Tell me about your project</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a class="btn btn-ghost" href="#work">See the work →</a>
+        </div>
+
+        <div class="hero-meta reveal" data-d="4">
+          <div class="hero-meta-item">
+            <div class="lbl">Currently</div>
+            <div class="val">Founder, Lestramk</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="lbl">Studying</div>
+            <div class="val">BSN Nursing, DeKUT</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="lbl">Based</div>
+            <div class="val">Nairobi, Kenya</div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="lbl">Status</div>
+            <div class="val status-open">Building · Open to interesting work</div>
+          </div>
+        </div>
+
+        <div class="ekg-wrap reveal" data-d="5" aria-hidden="true">
+          <svg class="ekg-svg" id="ekg" viewBox="0 0 1600 54" preserveAspectRatio="none">
+            <path
+              d="M0,27 L80,27 L100,27 L120,27 L130,12 L140,42 L150,18 L160,30 L200,27 L240,27 L260,27 L280,27 L290,12 L300,42 L310,18 L320,30 L360,27 L440,27 L460,27 L480,27 L490,12 L500,42 L510,18 L520,30 L560,27 L640,27 L660,27 L680,27 L690,12 L700,42 L710,18 L720,30 L760,27 L840,27 L860,27 L880,27 L890,12 L900,42 L910,18 L920,30 L960,27 L1040,27 L1060,27 L1080,27 L1090,12 L1100,42 L1110,18 L1120,30 L1160,27 L1240,27 L1260,27 L1280,27 L1290,12 L1300,42 L1310,18 L1320,30 L1360,27 L1440,27 L1460,27 L1480,27 L1490,12 L1500,42 L1510,18 L1520,30 L1600,27"
+              fill="none" stroke="#C5302B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+            />
+          </svg>
+          <div class="ekg-cap">— vital signs steady</div>
+        </div>
+      </div>
+
+      <aside class="hero-photo reveal" data-d="2" aria-label="Portrait of Lee Muriithi Kingori">
+        <div class="photo-frame">
+          <img src="/assets/lee.jpg" alt="Lee Muriithi Kingori" width="380" height="380" />
+          <div class="photo-tag mono">01 · Portrait · 2026</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: 9rem;
+    padding-bottom: 5rem;
+  }
+  .hero-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .kicker-num { color: var(--muted); font-weight: 400; }
+
+  .hero-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  h1.thesis {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50, 'WONK' 1;
+    font-weight: 400;
+    font-size: clamp(2.8rem, 7vw, 6.4rem);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin: 0 0 2.5rem;
+    color: var(--ink);
+  }
+  h1.thesis em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+    font-variation-settings: 'opsz' 144, 'SOFT' 80, 'WONK' 1;
+  }
+
+  .hero-sub {
+    max-width: 680px;
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    font-weight: 400;
+    margin: 0 0 2.5rem;
+  }
+  .hero-sub strong { font-weight: 500; color: var(--ink); }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--ivory);
+    border: 1px solid var(--ink);
+  }
+  .btn-primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .btn-primary svg { transition: transform 0.25s ease; }
+  .btn-primary:hover svg { transform: translateX(3px); }
+
+  .btn-ghost {
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    border-color: var(--ink);
+    transform: translateY(-1px);
+  }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+  .hero-meta-item .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+  .hero-meta-item .val {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .status-open { color: var(--accent); }
+
+  /* Photo */
+  .hero-photo { justify-self: end; }
+  .photo-frame {
+    position: relative;
+    width: 320px;
+    aspect-ratio: 1 / 1;
+    background: var(--ivory-2);
+    border: 1px solid var(--ink);
+    overflow: hidden;
+    transform: perspective(800px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .photo-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, transparent 60%, rgba(14, 14, 12, 0.04) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.05) saturate(0.92);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .hero-photo:hover .photo-frame img {
+    transform: scale(1.03);
+  }
+  .photo-tag {
+    position: absolute;
+    top: 0.7rem;
+    left: 0.7rem;
+    z-index: 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ivory);
+    background: var(--ink);
+    padding: 0.25rem 0.55rem;
+  }
+
+  /* EKG */
+  .ekg-wrap {
+    position: relative;
+    margin: 2.5rem 0 1rem;
+    height: 54px;
+    overflow: hidden;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .ekg-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .ekg-cap {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    background: var(--ivory);
+    padding-left: 0.8rem;
+  }
+
+  /* Reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal[data-d="1"] { transition-delay: 0.08s; }
+  .reveal[data-d="2"] { transition-delay: 0.16s; }
+  .reveal[data-d="3"] { transition-delay: 0.24s; }
+  .reveal[data-d="4"] { transition-delay: 0.32s; }
+  .reveal[data-d="5"] { transition-delay: 0.40s; }
+
+  @media (max-width: 980px) {
+    .hero-row { grid-template-columns: 1fr; }
+    .hero-photo { justify-self: start; }
+    .photo-frame { width: 240px; }
+    .hero-meta { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding-top: 7rem; }
+    .hero-meta { grid-template-columns: 1fr; }
+    .photo-frame { width: 200px; }
+  }
+</style>

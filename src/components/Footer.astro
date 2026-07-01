@@ -1,0 +1,45 @@
+---
+---
+
+<footer>
+  <div>© 2026 Lee Muriithi Kingori · lestramk.org</div>
+  <nav class="footer-nav">
+    <a href="#work">Work</a>
+    <span>·</span>
+    <a href="#services">Services</a>
+    <span>·</span>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div>Built with Astro · Tailwind · motion</div>
+</footer>
+
+<style>
+  footer {
+    padding: 2.5rem 2rem;
+    background: var(--ink);
+    color: rgba(242, 237, 226, 0.4);
+    border-top: 1px solid rgba(242, 237, 226, 0.08);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer a {
+    color: rgba(242, 237, 226, 0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  footer a:hover { color: var(--accent); }
+  .footer-nav {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+  }
+  .footer-nav span {
+    opacity: 0.4;
+  }
+</style>

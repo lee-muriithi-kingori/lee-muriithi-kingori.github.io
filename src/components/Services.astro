@@ -1,0 +1,309 @@
+---
+import { services } from '../data/projects';
+---
+
+<section id="services" class="services">
+  <div class="services-inner">
+    <div class="eyebrow reveal">02 / What I Do For Clients</div>
+    <h2 class="reveal" data-d="1">
+      Three areas. <em>One person.</em><br />
+      Rates on request.
+    </h2>
+    <p class="services-sub reveal" data-d="2">
+      Available for short contracts and longer collaborations.
+      Send the brief — I'll tell you if I'm the right fit and quote from there.
+    </p>
+
+    <div class="services-grid">
+      {services.map((s, i) => (
+        <article class="service reveal" data-d={(i + 1).toString()}>
+          <div class="service-head">
+            <span class="service-label mono">{s.label}</span>
+            <span class={`service-icon icon-${s.icon}`} aria-hidden="true"></span>
+          </div>
+          <h3 class="service-title">{s.title}</h3>
+          <p class="service-desc">{s.desc}</p>
+          <ul class="service-bullets">
+            {s.bullets.map(b => <li>{b}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <div class="rate-card reveal">
+      <div class="rate-row">
+        <span class="rate-lbl mono">Engagement</span>
+        <span class="rate-val">Short contracts · Longer collaborations · Ad-hoc consulting</span>
+      </div>
+      <div class="rate-row">
+        <span class="rate-lbl mono">Availability</span>
+        <span class="rate-val">Currently accepting work · Start in 1–2 weeks</span>
+      </div>
+      <div class="rate-row">
+        <span class="rate-lbl mono">Rates</span>
+        <span class="rate-val rate-cta">
+          On request — depends on scope, timeline, and IP posture.
+          <a href="#contact">Send the brief →</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    padding: 7rem 0;
+    background: var(--ivory-2);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .services-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--muted);
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: 'opsz' 144, 'SOFT' 40, 'WONK' 1;
+    font-weight: 400;
+    font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+    margin: 0 0 1.5rem;
+    color: var(--ink);
+    max-width: 880px;
+  }
+  h2 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+  .services-sub {
+    font-size: 1.08rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 620px;
+    margin: 0 0 3.5rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    border-left: 1px solid var(--ink);
+    margin-bottom: 4rem;
+  }
+  .service {
+    border-right: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 2.2rem 1.8rem;
+    background: var(--ivory);
+    transition: background 0.3s ease;
+    position: relative;
+  }
+  .service:hover {
+    background: var(--ink);
+    color: var(--ivory);
+  }
+  .service:hover .service-label { color: var(--accent-3); }
+  .service:hover .service-bullets li { border-bottom-color: rgba(242, 237, 226, 0.12); color: rgba(242, 237, 226, 0.85); }
+  .service:hover .service-bullets li::before { border-color: var(--accent-3); }
+
+  .service-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .service-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    transition: color 0.3s;
+  }
+  .service-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--rule);
+    border-radius: 50%;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .service:hover .service-icon { border-color: rgba(242, 237, 226, 0.3); }
+  .icon-android::before {
+    content: "";
+    position: absolute;
+    inset: 8px 10px;
+    border: 1.5px solid currentColor;
+    border-radius: 3px 3px 8px 8px;
+    background:
+      linear-gradient(currentColor, currentColor) 0 0/2px 1.5px no-repeat,
+      linear-gradient(currentColor, currentColor) calc(100% - 1px) 0/2px 1.5px no-repeat;
+  }
+  .icon-web::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border: 1.5px solid currentColor;
+    border-radius: 2px;
+  }
+  .icon-web::after {
+    content: "";
+    position: absolute;
+    top: 7px; left: 50%;
+    width: 7px; height: 1.5px;
+    background: currentColor;
+    transform: translateX(-50%);
+  }
+  .icon-systems::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      conic-gradient(from 0deg,
+        currentColor 0deg 60deg,
+        transparent 60deg 120deg,
+        currentColor 120deg 180deg,
+        transparent 180deg 240deg,
+        currentColor 240deg 300deg,
+        transparent 300deg 360deg);
+    border-radius: 50%;
+    -webkit-mask: radial-gradient(circle, transparent 12px, black 13px);
+    mask: radial-gradient(circle, transparent 12px, black 13px);
+    opacity: 0.4;
+  }
+  .icon-systems::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 4px; height: 4px;
+    background: currentColor;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .service-title {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: 'opsz' 60, 'SOFT' 40, 'WONK' 1;
+    font-weight: 500;
+    font-size: 1.4rem;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    margin: 0 0 0.8rem;
+    color: inherit;
+  }
+  .service-desc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0 0 1.5rem;
+  }
+  .service:hover .service-desc { color: rgba(242, 237, 226, 0.75); }
+
+  .service-bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .service-bullets li {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 0.7rem;
+    align-items: baseline;
+    transition: color 0.3s, border-color 0.3s;
+    color: var(--ink-2);
+  }
+  .service-bullets li::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    flex-shrink: 0;
+    border: 1px solid var(--ink-2);
+    border-radius: 50%;
+    transform: translateY(-3px);
+    transition: border-color 0.3s;
+  }
+
+  /* Rate card */
+  .rate-card {
+    border: 1px solid var(--ink);
+    background: var(--ivory);
+  }
+  .rate-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+    padding: 1.5rem 1.8rem;
+    align-items: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .rate-row:last-child { border-bottom: none; }
+  .rate-lbl {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .rate-val {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .rate-cta a {
+    margin-left: 1rem;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .rate-cta a:hover {
+    color: var(--accent-2);
+    border-color: var(--accent-2);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal[data-d="1"] { transition-delay: 0.08s; }
+  .reveal[data-d="2"] { transition-delay: 0.16s; }
+  .reveal[data-d="3"] { transition-delay: 0.24s; }
+
+  @media (max-width: 880px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .rate-row { grid-template-columns: 1fr; gap: 0.5rem; padding: 1.2rem 1.4rem; }
+    .rate-val { font-size: 1rem; }
+  }
+</style>

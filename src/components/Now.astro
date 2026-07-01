@@ -1,0 +1,104 @@
+---
+const priorities = [
+  { yr: '01', title: 'UBLESTRAMK hardening', body: 'Pushing the module past its beta — real hardware-attestation research, not just prop spoofing.' },
+  { yr: '02', title: 'Lestramk as a real company', body: 'Hiring the second engineer, formalizing the brand, getting the contracts in place.' },
+  { yr: '03', title: 'BSN Year 2', body: 'Pharmacology and clinical rotations. Will pause shipping for four months — it has to.' },
+  { yr: '04', title: 'HBSend payments', body: 'Cross-border money movement with rails that don\'t punish small transfers.' },
+  { yr: '05', title: 'LestraOS kernel', body: 'Paging and a scheduler. Will probably write a long post when it boots for real.' },
+  { yr: '06', title: 'This site', body: 'Updated every few months when something about the work actually changes. Not before.' },
+];
+---
+
+<section class="now">
+  <div class="now-inner">
+    <div class="eyebrow reveal">06 / Where The Hours Go</div>
+    <h2 class="reveal" data-d="1">Right now, in this order.</h2>
+    <div class="now-list">
+      {priorities.map((p, i) => (
+        <div class="now-item reveal" data-d={(i % 3 + 1).toString()}>
+          <div class="now-yr mono">{p.yr}</div>
+          <div class="now-title">{p.title}</div>
+          <div class="now-body">{p.body}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .now {
+    padding: 6rem 0;
+  }
+  .now-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--muted);
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.018em;
+    margin: 0 0 2.5rem;
+  }
+  .now-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .now-item {
+    padding: 1.6rem 1.4rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .now-yr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .now-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.3rem;
+  }
+  .now-body {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal[data-d="1"] { transition-delay: 0.08s; }
+  .reveal[data-d="2"] { transition-delay: 0.16s; }
+  .reveal[data-d="3"] { transition-delay: 0.24s; }
+</style>

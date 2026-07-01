@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Projects from '../components/Projects.astro';
+import Manifesto from '../components/Manifesto.astro';
+import TwoLives from '../components/TwoLives.astro';
+import Now from '../components/Now.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Lee Muriithi Kingori — Lestramk"
+  description="One foot in the ward, one in the terminal. Founder of Lestramk, BSN, builder of UBLESTRAMK, LestraOS, AAMT."
+>
+  <Nav />
+  <main>
+    <Hero />
+    <Services />
+    <Projects />
+    <Manifesto />
+    <TwoLives />
+    <Now />
+    <Contact />
+  </main>
+  <Footer />
+</Base>
+
+<script>
+  // Reveal on scroll using IntersectionObserver
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    },
+    { rootMargin: '-40px 0px -40px 0px', threshold: 0.05 }
+  );
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  // Animate the EKG signature line on first paint
+  (function ekgInit() {
+    const p = document.querySelector('#ekg path') as SVGPathElement | null;
+    if (!p) return;
+    const len = p.getTotalLength();
+    p.style.strokeDasharray = String(len);
+    p.style.strokeDashoffset = String(len);
+    requestAnimationFrame(() => {
+      p.style.transition = 'stroke-dashoffset 2.6s cubic-bezier(.4,0,.2,1)';
+      p.style.strokeDashoffset = '0';
+    });
+  })();
+
+  // Subtle parallax on the hero EKG
+  let lastY = 0;
+  window.addEventListener(
+    'scroll',
+    () => {
+      const y = window.scrollY;
+      const ekg = document.querySelector('.ekg-wrap') as HTMLElement | null;
+      if (ekg && y < 800) {
+        ekg.style.transform = `translateY(${y * 0.04}px)`;
+      }
+      lastY = y;
+    },
+    { passive: true }
+  );
+
+  // Hero photo tilt on hover (subtle parallax)
+  const photo = document.querySelector('.photo-frame');
+  if (photo) {
+    photo.addEventListener('mousemove', (e) => {
+      const rect = (photo as HTMLElement).getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 8;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 8;
+      (photo as HTMLElement).style.setProperty('--tilt-x', `${-y}deg`);
+      (photo as HTMLElement).style.setProperty('--tilt-y', `${x}deg`);
+    });
+    photo.addEventListener('mouseleave', () => {
+      (photo as HTMLElement).style.setProperty('--tilt-x', '0deg');
+      (photo as HTMLElement).style.setProperty('--tilt-y', '0deg');
+    });
+  }
+</script>

@@ -1,0 +1,94 @@
+---
+---
+
+<section class="manifesto">
+  <div class="manifesto-inner">
+    <div class="eyebrow reveal">04 / On Building</div>
+    <p class="manifesto-text reveal" data-d="1">
+      I don't believe in the <em>"either/or"</em> myth — code or care, business or study,
+      founder or student. The interesting work lives in the seams.
+      I've shipped a root-hiding module that lets Uber drivers in Nairobi keep their phone,
+      a money-movement API, and an operating system kernel in the same year I learned to chart a patient.
+      <strong>None of it was a detour.</strong>
+    </p>
+    <div class="manifesto-sign reveal" data-d="2">
+      — Lee Muriithi Kingori · Nyeri / Nairobi · 2026
+    </div>
+  </div>
+</section>
+
+<style>
+  .manifesto {
+    padding: 8rem 0;
+    background: var(--ivory-3);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .manifesto-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--muted);
+  }
+  .manifesto-text {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: 'opsz' 60, 'SOFT' 50;
+    font-weight: 300;
+    font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    max-width: 920px;
+    margin: 0;
+  }
+  .manifesto-text em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    font-variation-settings: 'opsz' 60, 'SOFT' 100;
+  }
+  .manifesto-text strong {
+    font-weight: 500;
+    background: linear-gradient(transparent 60%, rgba(197, 48, 43, 0.18) 60%);
+    padding: 0 0.05em;
+  }
+  .manifesto-sign {
+    margin-top: 3rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal[data-d="1"] { transition-delay: 0.08s; }
+  .reveal[data-d="2"] { transition-delay: 0.16s; }
+  @media (max-width: 720px) {
+    .manifesto { padding: 5rem 0; }
+  }
+</style>

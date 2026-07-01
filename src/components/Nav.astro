@@ -1,0 +1,79 @@
+---
+import { projects } from '../data/projects';
+---
+
+<div class="meta" role="banner">
+  <div class="meta-left">
+    <span class="meta-dot" aria-hidden="true"></span>
+    <span>Available · Nairobi · UTC+3</span>
+  </div>
+  <nav class="meta-right" aria-label="Primary">
+    <a href="#work">Work</a>
+    <span class="sep">·</span>
+    <a href="#services">Services</a>
+    <span class="sep">·</span>
+    <a href="#contact">Contact</a>
+  </nav>
+</div>
+
+<style>
+  .meta {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: rgba(242, 237, 226, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .meta a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .meta a:hover {
+    color: var(--accent);
+  }
+  .meta-left {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .meta-right {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+  }
+  .meta-right .sep {
+    color: var(--muted);
+    opacity: 0.5;
+  }
+  .meta-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+  @media (max-width: 720px) {
+    .meta { padding: 0.7rem 1rem; font-size: 0.6rem; }
+    .meta-left { gap: 0.7rem; }
+    .meta-left span:last-child { display: none; }
+  }
+</style>
