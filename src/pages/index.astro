@@ -172,7 +172,7 @@ const STATUS = statusMeta as Record<Status, { label: string; tone: string }>;
     padding: 0 2rem 0;
   }
   section {
-    padding: 7rem 0;
+    padding: 5rem 0;
     border-top: 1px solid var(--rule);
     position: relative;
   }
@@ -181,17 +181,16 @@ const STATUS = statusMeta as Record<Status, { label: string; tone: string }>;
      Topbar
      ============================================================ */
   .topbar {
-    border-bottom: 1px solid var(--rule);
-    background: var(--paper);
+    background: var(--ink);
+    color: var(--paper);
     position: sticky;
     top: 0;
     z-index: 10;
-    backdrop-filter: blur(8px);
   }
   .topbar-inner {
     max-width: 1080px;
     margin: 0 auto;
-    padding: 0.7rem 2rem;
+    padding: 0.85rem 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -200,16 +199,27 @@ const STATUS = statusMeta as Record<Status, { label: string; tone: string }>;
     font-size: 0.7rem;
     letter-spacing: 0.06em;
   }
-  .topbar .mark { display: flex; align-items: center; gap: 0.5rem; }
-  .topbar .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 3px rgba(197,48,43,0.18);
-    animation: live 2.4s ease-in-out infinite;
+  .topbar .mark {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--paper);
+  }
+  .topbar .mark > span:nth-child(2) { font-weight: 500; }
+  .topbar .loc {
+    color: rgba(242,237,226,0.55);
+    text-transform: lowercase;
+    letter-spacing: 0.12em;
   }
   .topbar nav { display: flex; gap: 1.4rem; }
-  .topbar nav a { color: var(--ink-3); text-decoration: none; }
-  .topbar nav a:hover { color: var(--ink); }
+  .topbar nav a { color: rgba(242,237,226,0.7); text-decoration: none; transition: color 0.18s; }
+  .topbar nav a:hover { color: var(--paper); }
+  .topbar .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(197,48,43,0.30);
+    animation: live 2.4s ease-in-out infinite;
+  }
   @keyframes live {
     0%, 100% { opacity: 1; }
     50%      { opacity: 0.45; }
@@ -219,8 +229,8 @@ const STATUS = statusMeta as Record<Status, { label: string; tone: string }>;
      Identity / Hero
      ============================================================ */
   .identity {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
+    padding-top: 6rem;
+    padding-bottom: 6.4rem;
     border-top: 0;
   }
 
@@ -258,14 +268,14 @@ const STATUS = statusMeta as Record<Status, { label: string; tone: string }>;
   .meta {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.6rem 2rem;
-    max-width: 36rem;
-    font-size: 0.72rem;
+    gap: 0;
+    max-width: 38rem;
+    font-size: 0.74rem;
     text-transform: uppercase;
     letter-spacing: 0.14em;
     color: var(--ink-3);
-    border-top: 1px solid var(--rule);
-    padding-top: 1.4rem;
+    border-top: 1px solid var(--ink);
+    padding-top: 0;
     margin: 0;
   }
   .meta > div {
@@ -273,7 +283,13 @@ const STATUS = statusMeta as Record<Status, { label: string; tone: string }>;
     grid-template-columns: 5rem 1fr;
     gap: 1rem;
     align-items: baseline;
+    padding: 0.85rem 0 0.85rem;
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    padding-right: 1.4rem;
   }
+  .meta > div:nth-child(2n) { border-right: 0; }
+  .meta > div:nth-last-child(-n+2) { padding-bottom: 0; }
   .meta dt { color: var(--accent); margin: 0; }
   .meta dd { color: var(--ink); margin: 0; }
 
@@ -286,6 +302,16 @@ const STATUS = statusMeta as Record<Status, { label: string; tone: string }>;
     text-transform: uppercase;
     color: var(--accent);
     margin: 0 0 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 1.6rem;
+    height: 2px;
+    background: var(--accent);
+    display: inline-block;
   }
   .sec-head { margin-bottom: 3.4rem; max-width: 38rem; }
   .sec-title {
