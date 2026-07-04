@@ -1,5 +1,5 @@
 ---
-// Topbar: single sticky line with mark, location, and nav anchors.
+// Topbar: sticky dark header strip with mark + location + nav.
 ---
 <header class="topbar">
   <div class="topbar-inner">
@@ -13,3 +13,58 @@
     </nav>
   </div>
 </header>
+
+<style>
+  .topbar {
+    background: var(--ink);
+    color: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .topbar-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0.85rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+  .topbar .mark {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--paper);
+  }
+  .topbar .mark > span:nth-child(2) { font-weight: 500; }
+  .topbar .loc {
+    color: rgba(242, 237, 226, 0.55);
+    text-transform: lowercase;
+    letter-spacing: 0.12em;
+  }
+  .topbar nav { display: flex; gap: 1.4rem; }
+  .topbar nav a {
+    color: rgba(242, 237, 226, 0.7);
+    text-decoration: none;
+    transition: color 0.18s;
+  }
+  .topbar nav a:hover { color: var(--paper); }
+  .topbar .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(197, 48, 43, 0.30);
+    animation: live 2.4s ease-in-out infinite;
+  }
+  @keyframes live {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.45; }
+  }
+
+  @media (max-width: 760px) {
+    .topbar nav { display: none; }
+  }
+</style>
