@@ -1,0 +1,59 @@
+/* ============================================================
+   Reset
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body, h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dd, figure, blockquote, pre {
+  margin: 0;
+  padding: 0;
+}
+ol, ul { list-style: none; }
+img, svg, video, canvas { display: block; max-width: 100%; height: auto; }
+button, input, textarea, select { font: inherit; color: inherit; }
+
+/* ============================================================
+   Tokens
+   ============================================================ */
+:root {
+  --paper:        #f2ede2;
+  --ivory:        #ece5d6;
+  --ivory-2:      #e3d9c4;
+  --ink:          #14110f;
+  --ink-2:        #2a2522;
+  --ink-3:        #6a635a;
+  --rule:         #d7cfbe;
+  --rule-strong:  #b9b1a0;
+  --accent:       #c5302b;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+html, body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+body {
+  min-height: 100vh;
+}
+
+a {
+  color: var(--ink);
+}
+
+/* Mono utility */
+.mono {
+  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', monospace;
+  font-feature-settings: 'calt' 0;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--paper);
+}

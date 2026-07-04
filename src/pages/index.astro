@@ -1,0 +1,592 @@
+---
+import Base from '../layouts/Base.astro';
+import Topbar from '../components/Topbar.astro';
+import { projects } from '../data/projects';
+import { timeline } from '../data/timeline';
+
+const year = new Date().getFullYear();
+
+const statusMeta = {
+  shipped: { label: 'shipped', tone: 'a' },
+  beta:    { label: 'beta',    tone: 'b' },
+  wip:     { label: 'wip',     tone: 'c' },
+  arch:    { label: 'archived',tone: 'd' },
+} as const;
+
+type Status = keyof typeof statusMeta;
+const STATUS = statusMeta as Record<Status, { label: string; tone: string }>;
+---
+
+<Base title="Lee Muriithi Kingori" description="Founder of Lestramk. Writes software that moves money and hides root. From Nairobi.">
+  <Topbar />
+
+  <main class="page">
+
+    <!-- 01 · Identity -->
+    <section class="identity">
+      <p class="eyebrow mono">01 / Identity</p>
+      <h1 class="headline">
+        Writes <em>software</em> that<br/>
+        moves money&nbsp;and<br/>
+        hides <em>root.</em>
+      </h1>
+      <p class="lede">
+        I'm Lee. Founder of <a href="#lestramk">Lestramk</a>. BSN at DeKUT.
+        I build <span class="hl">operating systems</span>,
+        <span class="hl">Android root-hiding modules</span>, and small tools for
+        people I trust. Nairobi, Kenya. I ship.
+      </p>
+      <dl class="meta mono">
+        <div><dt>uid</dt><dd>lee@lestramk</dd></div>
+        <div><dt>since</dt><dd>2020 · still shipping</dd></div>
+        <div><dt>role</dt><dd>founder / engineer</dd></div>
+        <div><dt>study</dt><dd>BSN, year&nbsp;2</dd></div>
+      </dl>
+    </section>
+
+    <!-- 02 · Currently building -->
+    <section class="work">
+      <header class="sec-head">
+        <p class="eyebrow mono">02 / Currently building</p>
+        <h2 class="sec-title">Open work, by priority.</h2>
+      </header>
+
+      <ol class="cards">
+        {projects.map((p, i) => (
+          <li class="card">
+            <a class="card-link" href={p.href} target="_blank" rel="noopener noreferrer">
+              <span class="card-i mono">{String(i + 1).padStart(2, '0')}</span>
+              <div class="card-body">
+                <div class="card-top">
+                  <h3 class="card-title">{p.name}</h3>
+                  <span class={`pill mono pill-${STATUS[p.status].tone}`}>{STATUS[p.status].label}</span>
+                </div>
+                <p class="card-sub mono">{p.tag}</p>
+                <p class="card-desc">{p.desc}</p>
+                <p class="card-foot mono">
+                  {p.stack.map((s, j) => (
+                    <span>
+                      {s}{j < p.stack.length - 1 ? <span class="sep"> · </span> : null}
+                    </span>
+                  ))}
+                </p>
+              </div>
+              <span class="card-arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- 03 · Recent -->
+    <section class="recent">
+      <header class="sec-head">
+        <p class="eyebrow mono">03 / Recent</p>
+        <h2 class="sec-title">What I've shipped, last few weeks.</h2>
+        <p class="sec-sub">
+          Hardcoded. Edit <code class="mono">src/data/timeline.ts</code> when
+          a real commit lands.
+        </p>
+      </header>
+
+      <ol class="timeline">
+        {timeline.map((row) => (
+          <li class="t-row">
+            <time class="t-when mono" datetime={row.date}>{row.date}</time>
+            <span class="t-dot" aria-hidden="true"></span>
+            <div class="t-body">
+              <p class="t-title">{row.title}</p>
+              <p class="t-sub mono">{row.kind} · {row.repo}</p>
+              {row.body && <p class="t-text">{row.body}</p>}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- 04 · Two halves -->
+    <section class="halves">
+      <header class="sec-head">
+        <p class="eyebrow mono">04 / Two halves</p>
+        <h2 class="sec-title">One foot in each.</h2>
+      </header>
+      <div class="half-grid">
+        <article class="half">
+          <p class="half-key mono">engineer</p>
+          <h3 class="half-title">Builds <em>systems</em> that move.</h3>
+          <ul class="half-list">
+            <li><span class="hl">Native Android</span> — Kotlin, NDK, Magisk modules.</li>
+            <li><span class="hl">Systems</span> — C, x86_64, kernel work, Linux from scratch.</li>
+            <li><span class="hl">Web</span> — TypeScript, Next.js, Prisma, Postgres.</li>
+            <li><span class="hl">Infra</span> — SOCKS5 tunnels, proxies, privacy networking.</li>
+            <li><span class="hl">AI tooling</span> — agent skills, prompt ops, model integration.</li>
+          </ul>
+          <p class="half-foot mono">Since 2020 · self-taught · still shipping</p>
+        </article>
+
+        <article class="half">
+          <p class="half-key mono">student nurse</p>
+          <h3 class="half-title">Reads vital signs. <em>Holds steady.</em></h3>
+          <ul class="half-list">
+            <li>BSN, Dedan Kimathi University of Technology — Nyeri.</li>
+            <li>Patient assessment, vital signs, clinical documentation.</li>
+            <li>Pharmacology basics, wound care, triage, IPC.</li>
+            <li>Quietly learning to keep humans alive while keeping systems alive.</li>
+          </ul>
+          <p class="half-foot mono">Since 2024 · active</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 05 · Contact -->
+    <section class="contact" id="contact">
+      <header class="sec-head">
+        <p class="eyebrow mono">05 / Reach me</p>
+        <h2 class="sec-title">Telegram, then everything else.</h2>
+      </header>
+      <dl class="reach mono">
+        <div><dt>telegram</dt><dd><a href="https://t.me/lestramk">@lestramk</a></dd></div>
+        <div><dt>github</dt><dd><a href="https://github.com/lee-muriithi-kingori">@lee-muriithi-kingori</a></dd></div>
+        <div><dt>linkedin</dt><dd><a href="https://www.linkedin.com/in/lee-muriithi-kingori">lee-muriithi-kingori</a></dd></div>
+        <div><dt>orcid</dt><dd><a href="https://orcid.org/0009-0008-8647-2813">0009-0008-8647-2813</a></dd></div>
+        <div><dt>sponsor</dt><dd><a href="https://github.com/sponsors/lee-muriithi-kingori">github.com/sponsors/lee-muriithi-kingori</a></dd></div>
+        <div><dt>web</dt><dd><a href="https://lestramk.org">lestramk.org</a></dd></div>
+      </dl>
+    </section>
+
+  </main>
+
+  <footer class="bottom">
+    <p class="mono">© {year} Lee Muriithi Kingori · lestramk.org</p>
+    <p class="mono">built with <a href="https://astro.build">astro</a> · deployed by <a href="https://github.com/lee-muriithi-kingori/lee-muriithi-kingori.github.io/actions">github actions</a></p>
+  </footer>
+</Base>
+
+<style>
+  /* ============================================================
+     Layout
+     ============================================================ */
+  .page {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 2rem 0;
+  }
+  section {
+    padding: 7rem 0;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+
+  /* ============================================================
+     Topbar
+     ============================================================ */
+  .topbar {
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+  }
+  .topbar-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0.7rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+  .topbar .mark { display: flex; align-items: center; gap: 0.5rem; }
+  .topbar .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(197,48,43,0.18);
+    animation: live 2.4s ease-in-out infinite;
+  }
+  .topbar nav { display: flex; gap: 1.4rem; }
+  .topbar nav a { color: var(--ink-3); text-decoration: none; }
+  .topbar nav a:hover { color: var(--ink); }
+  @keyframes live {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.45; }
+  }
+
+  /* ============================================================
+     Identity / Hero
+     ============================================================ */
+  .identity {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    border-top: 0;
+  }
+
+  .headline {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: clamp(3rem, 8.5vw, 7rem);
+    line-height: 0.94;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin: 1.6rem 0 2.4rem;
+  }
+  .headline em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .lede {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 38rem;
+    margin: 0 0 2.8rem;
+  }
+  .lede a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .lede a:hover { border-bottom-color: var(--accent); }
+  .hl { color: var(--accent); font-weight: 500; }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem 2rem;
+    max-width: 36rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-3);
+    border-top: 1px solid var(--rule);
+    padding-top: 1.4rem;
+    margin: 0;
+  }
+  .meta > div {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+  }
+  .meta dt { color: var(--accent); margin: 0; }
+  .meta dd { color: var(--ink); margin: 0; }
+
+  /* ============================================================
+     Section header (shared)
+     ============================================================ */
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 1.4rem;
+  }
+  .sec-head { margin-bottom: 3.4rem; max-width: 38rem; }
+  .sec-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    color: var(--ink);
+    margin: 0 0 1rem;
+  }
+  .sec-sub {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-3);
+    margin: 0;
+  }
+  .sec-sub code {
+    background: var(--ivory-2);
+    border: 1px solid var(--rule);
+    padding: 0.05rem 0.4rem;
+    font-size: 0.85em;
+  }
+
+  /* ============================================================
+     02 — Project cards
+     ============================================================ */
+  .cards {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .card { background: var(--paper); }
+  .card-link {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr 1.5rem;
+    gap: 1.2rem;
+    padding: 1.8rem 1.6rem 1.6rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.18s ease;
+  }
+  .card-link:hover { background: var(--ivory-2); }
+  .card-i {
+    font-size: 0.84rem;
+    color: var(--accent);
+    letter-spacing: 0.18em;
+    padding-top: 0.18rem;
+  }
+  .card-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-bottom: 0.2rem;
+  }
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 1.55rem;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .card-sub {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-3);
+    margin: 0 0 0.7rem;
+  }
+  .card-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.96rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0 0 1rem;
+  }
+  .card-foot {
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-3);
+  }
+  .card-foot .sep { color: var(--rule-strong); }
+  .card-arrow {
+    color: var(--rule-strong);
+    font-size: 1.2rem;
+    transition: color 0.18s, transform 0.18s;
+  }
+  .card-link:hover .card-arrow {
+    color: var(--accent);
+    transform: translate(3px, -3px);
+  }
+
+  /* Pills */
+  .pill {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    padding: 0.18rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid;
+    flex-shrink: 0;
+  }
+  .pill-a { color: var(--accent);      border-color: var(--accent); }
+  .pill-b { color: #8a6a2e;            border-color: #c9a35a; }
+  .pill-c { color: #4a5d80;            border-color: #6e85b5; }
+  .pill-d { color: var(--ink-3);       border-color: var(--rule-strong); }
+
+  /* ============================================================
+     03 — Timeline
+     ============================================================ */
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .t-row {
+    display: grid;
+    grid-template-columns: 7.5rem 2rem 1fr;
+    gap: 1.4rem;
+    padding: 1.4rem 0 1.4rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .t-when {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-3);
+    padding-top: 0.18rem;
+  }
+  .t-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--ink);
+    margin-top: 0.6rem;
+    align-self: start;
+    justify-self: center;
+  }
+  .t-body { padding-right: 2rem; }
+  .t-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    color: var(--ink);
+    margin: 0 0 0.3rem;
+    letter-spacing: -0.01em;
+  }
+  .t-sub {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-3);
+    margin: 0 0 0.6rem;
+  }
+  .t-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.96rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* ============================================================
+     04 — Halves
+     ============================================================ */
+  .half-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+  .half {
+    padding: 2.4rem 2rem 2rem;
+    border-right: 1px solid var(--rule);
+  }
+  .half:last-child { border-right: 0; }
+  .half-key {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    margin: 0 0 1rem;
+  }
+  .half-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 1.85rem;
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+    margin: 0 0 1.4rem;
+  }
+  .half-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .half-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.6rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.96rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+  .half-list li {
+    padding: 0.5rem 0;
+    border-top: 1px dashed var(--rule);
+  }
+  .half-list li:last-child { border-bottom: 1px dashed var(--rule); }
+  .half-foot {
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-3);
+    margin: 0;
+  }
+
+  /* ============================================================
+     05 — Contact
+     ============================================================ */
+  .reach {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem 2.5rem;
+    margin: 0;
+    border-top: 1px solid var(--rule);
+    padding-top: 1.6rem;
+    font-size: 0.86rem;
+  }
+  .reach > div {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: 1.5rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .reach dt {
+    color: var(--ink-3);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+  .reach dd { color: var(--ink); margin: 0; }
+  .reach a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-strong);
+    transition: border-color 0.18s, color 0.18s;
+  }
+  .reach a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* ============================================================
+     Footer
+     ============================================================ */
+  .bottom {
+    border-top: 1px solid var(--rule);
+    margin-top: 4rem;
+    padding: 1.6rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    flex-wrap: wrap;
+  }
+  .bottom a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  .bottom a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ============================================================
+     Responsive
+     ============================================================ */
+  @media (max-width: 760px) {
+    section { padding: 5rem 0; }
+    .identity { padding-top: 5rem; padding-bottom: 5rem; }
+    .headline { font-size: clamp(2.5rem, 11vw, 4rem); }
+    .cards { grid-template-columns: 1fr; }
+    .half-grid { grid-template-columns: 1fr; }
+    .half { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .reach { grid-template-columns: 1fr; }
+    .meta { grid-template-columns: 1fr; }
+    .t-row { grid-template-columns: 5rem 1.4rem 1fr; gap: 0.6rem; }
+    .topbar nav { display: none; }
+  }
+</style>
