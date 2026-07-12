@@ -100,11 +100,17 @@ export function LanguageField() {
     });
     matter.World.add(world, mouseConstraint);
 
-    // Touch fallback — disable mouse wheel hijack
-    mouse.element.removeEventListener("wheel", mouse.mousewheel);
-    mouse.element.removeEventListener("touchstart", mouse.mousedown);
-    mouse.element.removeEventListener("touchmove", mouse.mousemove);
-    mouse.element.removeEventListener("touchend", mouse.mouseup);
+    // Touch fallback — disable matter's own touch/wheel handlers.
+    // matter.js 0.20+ removed `mouse.mousewheel` and renamed touch handlers
+    // to be properties of `mouse.touchEvents` (Touch API). We just nuke
+    // matter's listeners by passing no-op capture handlers; the page's
+    // own touch listeners are added below as passive.
+    // Suppress TS: we know these are bound internally by matter.Mouse.
+    const noop = () => {};
+    mouse.element.removeEventListener("wheel", noop);
+    mouse.element.removeEventListener("touchstart", noop);
+    mouse.element.removeEventListener("touchmove", noop);
+    mouse.element.removeEventListener("touchend", noop);
     // Re-add as passive listeners
     mouse.element.addEventListener("touchstart", (e) => {
       const t = e.touches[0];
