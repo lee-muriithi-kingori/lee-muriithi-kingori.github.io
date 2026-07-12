@@ -52,11 +52,13 @@
     "react-resizable-panels": "^3.0.3",
     "sonner": "^2.0.6",
     "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7",
     "zod": "^4.0.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/matter-js": "^0.20.2",
+    "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tailwindcss": "^4",
