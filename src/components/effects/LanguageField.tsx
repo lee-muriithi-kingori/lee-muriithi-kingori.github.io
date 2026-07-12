@@ -53,7 +53,7 @@ export function LanguageField() {
 
     // Body inventory — distribute icons per their declared weight.
     // Cap total at 28 bodies for performance (Criticiser flagged >40).
-    const TARGET = 28;
+    const TARGET = 34;
     const totalWeight = languages.reduce((s, l) => s + l.weight, 0);
     const bodies: matter.Body[] = [];
     const metas: BodyMeta[] = [];
@@ -62,7 +62,7 @@ export function LanguageField() {
     for (const lang of languages) {
       const count = Math.max(1, Math.round((lang.weight / totalWeight) * TARGET));
       for (let i = 0; i < count && bodies.length < TARGET; i++) {
-        const radius = 18 + Math.random() * 10;
+        const radius = 22 + Math.random() * 14;
         const x = 80 + Math.random() * (width - 160);
         const y = 80 + Math.random() * (height - 160);
         const body = matter.Bodies.circle(x, y, radius, {
@@ -100,17 +100,11 @@ export function LanguageField() {
     });
     matter.World.add(world, mouseConstraint);
 
-    // Touch fallback — disable matter's own touch/wheel handlers.
-    // matter.js 0.20+ removed `mouse.mousewheel` and renamed touch handlers
-    // to be properties of `mouse.touchEvents` (Touch API). We just nuke
-    // matter's listeners by passing no-op capture handlers; the page's
-    // own touch listeners are added below as passive.
-    // Suppress TS: we know these are bound internally by matter.Mouse.
-    const noop = () => {};
-    mouse.element.removeEventListener("wheel", noop);
-    mouse.element.removeEventListener("touchstart", noop);
-    mouse.element.removeEventListener("touchmove", noop);
-    mouse.element.removeEventListener("touchend", noop);
+    // Touch fallback — disable mouse wheel hijack
+    mouse.element.removeEventListener("wheel", mouse.mousewheel);
+    mouse.element.removeEventListener("touchstart", mouse.mousedown);
+    mouse.element.removeEventListener("touchmove", mouse.mousemove);
+    mouse.element.removeEventListener("touchend", mouse.mouseup);
     // Re-add as passive listeners
     mouse.element.addEventListener("touchstart", (e) => {
       const t = e.touches[0];
@@ -156,23 +150,24 @@ export function LanguageField() {
       el.style.justifyContent = "center";
       el.style.willChange = "transform";
       el.style.pointerEvents = "none";
-      el.style.opacity = "0.42";
+      el.style.opacity = "0.85";
 
       // Glass-tinted circle behind icon
       const ring = document.createElement("div");
       ring.style.position = "absolute";
       ring.style.inset = "0";
       ring.style.borderRadius = "50%";
-      ring.style.background = `radial-gradient(circle, ${meta.color}1a 0%, transparent 70%)`;
-      ring.style.border = `1px solid ${meta.color}33`;
+      ring.style.background = `radial-gradient(circle, ${meta.color}33 0%, ${meta.color}11 50%, transparent 75%)`;
+      ring.style.border = `1px solid ${meta.color}66`;
+      ring.style.boxShadow = `0 0 16px ${meta.color}22, inset 0 0 8px ${meta.color}11`;
       el.appendChild(ring);
 
       // The actual language icon
       const iconHost = document.createElement("div");
       iconHost.style.position = "relative";
       iconHost.style.color = meta.color;
-      iconHost.style.filter = "drop-shadow(0 0 8px rgba(0,0,0,0.6))";
-      iconHost.style.opacity = "0.7";
+      iconHost.style.filter = `drop-shadow(0 0 6px ${meta.color}aa) drop-shadow(0 1px 2px rgba(0,0,0,0.8))`;
+      iconHost.style.opacity = "1";
       // Use React portal alternative: render SVG string
       iconHost.innerHTML = renderIconSvg(meta.id, meta.radius);
       el.appendChild(iconHost);

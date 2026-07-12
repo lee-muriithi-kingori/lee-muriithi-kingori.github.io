@@ -195,8 +195,8 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  opacity: 0.12;
-  filter: grayscale(0.6) contrast(1.05) blur(1.5px);
+  opacity: 0.18;
+  filter: grayscale(0.5) contrast(1.1) blur(1px);
   pointer-events: none;
 }
 
@@ -205,8 +205,8 @@
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(197, 48, 43, 0.06) 0%, transparent 60%),
-    linear-gradient(180deg, rgba(10, 9, 8, 0.78) 0%, rgba(10, 9, 8, 0.92) 50%, rgba(10, 9, 8, 0.96) 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(197, 48, 43, 0.05) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(10, 9, 8, 0.55) 0%, rgba(10, 9, 8, 0.78) 50%, rgba(10, 9, 8, 0.88) 100%);
   pointer-events: none;
 }
 
