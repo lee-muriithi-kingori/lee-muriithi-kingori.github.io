@@ -330,5 +330,8 @@ section {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .physics-layer, .grid-overlay, .bg-video { display: none !important; }
+  /* Hide only the matter-js physics layer (the "floating language icons").
+     Keep the bg-video + grid-overlay visible — they're passive decoration,
+     not motion that causes vestibular issues. */
+  .physics-layer { display: none !important; }
 }
