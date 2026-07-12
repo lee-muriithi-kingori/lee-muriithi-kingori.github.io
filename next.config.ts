@@ -17,7 +17,6 @@ const nextConfig: NextConfig = {
   // The original config had ignoreBuildErrors: true, which let real
   // bugs ship. Tighten that up.
   typescript: { ignoreBuildErrors: false },
-  eslint: { ignoreDuringBuilds: false },
 
   // No basePath — site is at the GitHub Pages root.
   // If you later move it to user.github.io/portfolio/ set
