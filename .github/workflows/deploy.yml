@@ -1,4 +1,15 @@
-name: Build & publish to GitHub Pages
+# Build a static Next.js portfolio and deploy to GitHub Pages.
+#
+# Triggered on every push to main. Uses `actions/deploy-pages@v4` to
+# upload the `out/` directory as a Pages artifact.
+#
+# Setup requirement (one time, in repo Settings → Pages):
+#   Source: "GitHub Actions"
+#
+# Custom domain: configure in Settings → Pages → Custom domain.
+# CNAME: https://leekingori.lestramk.org is set in public/CNAME.
+
+name: Deploy portfolio to GitHub Pages
 
 on:
   push:
@@ -6,34 +17,62 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: 20
-          cache: npm
+          bun-version: 1.3.x
 
-      - name: Install
-        run: npm ci
+      - name: Install dependencies
+        run: bun install --frozen-lockfile 2>/dev/null || bun install
 
-      - name: Build
-        run: npm run build
+      - name: Build (next export → ./out)
+        run: bun run build
+        env:
+          # Disable telemetry during CI build
+          NEXT_TELEMETRY_DISABLED: "1"
 
-      - name: Publish to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Copy static assets
+        # The static export already includes /public but Next sometimes
+        # excludes files Next.js doesn't recognize. Force-copy videos and
+        # icons if they aren't in ./out.
+        run: |
+          if [ -d "public" ]; then
+            cp -rn public/. out/ 2>/dev/null || true
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          keep_files: false
-          enable_jekyll: false
-          force_orphan: true
+          path: ./out
+          retention-days: 7
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,334 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   LESTRAMK — Dark Editorial Design System
+   Board-ratified palette, Fraunces + Inter + JetBrains Mono
+   ============================================================ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-paper: var(--paper);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-lestra: var(--lestra);
+  --color-lestra-soft: var(--lestra-soft);
+  --color-amber: var(--amber);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  /* Force dark editorial — no light mode, this IS the brand */
+  --radius: 0.25rem;
+
+  /* Surfaces — deep ink, warm not pure black */
+  --background: #0a0908;
+  --surface: #14110f;
+  --surface-2: #1a1714;
+  --card: #14110f;
+  --card-foreground: #f2ede2;
+  --popover: #14110f;
+  --popover-foreground: #f2ede2;
+
+  /* Ink scale — paper-warm whites on dark */
+  --foreground: #f2ede2;
+  --paper: #f2ede2;
+  --ink: #f2ede2;
+  --ink-2: #c9c1b3;
+  --ink-3: #8a8275;
+
+  /* Rules — subtle warm borders */
+  --rule: #2a2522;
+  --rule-strong: #3d3733;
+  --border: #2a2522;
+  --input: #2a2522;
+
+  /* Brand accent — signature Lestra red */
+  --lestra: #c5302b;
+  --lestra-soft: rgba(197, 48, 43, 0.16);
+  --accent: #c5302b;
+  --accent-foreground: #f2ede2;
+  --amber: #d9a35a;
+  --primary: #c5302b;
+  --primary-foreground: #f2ede2;
+  --secondary: #1a1714;
+  --secondary-foreground: #f2ede2;
+  --muted: #1a1714;
+  --muted-foreground: #8a8275;
+  --destructive: #c5302b;
+  --ring: #c5302b;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html, body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+  body {
+    font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--lestra);
+    color: var(--paper);
+  }
+}
+
+/* ============================================================
+   Typography utilities — Board-ratified
+   ============================================================ */
+.font-display { font-family: var(--font-display), 'Fraunces', Georgia, serif; }
+.font-sans    { font-family: var(--font-sans), 'Inter', system-ui, sans-serif; }
+.font-mono    { font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace; }
+
+/* Editorial headline */
+.headline {
+  font-family: var(--font-display), 'Fraunces', Georgia, serif;
+  font-weight: 300;
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.headline em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--lestra);
+}
+
+/* Eyebrow label */
+.eyebrow {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lestra);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 1.6rem;
+  height: 2px;
+  background: var(--lestra);
+  display: inline-block;
+}
+
+/* Mono utility — disables contextual alternates for cleaner code look */
+.mono {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-feature-settings: 'calt' 0;
+}
+
+/* ============================================================
+   Scrollbar — slim, warm
+   ============================================================ */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb {
+  background: var(--rule-strong);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--lestra); }
+
+/* ============================================================
+   Physics canvas — fullscreen behind content
+   ============================================================ */
+.physics-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Content sits above physics */
+.content-layer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   Background video — bottom layer, low opacity, blur
+   ============================================================ */
+.bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.12;
+  filter: grayscale(0.6) contrast(1.05) blur(1.5px);
+  pointer-events: none;
+}
+
+.bg-video-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(197, 48, 43, 0.06) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(10, 9, 8, 0.78) 0%, rgba(10, 9, 8, 0.92) 50%, rgba(10, 9, 8, 0.96) 100%);
+  pointer-events: none;
+}
+
+/* ============================================================
+   Editorial rules
+   ============================================================ */
+.rule-top    { border-top: 1px solid var(--rule); }
+.rule-bottom { border-bottom: 1px solid var(--rule); }
+
+/* Subtle grid overlay for the cyber-tech feel */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(242, 237, 226, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242, 237, 226, 0.018) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
+}
+
+/* ============================================================
+   Custom cursor — amber dot with ring (cyber)
+   ============================================================ */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--paper);
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(242, 237, 226, 0.4);
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, border-color 0.2s;
+}
+@media (hover: none) {
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ============================================================
+   Pill / status badge
+   ============================================================ */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid;
+  flex-shrink: 0;
+}
+.pill-shipped { color: var(--lestra); border-color: var(--lestra); }
+.pill-beta    { color: var(--amber); border-color: var(--amber); }
+.pill-wip     { color: #6e85b5; border-color: #6e85b5; }
+
+/* ============================================================
+   Disable horizontal scroll from matter.js bodies
+   ============================================================ */
+body { overflow-x: hidden; }
+
+/* ============================================================
+   Animated underline for links
+   ============================================================ */
+.link-underline {
+  position: relative;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong);
+  transition: color 0.18s, border-color 0.18s;
+}
+.link-underline:hover {
+  color: var(--lestra);
+  border-color: var(--lestra);
+}
+
+/* ============================================================
+   Section vertical rhythm
+   ============================================================ */
+section {
+  padding: 7rem 0;
+  border-top: 1px solid var(--rule);
+  position: relative;
+}
+@media (max-width: 760px) {
+  section { padding: 5rem 0; }
+}
+
+/* ============================================================
+   Card hover lift
+   ============================================================ */
+.card-lift {
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.25s, background 0.25s;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  border-color: var(--lestra);
+}
+
+/* ============================================================
+   Reduced motion — respect user preference
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .physics-layer, .grid-overlay, .bg-video { display: none !important; }
+}
