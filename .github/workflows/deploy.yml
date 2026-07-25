@@ -23,7 +23,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -31,7 +30,7 @@ jobs:
       - name: Build with Next.js (static export)
         run: |
           sed -i 's/output: "standalone"/output: "export"/' next.config.ts
-          npm run build
+          npx next build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
