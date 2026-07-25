@@ -150,7 +150,7 @@ export function LanguageField() {
       el.style.justifyContent = "center";
       el.style.willChange = "transform";
       el.style.pointerEvents = "none";
-      el.style.opacity = "0.85";
+      el.style.opacity = "0.5";
 
       // Glass-tinted circle behind icon
       const ring = document.createElement("div");
@@ -166,8 +166,8 @@ export function LanguageField() {
       const iconHost = document.createElement("div");
       iconHost.style.position = "relative";
       iconHost.style.color = meta.color;
-      iconHost.style.filter = `drop-shadow(0 0 6px ${meta.color}aa) drop-shadow(0 1px 2px rgba(0,0,0,0.8))`;
-      iconHost.style.opacity = "1";
+      iconHost.style.filter = `drop-shadow(0 0 6px ${meta.color}aa) drop-shadow(0 1px 2px rgba(0,0,0,0.15))`;
+      iconHost.style.opacity = "0.7";
       // Use React portal alternative: render SVG string
       iconHost.innerHTML = renderIconSvg(meta.id, meta.radius);
       el.appendChild(iconHost);

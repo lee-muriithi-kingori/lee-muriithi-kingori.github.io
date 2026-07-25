@@ -35,6 +35,7 @@ Work Log:
 Stage Summary:
 - Brief ratified. Scope locked. Stack: Next.js 16 + matter-js + framer-motion + GSAP.
 - No emojis. Real SVG icons only. Background video. Physics. Crawling contributions animation.
+- Design: black/white/gold palette. White background, black text, gold accent.
 - lestramk.org is the canonical web presence; portfolio lives at the preview link.
 
 ---
@@ -43,11 +44,11 @@ Agent: Board (orchestrator) + all 7 leads
 Task: Execute the mega revamp end-to-end.
 
 Work Log:
-- 1. BOARD: ratified design system (dark editorial palette, Fraunces + Inter + JetBrains Mono).
+- 1. BOARD: ratified design system (black/white/gold palette, Fraunces + Inter + JetBrains Mono).
 - 2. BOARD: seeded worklog with 7-category roster.
 - 3. DATA: consolidated profile — 4 projects (Rox/LestraOS/aamt/Browser Automation), OSS (scottjn/Zygisk/Linux/Root), nursing+anaesthesia, lestramk.org, IG leetlest, email.
 - 4. DESIGN: built BrandIcons.tsx (GitHub/Instagram/Mail/Globe/ArrowUpRight/Terminal/Linux/Android/Zygisk/Shield/Capsule/Pulse/Pin) and LanguageIcons.tsx (Kotlin/C/C++/TypeScript/Python/Shell/Rust/Go/ASM/Java/Node/CMake/Make/QEMU/CDP).
-- 5. ENGINEERING: scaffolded Next.js 16 app, dark editorial globals.css, layout.tsx with Fraunces/Inter/JetBrains Mono via next/font.
+- 5. ENGINEERING: scaffolded Next.js 16 app, black/white/gold globals.css, layout.tsx with Fraunces/Inter/JetBrains Mono via next/font.
 - 6. PHYSICS: LanguageField.tsx — matter.js, 28 bodies capped, zero-g + center attractor, mouse drag, DOM-rendered icons, cleanup on unmount.
 - 7. ANIMATIONS: ContributionsChart.tsx — 52w x 7d deterministic grid, real crawler walking real cell coords via getPointAtLength, language stats cards.
 - 8. DESIGN: Hero with kinetic staggered word reveal, meta grid, status row with lestramk.org link.
@@ -70,5 +71,6 @@ Stage Summary:
 - OSS: scottjn, Zygisk, Linux kernel, Root/Magisk community.
 - 7-category agent methodology visible on-page in AgentConsensus section.
 - lestramk.org prominent in topbar, hero, contact, and 3xl in footer.
+- Design: black/white/gold palette. White background, black text, gold accent.
 - Lint: clean. Console: clean. Mobile: legible. Sticky footer: verified.
 - Quality bar: 9/10 verified by VLM. Board approves.

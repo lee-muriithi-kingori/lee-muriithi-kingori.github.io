@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     icon: [
       {
         url:
-          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230a0908'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='18' fill='%23f2ede2'%3EL%3C/text%3E%3Crect x='6' y='6' width='3' height='3' fill='%23c5302b'/%3E%3C/svg%3E",
+          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23ffffff'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='18' fill='%230a0a0a'%3EL%3C/text%3E%3Crect x='6' y='6' width='3' height='3' fill='%23b8860b'/%3E%3C/svg%3E",
         type: "image/svg+xml",
       },
     ],
@@ -76,8 +76,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#0a0908",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
@@ -86,7 +86,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${fraunces.variable} ${inter.variable} ${jetbrains.variable} antialiased`}
       >

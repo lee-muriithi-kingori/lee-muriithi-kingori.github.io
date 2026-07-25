@@ -23,7 +23,7 @@ export function Topbar() {
     <header
       className="sticky top-0 z-40 backdrop-blur-md transition-colors duration-300"
       style={{
-        background: scrolled ? "rgba(10, 9, 8, 0.85)" : "transparent",
+        background: scrolled ? "rgba(255, 255, 255, 0.88)" : "transparent",
         borderBottom: scrolled ? "1px solid var(--rule)" : "1px solid transparent",
       }}
     >

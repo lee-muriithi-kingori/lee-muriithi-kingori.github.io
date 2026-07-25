@@ -13,10 +13,10 @@ import { motion } from "framer-motion";
 
 const KIND_META: Record<TimelineRow["kind"], { label: string; color: string }> = {
   tag: { label: "tag", color: "var(--lestra)" },
-  merge: { label: "merge", color: "#6e85b5" },
+  merge: { label: "merge", color: "#6b6b6b" },
   commit: { label: "commit", color: "var(--ink-2)" },
   docs: { label: "docs", color: "var(--amber)" },
-  open: { label: "open", color: "#7a9d54" },
+  open: { label: "open", color: "#5a7a3a" },
   rollback: { label: "rollback", color: "#a3372f" },
 };
 

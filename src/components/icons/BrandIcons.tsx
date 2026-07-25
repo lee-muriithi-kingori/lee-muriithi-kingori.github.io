@@ -146,17 +146,17 @@ export const LinuxIcon = React.forwardRef<SVGSVGElement, IconProps>(
       {/* Body — single ellipse */}
       <ellipse cx="12" cy="13" rx="5.5" ry="7.5" fill="currentColor" />
       {/* Belly — lighter inner ellipse */}
-      <ellipse cx="12" cy="14" rx="3" ry="5" fill="#0a0908" opacity="0.6" />
+      <ellipse cx="12" cy="14" rx="3" ry="5" fill="#0a0a0a" opacity="0.6" />
       {/* Head highlight */}
       <ellipse cx="12" cy="6.5" rx="3.5" ry="3.2" fill="currentColor" />
       {/* Eyes */}
-      <circle cx="10.6" cy="6" r="0.7" fill="#0a0908" />
-      <circle cx="13.4" cy="6" r="0.7" fill="#0a0908" />
+      <circle cx="10.6" cy="6" r="0.7" fill="#0a0a0a" />
+      <circle cx="13.4" cy="6" r="0.7" fill="#0a0a0a" />
       {/* Beak */}
-      <path d="M11 7.4l1 1 1-1z" fill="#d9a35a" />
+      <path d="M11 7.4l1 1 1-1z" fill="#b8860b" />
       {/* Feet */}
-      <ellipse cx="9.5" cy="20.8" rx="1.5" ry="0.7" fill="#d9a35a" />
-      <ellipse cx="14.5" cy="20.8" rx="1.5" ry="0.7" fill="#d9a35a" />
+      <ellipse cx="9.5" cy="20.8" rx="1.5" ry="0.7" fill="#b8860b" />
+      <ellipse cx="14.5" cy="20.8" rx="1.5" ry="0.7" fill="#b8860b" />
     </Svg>
   )
 );

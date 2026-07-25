@@ -36,8 +36,8 @@ const CATEGORIES = [
     n: "03",
     name: "Designers",
     role: "visual system, layout, iconography",
-    lead: "lead: dark editorial palette, Fraunces + Inter + JetBrains Mono",
-    color: "#d9a35a",
+    lead: "lead: black/white/gold palette, Fraunces + Inter + JetBrains Mono",
+    color: "#b8860b",
     agents: 10,
     detail:
       "Owns the typographic system, the icon library, the spacing rhythm. No emoji rule enforced here. Every SVG is hand-traced or sourced from CC0/MIT icon sets.",
@@ -47,7 +47,7 @@ const CATEGORIES = [
     name: "Criticiser",
     role: "anti-slop, calls out AI patterns",
     lead: "lead: no fade-up cascades, no fake stats, no lorem ipsum energy",
-    color: "#7a9d54",
+    color: "#5a7a3a",
     agents: 10,
     detail:
       "Reads every paragraph looking for the AI smell. Flags generic transitions, lazy copies, fake metrics, fake testimonials, fake team photos. Holds veto power on every section.",
@@ -57,7 +57,7 @@ const CATEGORIES = [
     name: "Engineers",
     role: "code quality, performance, types",
     lead: "lead: TypeScript strict, no any, deterministic SSR",
-    color: "#6e85b5",
+    color: "#4a6a8a",
     agents: 10,
     detail:
       "Owns the architecture. Matter.js body count is capped. Contributions grid is deterministic. Mouse constraints clean up on unmount. No memory leaks on route change.",
@@ -67,7 +67,7 @@ const CATEGORIES = [
     name: "Animators / Physics",
     role: "motion language, real collisions",
     lead: "lead: matter-js field + GSAP timeline + framer-motion reveals",
-    color: "#9d7ac4",
+    color: "#7a5aa0",
     agents: 10,
     detail:
       "Owns every transition. Physics bodies collide with real restitution. The crawler walks real cell coordinates. Reduced-motion respected on every effect.",
@@ -77,7 +77,7 @@ const CATEGORIES = [
     name: "QA / Reviewers",
     role: "end-to-end verification",
     lead: "lead: agent-browser pass, console clean, sticky footer verified",
-    color: "#5c9d9d",
+    color: "#4a8a7a",
     agents: 10,
     detail:
       "Opens the page in a real browser. Clicks every link. Hovers every cell. Checks console. Verifies sticky footer. Verifies responsive at 375px and 1440px.",

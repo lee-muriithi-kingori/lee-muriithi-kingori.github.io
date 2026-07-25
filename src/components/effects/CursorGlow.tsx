@@ -38,7 +38,7 @@ export function CursorGlow() {
       ring.style.height = isInteractive ? "48px" : "32px";
       ring.style.borderColor = isInteractive
         ? "var(--lestra)"
-        : "rgba(242, 237, 226, 0.4)";
+        : "rgba(10, 10, 10, 0.25)";
     };
 
     const onDown = () => {

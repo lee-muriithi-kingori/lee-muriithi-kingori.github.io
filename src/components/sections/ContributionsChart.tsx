@@ -17,11 +17,11 @@ const GAP = 3;
 const STEP = CELL + GAP;
 
 const LEVEL_FILL = [
-  "#1a1714", // 0 — empty
-  "#3d2b29", // 1 — faint
-  "#7a2e2a", // 2 — medium
-  "#a3372f", // 3 — strong
-  "#c5302b", // 4 — peak
+  "#f0f0f0", // 0 — empty
+  "#d4b896", // 1 — faint
+  "#c49a3c", // 2 — medium
+  "#b8860b", // 3 — strong
+  "#8b6508", // 4 — peak
 ];
 
 export function ContributionsChart() {
@@ -50,7 +50,7 @@ export function ContributionsChart() {
           height={CELL}
           rx={2}
           fill={LEVEL_FILL[level]}
-          stroke="rgba(242,237,226,0.04)"
+          stroke="rgba(10,10,10,0.06)"
           strokeWidth={0.5}
           onMouseEnter={() =>
             setHovered({ x: w * STEP, y: d * STEP, week: w, day: d, level })
@@ -184,7 +184,7 @@ export function ContributionsChart() {
           <path
             d={pathD}
             fill="none"
-            stroke="rgba(197, 48, 43, 0.18)"
+            stroke="rgba(184, 134, 11, 0.15)"
             strokeWidth={1}
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -196,7 +196,7 @@ export function ContributionsChart() {
             cx={pathPoints[0].x}
             cy={pathPoints[0].y}
             r={3.5}
-            fill="#f2ede2"
+            fill="#0a0a0a"
             opacity={0.9}
           />
           <circle
@@ -204,7 +204,7 @@ export function ContributionsChart() {
             cy={pathPoints[0].y}
             r={7}
             fill="none"
-            stroke="#c5302b"
+            stroke="#b8860b"
             strokeWidth={1}
             opacity={0.4}
           >
@@ -232,7 +232,7 @@ export function ContributionsChart() {
                 height={CELL + 2}
                 rx={2.5}
                 fill="none"
-                stroke="#f2ede2"
+                stroke="#0a0a0a"
                 strokeWidth={1}
               />
             </g>
