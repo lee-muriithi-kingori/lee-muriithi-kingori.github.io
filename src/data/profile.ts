@@ -28,8 +28,8 @@ export const profile = {
   github: "https://github.com/lee-muriithi-kingori",
   githubHandle: "lee-muriithi-kingori",
   email: "leekingori54@gmail.com",
-  instagram: "https://instagram.com/leetlest",
-  instagramHandle: "leetlest",
+  instagram: "https://instagram.com/leettlest",
+  instagramHandle: "leettlest",
   study: {
     degree: "BSc Nursing",
     pursuing: "Anaesthesia",

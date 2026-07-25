@@ -26,7 +26,7 @@ Work Log:
 - Confirmed identity: Lee Muriithi Kingori, BSc Nursing + anaesthesia, self-taught dev.
 - Confirmed projects to list (ONLY 4): Rox (cyber tech AI), LestraOS, aamt, Browser Automation engine.
 - Confirmed OSS: scottjn, zygisk, active in linux + root community.
-- Confirmed contact: leekingori54@gmail.com, instagram leetlest, github lee-muriithi-kingori, lestramk.org.
+- Confirmed contact: leekingori54@gmail.com, instagram leettlest, github lee-muriithi-kingori, lestramk.org.
 - Confirmed NO emojis — only high-quality SVG icons (real brand marks).
 - Confirmed physics: floating language icons with real collisions + crawling creature in contributions chart.
 - Confirmed background video required.
