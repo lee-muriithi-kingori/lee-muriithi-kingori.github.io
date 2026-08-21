@@ -126,12 +126,13 @@ export function Projects() {
           </span>
           <p className="font-sans text-[13px] leading-[1.55] text-[var(--ink-2)]">
             <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--lestra)] mr-2">
-              cyber · review
+              cronas · review
             </span>
-            All four projects reviewed by the cyber-security track. Rox ships
-            with a default-deny allowlist — no fake attestation, no fake
-            keybox, no fake passmark. Browser Automation Engine never
-            auto-exfiltrates; captcha-handoff is manual.
+            All four projects reviewed by Cronas, Lee&apos;s private security
+            arm. Rox ships with a default-deny allowlist — no fake
+            attestation, no fake keybox, no fake passmark. Browser Automation
+            Engine never auto-exfiltrates; captcha-handoff is manual. Cronas
+            also covers aamt.lestramk.org&apos;s auth and data path.
           </p>
         </div>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { profile } from "@/data/profile";
+import { profile, orgs } from "@/data/profile";
 import { ArrowUpRight, GlobeIcon, PinIcon, TerminalIcon } from "@/components/icons/BrandIcons";
 import { motion } from "framer-motion";
 
@@ -33,6 +33,35 @@ export function Hero() {
       className="relative pt-20 md:pt-28 pb-16 md:pb-24 border-t-0"
       style={{ borderTop: 0 }}
     >
+      {/* Memphis signature shapes — the one bold flourish on the page */}
+      <svg
+        aria-hidden="true"
+        className="hidden md:block absolute right-[6%] top-[8%] pointer-events-none"
+        width="120" height="120" viewBox="0 0 120 120"
+      >
+        <path
+          d="M4 60C22 30 38 90 56 60S90 30 108 60"
+          stroke="var(--lestra)" strokeWidth="6" strokeLinecap="round" fill="none"
+        />
+      </svg>
+      <svg
+        aria-hidden="true"
+        className="hidden md:block absolute right-[2%] top-[26%] pointer-events-none"
+        width="54" height="54" viewBox="0 0 54 54"
+      >
+        <circle cx="27" cy="27" r="21" fill="none" stroke="var(--cyan)" strokeWidth="5" strokeDasharray="7 8" />
+      </svg>
+      <span
+        aria-hidden="true"
+        className="hidden md:block absolute right-[16%] top-[4%] w-0 h-0 pointer-events-none"
+        style={{
+          borderLeft: "16px solid transparent",
+          borderRight: "16px solid transparent",
+          borderBottom: "26px solid var(--yellow)",
+          transform: "rotate(18deg)",
+        }}
+      />
+
       <div className="max-w-[1080px] mx-auto px-6 md:px-8">
         {/* Eyebrow */}
         <motion.p
@@ -83,10 +112,15 @@ export function Hero() {
             className="text-[var(--lestra)] border-b border-[var(--lestra)] hover:bg-[var(--lestra-soft)] transition-colors"
           >
             Lestramk
-          </a>
-          . Self-taught engineer building operating systems, cyber-tech AI, and
-          Android root-hiding modules. BSc Nursing, pursuing anaesthesia. One
-          foot in systems, one foot in clinic — both steady.
+          </a>{" "}
+          and owner of{" "}
+          <span className="text-[var(--ink)] border-b border-dashed border-[var(--ink-3)]" title="Private security — no public site. Covers aamt.lestramk.org.">
+            Cronas
+          </span>
+          , its private security arm. Self-taught engineer building operating
+          systems, cyber-tech AI, and Android root-hiding modules. BSc
+          Nursing, pursuing anaesthesia. Two companies, one clinic shift —
+          all steady.
         </motion.p>
 
         {/* Meta grid */}
@@ -99,7 +133,7 @@ export function Hero() {
           {[
             { k: "uid", v: profile.uid },
             { k: "since", v: `${profile.since} · shipping` },
-            { k: "role", v: profile.role },
+            { k: "orgs", v: orgs.map((o) => o.name).join(" · ") },
             { k: "study", v: "BSN · anaesthesia" },
           ].map((row) => (
             <div

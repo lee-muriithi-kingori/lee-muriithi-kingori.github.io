@@ -17,11 +17,11 @@ const GAP = 3;
 const STEP = CELL + GAP;
 
 const LEVEL_FILL = [
-  "#f0f0f0", // 0 — empty
-  "#d4b896", // 1 — faint
-  "#c49a3c", // 2 — medium
-  "#b8860b", // 3 — strong
-  "#8b6508", // 4 — peak
+  "#ecdfc4", // 0 — empty
+  "#ffd23f", // 1 — faint
+  "#2fd4c6", // 2 — medium
+  "#ff3e86", // 3 — strong
+  "#7c4dff", // 4 — peak
 ];
 
 export function ContributionsChart() {
@@ -196,7 +196,7 @@ export function ContributionsChart() {
             cx={pathPoints[0].x}
             cy={pathPoints[0].y}
             r={3.5}
-            fill="#0a0a0a"
+            fill="#17141b"
             opacity={0.9}
           />
           <circle
@@ -204,7 +204,7 @@ export function ContributionsChart() {
             cy={pathPoints[0].y}
             r={7}
             fill="none"
-            stroke="#b8860b"
+            stroke="#ff3e86"
             strokeWidth={1}
             opacity={0.4}
           >
@@ -232,7 +232,7 @@ export function ContributionsChart() {
                 height={CELL + 2}
                 rx={2.5}
                 fill="none"
-                stroke="#0a0a0a"
+                stroke="#17141b"
                 strokeWidth={1}
               />
             </g>

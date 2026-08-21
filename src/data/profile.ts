@@ -42,6 +42,32 @@ export const profile = {
     "Self-taught engineer building operating systems, cyber-tech AI, and Android root-hiding modules. One foot in systems engineering, one foot in clinical nursing — both steady.",
 };
 
+// Two entities under Lee's ownership: Lestramk (the parent, public-facing
+// engineering practice) and Cronas (private security, no public site —
+// exists to keep aamt.lestramk.org and its data path honest).
+export interface Org {
+  name: string;
+  role: string;
+  url?: string;
+  desc: string;
+  isPrivate?: boolean;
+}
+
+export const orgs: Org[] = [
+  {
+    name: "Lestramk",
+    role: "founder",
+    url: "https://lestramk.org",
+    desc: "Parent practice. Operating systems, cyber-tech AI, and the products that ship under Lee's name.",
+  },
+  {
+    name: "Cronas",
+    role: "owner",
+    desc: "Private security arm, no public storefront. Covers aamt.lestramk.org — auth paths, data handling, and the surfaces a talent marketplace can't afford to get wrong.",
+    isPrivate: true,
+  },
+];
+
 export const projects: Project[] = [
   {
     name: "Rox",

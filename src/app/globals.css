@@ -4,8 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================
-   LESTRAMK — Black / White / Gold Design System
-   Board-ratified palette, Fraunces + Inter + JetBrains Mono
+   LESTRAMK × CRONAS — Memphis Design System
+   Cream base, ink type, hot-pink signature + cyan/yellow/violet
+   accent trio. Unbounded + Inter + JetBrains Mono.
    ============================================================ */
 
 @theme inline {
@@ -36,56 +37,65 @@
   --color-lestra: var(--lestra);
   --color-lestra-soft: var(--lestra-soft);
   --color-amber: var(--amber);
+  --color-cyan: var(--cyan);
+  --color-yellow: var(--yellow);
+  --color-violet: var(--violet);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
 }
 
 :root {
-  --radius: 0.25rem;
+  --radius: 1.25rem;
 
-  /* Surfaces — clean white base */
-  --background: #ffffff;
-  --surface: #f5f5f5;
-  --surface-2: #ebebeb;
-  --card: #ffffff;
-  --card-foreground: #0a0a0a;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
+  /* Surfaces — warm cream base */
+  --background: #fff7ec;
+  --surface: #fff0dc;
+  --surface-2: #ffe4c2;
+  --card: #fff7ec;
+  --card-foreground: #17141b;
+  --popover: #fff7ec;
+  --popover-foreground: #17141b;
 
-  /* Ink scale — blacks on white */
-  --foreground: #0a0a0a;
-  --paper: #ffffff;
-  --ink: #0a0a0a;
-  --ink-2: #3a3a3a;
-  --ink-3: #6b6b6b;
+  /* Ink scale — near-black with a violet undertone */
+  --foreground: #17141b;
+  --paper: #fff7ec;
+  --ink: #17141b;
+  --ink-2: #423b4d;
+  --ink-3: #766c85;
 
-  /* Rules — subtle light borders */
-  --rule: #e0e0e0;
-  --rule-strong: #c0c0c0;
-  --border: #e0e0e0;
-  --input: #e0e0e0;
+  /* Rules — warm sand borders */
+  --rule: #ecdfc4;
+  --rule-strong: #d9c5a0;
+  --border: #ecdfc4;
+  --input: #ecdfc4;
 
-  /* Brand accent — signature gold */
-  --lestra: #b8860b;
-  --lestra-soft: rgba(184, 134, 11, 0.1);
-  --accent: #b8860b;
-  --accent-foreground: #ffffff;
-  --amber: #b8860b;
-  --primary: #0a0a0a;
-  --primary-foreground: #ffffff;
-  --secondary: #f5f5f5;
-  --secondary-foreground: #0a0a0a;
-  --muted: #f5f5f5;
-  --muted-foreground: #6b6b6b;
-  --destructive: #c5302b;
-  --ring: #b8860b;
+  /* Brand accent — signature Memphis hot pink */
+  --lestra: #ff3e86;
+  --lestra-soft: rgba(255, 62, 134, 0.12);
+  --accent: #ff3e86;
+  --accent-foreground: #17141b;
+  --amber: #ffd23f;
+
+  /* Memphis accent trio */
+  --cyan: #2fd4c6;
+  --yellow: #ffd23f;
+  --violet: #7c4dff;
+
+  --primary: #17141b;
+  --primary-foreground: #fff7ec;
+  --secondary: #fff0dc;
+  --secondary-foreground: #17141b;
+  --muted: #fff0dc;
+  --muted-foreground: #766c85;
+  --destructive: #e0403a;
+  --ring: #ff3e86;
 }
 
 @layer base {
@@ -114,13 +124,13 @@
 /* ============================================================
    Typography utilities — Board-ratified
    ============================================================ */
-.font-display { font-family: var(--font-display), 'Fraunces', Georgia, serif; }
+.font-display { font-family: var(--font-display), 'Unbounded', ui-sans-serif, sans-serif; }
 .font-sans    { font-family: var(--font-sans), 'Inter', system-ui, sans-serif; }
 .font-mono    { font-family: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace; }
 
 /* Editorial headline */
 .headline {
-  font-family: var(--font-display), 'Fraunces', Georgia, serif;
+  font-family: var(--font-display), 'Unbounded', ui-sans-serif, sans-serif;
   font-weight: 300;
   line-height: 0.96;
   letter-spacing: -0.025em;
@@ -215,17 +225,16 @@
 .rule-top    { border-top: 1px solid var(--rule); }
 .rule-bottom { border-bottom: 1px solid var(--rule); }
 
-/* Subtle grid overlay for the cyber-tech feel */
+/* Memphis confetti field — dot grid instead of cyber lines */
 .grid-overlay {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(10, 10, 10, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10, 10, 10, 0.025) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
+    radial-gradient(var(--rule-strong) 1.6px, transparent 1.6px);
+  background-size: 30px 30px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 25%, transparent 78%);
 }
 
 /* ============================================================
@@ -272,9 +281,9 @@
   border: 1px solid;
   flex-shrink: 0;
 }
-.pill-shipped { color: var(--ink); border-color: var(--ink); }
-.pill-beta    { color: var(--lestra); border-color: var(--lestra); }
-.pill-wip     { color: #6b6b6b; border-color: #6b6b6b; }
+.pill-shipped { color: var(--ink); border-color: var(--ink); background: var(--yellow); }
+.pill-beta    { color: var(--ink); border-color: var(--ink); background: var(--cyan); }
+.pill-wip     { color: var(--ink); border-color: var(--ink); background: var(--lestra); }
 
 /* ============================================================
    Disable horizontal scroll from matter.js bodies
@@ -312,12 +321,15 @@ section {
    Card hover lift
    ============================================================ */
 .card-lift {
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
-              border-color 0.25s, background 0.25s;
+  border-radius: var(--radius-lg);
+  border-width: 2.5px !important;
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.22s, background 0.22s, box-shadow 0.22s;
 }
 .card-lift:hover {
-  transform: translateY(-3px);
-  border-color: var(--lestra);
+  transform: translate(-3px, -3px);
+  border-color: var(--ink);
+  box-shadow: 6px 6px 0 var(--lestra);
 }
 
 /* ============================================================
