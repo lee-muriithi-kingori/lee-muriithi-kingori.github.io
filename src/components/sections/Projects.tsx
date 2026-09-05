@@ -80,9 +80,9 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
         <AnimatePresence initial={false}>
           {open && (
             <motion.p
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
+              initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+              animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+              exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
               transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
               className="overflow-hidden font-sans text-[14px] leading-[1.6] text-[var(--ink-2)]"
             >

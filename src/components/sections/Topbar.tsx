@@ -3,6 +3,7 @@
 import * as React from "react";
 import { profile } from "@/data/profile";
 import { GitHubIcon, GlobeIcon, MailIcon, PinIcon } from "@/components/icons/BrandIcons";
+import { useMotionValueEvent, useScroll } from "framer-motion";
 
 // ============================================================
 // TOPBAR — sticky minimal nav with live mark + lestramk.org link
@@ -12,13 +13,9 @@ import { GitHubIcon, GlobeIcon, MailIcon, PinIcon } from "@/components/icons/Bra
 export function Topbar() {
   const [scrolled, setScrolled] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const { scrollY } = useScroll();
 
-  React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 40));
 
   const links = [
     { href: "#work", label: "work" },

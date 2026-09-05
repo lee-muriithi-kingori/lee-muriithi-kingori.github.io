@@ -95,7 +95,7 @@ export function TwoHalves() {
                     delay: 0.15 + i * 0.05,
                     ease: [0.2, 0.8, 0.2, 1],
                   }}
-                  className="flex items-center gap-3 py-2.5 border-t border-[var(--rule)] first:border-t-0 hover:translate-x-1 transition-transform"
+                  className="row-nudge flex items-center gap-3 py-2.5 border-t border-[var(--rule)] first:border-t-0"
                 >
                   <span className="text-[var(--ink-3)] flex-shrink-0">
                     {row.icon === "kotlin" && <KotlinIcon size={14} />}
@@ -199,7 +199,7 @@ export function TwoHalves() {
                     delay: 0.15 + i * 0.05,
                     ease: [0.2, 0.8, 0.2, 1],
                   }}
-                  className="flex items-center gap-3 py-2.5 border-t border-[var(--rule)] first:border-t-0 hover:-translate-x-1 transition-transform"
+                  className="row-nudge flex items-center gap-3 py-2.5 border-t border-[var(--rule)] first:border-t-0"
                 >
                   <span className="text-[var(--ink-3)] flex-shrink-0">
                     {row.icon === "pulse" ? (

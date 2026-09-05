@@ -84,9 +84,9 @@ export function ContributionsChart() {
     .map((p, i) => (i === 0 ? `M${p.x},${p.y}` : `L${p.x},${p.y}`))
     .join(" ");
 
-  // Crawler animation — walks the path infinitely
+  // Crawler animation — walks the path infinitely, paused offscreen
   React.useEffect(() => {
-    if (!crawlerRef.current || !trailRef.current) return;
+    if (!crawlerRef.current || !trailRef.current || !svgRef.current) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const path = trailRef.current;
@@ -95,9 +95,30 @@ export function ContributionsChart() {
 
     let raf = 0;
     let startTime = performance.now();
+    let pausedAt = 0;
+    let visible = true;
     const duration = 24000; // 24s per full traversal
 
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        const now = performance.now();
+        if (entry.isIntersecting && !visible) {
+          // resume: shift the clock by the paused gap
+          startTime += now - pausedAt;
+          visible = true;
+          raf = requestAnimationFrame(tick);
+        } else if (!entry.isIntersecting && visible) {
+          visible = false;
+          pausedAt = now;
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0 }
+    );
+    io.observe(svgRef.current);
+
     const tick = (now: number) => {
+      if (!visible) return;
       const elapsed = (now - startTime) % duration;
       const progress = elapsed / duration;
       const point = path.getPointAtLength(progress * totalLength);
@@ -112,7 +133,10 @@ export function ContributionsChart() {
     };
     raf = requestAnimationFrame(tick);
 
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   const chartWidth = COLS * STEP;
