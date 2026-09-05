@@ -9,6 +9,7 @@ import { AgentConsensus } from "@/components/sections/AgentConsensus";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 import { BackgroundVideo } from "@/components/effects/BackgroundVideo";
+import { Aurora } from "@/components/effects/Aurora";
 import { LanguageField } from "@/components/effects/LanguageField";
 import { CursorGlow } from "@/components/effects/CursorGlow";
 import { ScrollProgress } from "@/components/effects/ScrollProgress";
@@ -24,6 +25,7 @@ export default function Home() {
     <>
       {/* Background layers (z-0) */}
       <BackgroundVideo />
+      <Aurora />
 
       {/* Physics layer (z-0, pointer-events: auto for mouse drag) */}
       <LanguageField />

@@ -204,7 +204,7 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  opacity: 0.06;
+  opacity: 0.09;
   filter: grayscale(1) contrast(1.1) blur(1px);
   pointer-events: none;
 }
@@ -356,12 +356,63 @@ button:focus-visible {
 }
 
 /* ============================================================
+   Aurora — ambient drifting color field (alive background)
+   Transform-only, fixed, pointer-events-none.
+   ============================================================ */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  will-change: transform;
+}
+.aurora-1 {
+  width: 46vmax;
+  height: 46vmax;
+  left: -14vmax;
+  top: -12vmax;
+  background: radial-gradient(circle, rgba(255, 62, 134, 0.26), transparent 65%);
+  animation: aurora-drift-1 26s ease-in-out infinite alternate;
+}
+.aurora-2 {
+  width: 40vmax;
+  height: 40vmax;
+  right: -12vmax;
+  top: 22vh;
+  background: radial-gradient(circle, rgba(47, 212, 198, 0.22), transparent 65%);
+  animation: aurora-drift-2 32s ease-in-out infinite alternate;
+}
+.aurora-3 {
+  width: 36vmax;
+  height: 36vmax;
+  left: 22vw;
+  bottom: -16vmax;
+  background: radial-gradient(circle, rgba(124, 77, 255, 0.20), transparent 65%);
+  animation: aurora-drift-3 38s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift-1 {
+  to { transform: translate(9vmax, 7vmax) scale(1.15); }
+}
+@keyframes aurora-drift-2 {
+  to { transform: translate(-8vmax, 6vmax) scale(1.1); }
+}
+@keyframes aurora-drift-3 {
+  to { transform: translate(6vmax, -7vmax) scale(1.2); }
+}
+
+/* ============================================================
    Marquee strip — single allowed marquee, CSS-driven
    ============================================================ */
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee-drift 30s linear infinite;
+  animation: marquee-drift 24s linear infinite;
 }
 .marquee:hover .marquee-track {
   animation-play-state: paused;
@@ -457,5 +508,6 @@ button:focus-visible {
     transition-duration: 0.01ms !important;
   }
   .physics-layer { display: none !important; }
+  .aurora { display: none !important; }
   .marquee-track, .ecg-path { animation: none !important; }
 }

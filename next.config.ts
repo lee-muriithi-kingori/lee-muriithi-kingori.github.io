@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  // Vercel manages its own output — standalone is self-host/Docker only
+  // and breaks Vercel builds. Pages CI rewrites this line to "export".
+  ...(process.env.VERCEL ? {} : { output: "standalone" }),
   /* config options here */
   typescript: {
     ignoreBuildErrors: true,

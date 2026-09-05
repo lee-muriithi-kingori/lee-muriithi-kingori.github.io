@@ -5,7 +5,13 @@ import { profile, orgs } from "@/data/profile";
 import { ArrowUpRight, GlobeIcon, PinIcon, TerminalIcon } from "@/components/icons/BrandIcons";
 import { Magnetic } from "@/components/effects/Magnetic";
 import { NairobiClock } from "@/components/effects/NairobiClock";
-import { motion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 
 // ============================================================
 // HERO — kinetic editorial headline, ambient meta panel
@@ -29,40 +35,72 @@ const WORDS = [
 ];
 
 export function Hero() {
+  // Pointer parallax on the Memphis shapes — depth-graded drift on springs.
+  // Fine pointers only; values stay 0 otherwise. Springs keep it interruptible.
+  const reduce = useReducedMotion();
+  const [fine, setFine] = React.useState(false);
+  React.useEffect(() => {
+    setFine(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+  }, []);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 55, damping: 16 });
+  const sy = useSpring(my, { stiffness: 55, damping: 16 });
+  const s1x = useTransform(sx, (v) => v * 22);
+  const s1y = useTransform(sy, (v) => v * 16);
+  const s2x = useTransform(sx, (v) => v * -14);
+  const s2y = useTransform(sy, (v) => v * 12);
+  const s3x = useTransform(sx, (v) => v * 30);
+  const s3y = useTransform(sy, (v) => v * -20);
+
   return (
     <section
       id="top"
       className="relative pt-20 md:pt-24 pb-12 md:pb-16 border-t-0"
       style={{ borderTop: 0 }}
+      onMouseMove={(e) => {
+        if (reduce || !fine) return;
+        const r = e.currentTarget.getBoundingClientRect();
+        mx.set((e.clientX - r.left) / r.width - 0.5);
+        my.set((e.clientY - r.top) / r.height - 0.5);
+      }}
     >
       {/* Memphis signature shapes — the one bold flourish on the page */}
-      <svg
+      <motion.svg
         aria-hidden="true"
         className="hidden md:block absolute right-[6%] top-[8%] pointer-events-none"
         width="120" height="120" viewBox="0 0 120 120"
+        style={{ x: s1x, y: s1y }}
       >
         <path
           d="M4 60C22 30 38 90 56 60S90 30 108 60"
           stroke="var(--lestra)" strokeWidth="6" strokeLinecap="round" fill="none"
         />
-      </svg>
-      <svg
+      </motion.svg>
+      <motion.svg
         aria-hidden="true"
         className="hidden md:block absolute right-[2%] top-[26%] pointer-events-none"
         width="54" height="54" viewBox="0 0 54 54"
+        style={{ x: s2x, y: s2y }}
       >
         <circle cx="27" cy="27" r="21" fill="none" stroke="var(--cyan)" strokeWidth="5" strokeDasharray="7 8" />
-      </svg>
-      <span
+      </motion.svg>
+      <motion.span
         aria-hidden="true"
-        className="hidden md:block absolute right-[16%] top-[4%] w-0 h-0 pointer-events-none"
-        style={{
-          borderLeft: "16px solid transparent",
-          borderRight: "16px solid transparent",
-          borderBottom: "26px solid var(--yellow)",
-          transform: "rotate(18deg)",
-        }}
-      />
+        className="hidden md:block absolute right-[16%] top-[4%] pointer-events-none"
+        style={{ x: s3x, y: s3y }}
+      >
+        <span
+          aria-hidden="true"
+          className="block w-0 h-0"
+          style={{
+            borderLeft: "16px solid transparent",
+            borderRight: "16px solid transparent",
+            borderBottom: "26px solid var(--yellow)",
+            transform: "rotate(18deg)",
+          }}
+        />
+      </motion.span>
 
       <div className="max-w-[1080px] mx-auto px-6 md:px-8">
         {/* Eyebrow */}
