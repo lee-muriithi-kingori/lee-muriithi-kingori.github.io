@@ -11,6 +11,7 @@ import { GitHubIcon, GlobeIcon, MailIcon, PinIcon } from "@/components/icons/Bra
 
 export function Topbar() {
   const [scrolled, setScrolled] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -18,6 +19,13 @@ export function Topbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const links = [
+    { href: "#work", label: "work" },
+    { href: "#open-source", label: "open-source" },
+    { href: "#halves", label: "halves" },
+    { href: "#contributions", label: "commits" },
+  ];
 
   return (
     <header
@@ -53,19 +61,27 @@ export function Topbar() {
         </a>
 
         <nav className="hidden md:flex items-center gap-6 mono text-[11px] tracking-[0.18em] uppercase">
-          <a href="#work" className="link-underline border-0 text-[var(--ink-2)] hover:text-[var(--ink)]">
-            work
-          </a>
-          <a href="#open-source" className="link-underline border-0 text-[var(--ink-2)] hover:text-[var(--ink)]">
-            open-source
-          </a>
-          <a href="#halves" className="link-underline border-0 text-[var(--ink-2)] hover:text-[var(--ink)]">
-            halves
-          </a>
-          <a href="#contributions" className="link-underline border-0 text-[var(--ink-2)] hover:text-[var(--ink)]">
-            commits
-          </a>
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="link-underline border-0 text-[var(--ink-2)] hover:text-[var(--ink)]"
+            >
+              {l.label}
+            </a>
+          ))}
         </nav>
+
+        {/* Mobile menu — the md nav is hidden below 768px */}
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-label={open ? "Close menu" : "Open menu"}
+          className="md:hidden mono text-[11px] tracking-[0.18em] uppercase text-[var(--ink-2)] hover:text-[var(--lestra)] transition-colors px-2 py-2"
+        >
+          {open ? "close" : "menu"}
+        </button>
 
         <div className="flex items-center gap-4">
           <a
@@ -96,6 +112,22 @@ export function Topbar() {
           </a>
         </div>
       </div>
+      {open && (
+        <nav className="md:hidden border-t border-[var(--rule)] bg-[var(--background)]">
+          <div className="max-w-[1080px] mx-auto px-6 py-2 flex flex-col mono text-xs tracking-[0.18em] uppercase">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="py-3 border-b border-[var(--rule)] last:border-b-0 text-[var(--ink-2)] hover:text-[var(--lestra)] transition-colors"
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
+        </nav>
+      )}
     </header>
   );
 }

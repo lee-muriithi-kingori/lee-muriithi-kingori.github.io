@@ -11,6 +11,8 @@ import { Footer } from "@/components/sections/Footer";
 import { BackgroundVideo } from "@/components/effects/BackgroundVideo";
 import { LanguageField } from "@/components/effects/LanguageField";
 import { CursorGlow } from "@/components/effects/CursorGlow";
+import { ScrollProgress } from "@/components/effects/ScrollProgress";
+import { Marquee } from "@/components/effects/Marquee";
 
 // ============================================================
 // LESTRAMK.ORG — Lee Muriithi Kingori
@@ -29,11 +31,15 @@ export default function Home() {
       {/* Custom cursor */}
       <CursorGlow />
 
+      {/* Scroll progress */}
+      <ScrollProgress />
+
       {/* Content (z-1) */}
       <div className="content-layer min-h-screen flex flex-col">
         <Topbar />
         <main className="flex-1">
           <Hero />
+          <Marquee />
           <Projects />
           <OpenSource />
           <TwoHalves />

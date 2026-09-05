@@ -50,6 +50,20 @@ const CHANNELS = [
 ];
 
 export function Contact() {
+  const [copied, setCopied] = React.useState(false);
+
+  const copyEmail = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
   return (
     <section id="contact" className="relative">
       <div className="max-w-[1080px] mx-auto px-6 md:px-8">
@@ -98,9 +112,20 @@ export function Contact() {
               <div className="font-display text-xl md:text-2xl text-[var(--ink)] tracking-[-0.015em] mb-2 break-all">
                 {c.label}
               </div>
-              <p className="font-sans text-[13px] text-[var(--ink-3)] leading-[1.5]">
-                {c.note}
-              </p>
+              <div className="flex items-center justify-between gap-4">
+                <p className="font-sans text-[13px] text-[var(--ink-3)] leading-[1.5]">
+                  {c.note}
+                </p>
+                {c.k === "email" && (
+                  <button
+                    type="button"
+                    onClick={copyEmail}
+                    className="shrink-0 mono text-[10px] uppercase tracking-[0.18em] text-[var(--lestra)] border border-[var(--lestra)] rounded-full px-3 py-1.5 hover:bg-[var(--lestra-soft)] transition-colors"
+                  >
+                    {copied ? "copied" : "copy"}
+                  </button>
+                )}
+              </div>
             </motion.a>
           ))}
         </div>

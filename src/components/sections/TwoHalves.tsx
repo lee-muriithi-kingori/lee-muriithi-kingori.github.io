@@ -84,10 +84,18 @@ export function TwoHalves() {
                   icon: "asm",
                   label: "Low-level — x86_64 ASM, bootloaders, drivers",
                 },
-              ].map((row) => (
-                <li
+              ].map((row, i) => (
+                <motion.li
                   key={row.label}
-                  className="flex items-center gap-3 py-2.5 border-t border-[var(--rule)] first:border-t-0"
+                  initial={{ opacity: 0, x: -12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{
+                    duration: 0.45,
+                    delay: 0.15 + i * 0.05,
+                    ease: [0.2, 0.8, 0.2, 1],
+                  }}
+                  className="flex items-center gap-3 py-2.5 border-t border-[var(--rule)] first:border-t-0 hover:translate-x-1 transition-transform"
                 >
                   <span className="text-[var(--ink-3)] flex-shrink-0">
                     {row.icon === "kotlin" && <KotlinIcon size={14} />}
@@ -100,7 +108,7 @@ export function TwoHalves() {
                   <span className="font-sans text-[14px] text-[var(--ink-2)]">
                     {row.label}
                   </span>
-                </li>
+                </motion.li>
               ))}
             </ul>
 
@@ -124,6 +132,24 @@ export function TwoHalves() {
               <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--lestra)]">
                 nurse · anaesthesia
               </span>
+              {/* Vitals motif — looping ECG trace */}
+              <svg
+                aria-hidden="true"
+                className="ml-auto"
+                width="120"
+                height="24"
+                viewBox="0 0 120 24"
+                fill="none"
+              >
+                <path
+                  className="ecg-path"
+                  d="M0 12 H28 L34 12 L38 4 L42 20 L46 8 L48 12 H72 L78 12 L82 4 L86 20 L90 8 L92 12 H120"
+                  stroke="var(--lestra)"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                />
+              </svg>
             </div>
 
             <h3 className="font-display font-light text-[1.8rem] md:text-[2.1rem] leading-[1.1] tracking-[-0.018em] mb-6">
@@ -163,9 +189,17 @@ export function TwoHalves() {
                     "Quietly learning to keep humans alive while keeping systems alive",
                 },
               ].map((row, i) => (
-                <li
+                <motion.li
                   key={i}
-                  className="flex items-center gap-3 py-2.5 border-t border-[var(--rule)] first:border-t-0"
+                  initial={{ opacity: 0, x: 12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{
+                    duration: 0.45,
+                    delay: 0.15 + i * 0.05,
+                    ease: [0.2, 0.8, 0.2, 1],
+                  }}
+                  className="flex items-center gap-3 py-2.5 border-t border-[var(--rule)] first:border-t-0 hover:-translate-x-1 transition-transform"
                 >
                   <span className="text-[var(--ink-3)] flex-shrink-0">
                     {row.icon === "pulse" ? (
@@ -177,7 +211,7 @@ export function TwoHalves() {
                   <span className="font-sans text-[14px] text-[var(--ink-2)]">
                     {row.label}
                   </span>
-                </li>
+                </motion.li>
               ))}
             </ul>
 

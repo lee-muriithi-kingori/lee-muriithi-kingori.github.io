@@ -4,7 +4,8 @@ import * as React from "react";
 import { projects, type Project } from "@/data/profile";
 import { LanguageIcon } from "@/components/icons/LanguageIcons";
 import { ArrowUpRight, ShieldIcon, TerminalIcon } from "@/components/icons/BrandIcons";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { Magnetic } from "@/components/effects/Magnetic";
 
 // ============================================================
 // PROJECTS — only 4 cards (Rox, LestraOS, aamt, Browser Auto)
@@ -20,17 +21,19 @@ const STATUS_LABEL: Record<Project["status"], { label: string; cls: string }> = 
 };
 
 function ProjectCard({ p, index }: { p: Project; index: number }) {
+  const [open, setOpen] = React.useState(false);
+  const fromLeft = index % 2 === 0;
   return (
     <motion.a
       href={p.href}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, x: fromLeft ? -28 : 28 }}
+      whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{
         duration: 0.7,
-        delay: index * 0.08,
+        delay: (index % 2) * 0.08,
         ease: [0.2, 0.8, 0.2, 1],
       }}
       className="group block border border-[var(--rule)] bg-[var(--surface)] hover:bg-[var(--surface-2)] transition-colors card-lift p-6 md:p-7"
@@ -56,9 +59,38 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
       </p>
 
       {/* Description */}
-      <p className="font-sans text-[15px] leading-[1.55] text-[var(--ink-2)] mb-5">
+      <p className="font-sans text-[15px] leading-[1.55] text-[var(--ink-2)] mb-4">
         {p.desc}
       </p>
+
+      {/* Expandable detail — longDesc already in profile data */}
+      <div className="mb-5">
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setOpen((v) => !v);
+          }}
+          aria-expanded={open}
+          className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--lestra)] hover:opacity-80 transition-opacity"
+        >
+          {open ? "— less" : "+ more"}
+        </button>
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.p
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
+              className="overflow-hidden font-sans text-[14px] leading-[1.6] text-[var(--ink-2)]"
+            >
+              <span className="block pt-3">{p.longDesc}</span>
+            </motion.p>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* Stack with real icons */}
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-5">
@@ -87,9 +119,11 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
             </div>
           </div>
         )}
-        <span className="ml-auto text-[var(--ink-3)] group-hover:text-[var(--lestra)] transition-colors">
-          <ArrowUpRight size={18} />
-        </span>
+        <Magnetic strength={0.4} className="ml-auto">
+          <span className="text-[var(--ink-3)] group-hover:text-[var(--lestra)] transition-colors inline-flex">
+            <ArrowUpRight size={18} />
+          </span>
+        </Magnetic>
       </div>
     </motion.a>
   );

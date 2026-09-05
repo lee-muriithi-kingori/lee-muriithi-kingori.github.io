@@ -3,6 +3,8 @@
 import * as React from "react";
 import { profile, orgs } from "@/data/profile";
 import { ArrowUpRight, GlobeIcon, PinIcon, TerminalIcon } from "@/components/icons/BrandIcons";
+import { Magnetic } from "@/components/effects/Magnetic";
+import { NairobiClock } from "@/components/effects/NairobiClock";
 import { motion } from "framer-motion";
 
 // ============================================================
@@ -30,7 +32,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative pt-20 md:pt-28 pb-16 md:pb-24 border-t-0"
+      className="relative pt-20 md:pt-24 pb-12 md:pb-16 border-t-0"
       style={{ borderTop: 0 }}
     >
       {/* Memphis signature shapes — the one bold flourish on the page */}
@@ -74,7 +76,7 @@ export function Hero() {
         </motion.p>
 
         {/* Headline */}
-        <h1 className="font-display font-light leading-[0.94] tracking-[-0.025em] text-[clamp(2.8rem,8.5vw,7rem)] mb-10">
+        <h1 className="font-display font-light leading-[0.94] tracking-[-0.025em] text-[clamp(2.6rem,7vw,5.5rem)] mb-8">
           {WORDS.map((word, i) => (
             <motion.span
               key={i}
@@ -102,7 +104,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.9 }}
-          className="font-sans text-[clamp(1.05rem,1.6vw,1.4rem)] leading-[1.55] text-[var(--ink-2)] max-w-[38rem] mb-12"
+          className="font-sans text-[clamp(1.05rem,1.6vw,1.4rem)] leading-[1.55] text-[var(--ink-2)] max-w-[38rem] mb-8"
         >
           I&apos;m <span className="text-[var(--ink)]">Lee</span>. Founder of{" "}
           <a
@@ -122,6 +124,26 @@ export function Hero() {
           Nursing, pursuing anaesthesia. Two companies, one clinic shift —
           all steady.
         </motion.p>
+
+        {/* CTAs — one per intent: work vs recent */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1.0 }}
+          className="flex flex-wrap gap-4 mb-10"
+        >
+          <Magnetic>
+            <a href="#work" className="btn-memphis">
+              See the work
+              <ArrowUpRight size={14} />
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a href="#recent" className="btn-ghost">
+              What landed lately
+            </a>
+          </Magnetic>
+        </motion.div>
 
         {/* Meta grid */}
         <motion.dl
@@ -159,6 +181,7 @@ export function Hero() {
             <PinIcon size={12} />
             {profile.location}
           </span>
+          <NairobiClock className="flex items-center gap-2 text-[var(--lestra)]" />
           <span className="flex items-center gap-2">
             <TerminalIcon size={12} />
             self-taught since 2020

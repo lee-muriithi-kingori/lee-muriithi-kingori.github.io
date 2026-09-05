@@ -106,12 +106,12 @@ export function AgentConsensus() {
           {CATEGORIES.map((cat, i) => (
             <motion.div
               key={cat.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.96, y: 14 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{
                 duration: 0.6,
-                delay: i * 0.05,
+                delay: (i % 3) * 0.06,
                 ease: [0.2, 0.8, 0.2, 1],
               }}
               className="bg-[var(--surface)] hover:bg-[var(--surface-2)] transition-colors p-6"

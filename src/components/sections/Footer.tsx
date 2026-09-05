@@ -44,6 +44,13 @@ export function Footer() {
               <GitHubIcon size={12} />
               {profile.githubHandle}
             </a>
+            <a
+              href="#top"
+              className="text-[var(--ink-2)] hover:text-[var(--lestra)] transition-colors inline-flex items-center gap-1.5"
+            >
+              back to top
+              <ArrowUpRight size={12} />
+            </a>
           </div>
         </div>
       </div>

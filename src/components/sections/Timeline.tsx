@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { timeline, type TimelineRow } from "@/data/profile";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 
 // ============================================================
 // TIMELINE — recent real commits/tags/rollbacks
@@ -21,6 +21,17 @@ const KIND_META: Record<TimelineRow["kind"], { label: string; color: string }> =
 };
 
 export function Timeline() {
+  const listRef = React.useRef<HTMLOListElement | null>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: listRef,
+    offset: ["start center", "end center"],
+  });
+  const railScale = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 24,
+  });
+
   return (
     <section id="recent" className="relative">
       <div className="max-w-[1080px] mx-auto px-6 md:px-8">
@@ -36,14 +47,29 @@ export function Timeline() {
           </p>
         </header>
 
-        <ol className="border-t border-[var(--rule)]">
+        <div className="relative">
+          {/* Scroll-drawn rail behind the dots */}
+          {!reduce && (
+            <>
+              <span
+                aria-hidden="true"
+                className="absolute top-0 bottom-0 w-px bg-[var(--rule)] left-[9.25rem] md:left-[11.25rem]"
+              />
+              <motion.span
+                aria-hidden="true"
+                className="absolute top-0 bottom-0 w-px origin-top bg-[var(--lestra)] left-[9.25rem] md:left-[11.25rem]"
+                style={{ scaleY: railScale }}
+              />
+            </>
+          )}
+          <ol ref={listRef} className="border-t border-[var(--rule)]">
           {timeline.map((row, i) => {
             const meta = KIND_META[row.kind];
             return (
               <motion.li
                 key={`${row.date}-${row.repo}`}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{
                   duration: 0.5,
@@ -83,6 +109,7 @@ export function Timeline() {
             );
           })}
         </ol>
+        </div>
       </div>
     </section>
   );

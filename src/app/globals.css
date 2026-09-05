@@ -333,6 +333,89 @@ section {
 }
 
 /* ============================================================
+   Marquee strip — single allowed marquee, CSS-driven
+   ============================================================ */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-drift 30s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee-drift {
+  to { transform: translateX(-50%); }
+}
+
+/* ============================================================
+   ECG vitals line — clinic motif for the nurse panel
+   ============================================================ */
+.ecg-path {
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+  animation: ecg-draw 2.8s linear infinite;
+}
+@keyframes ecg-draw {
+  0% { stroke-dashoffset: 120; opacity: 0; }
+  8% { opacity: 1; }
+  70% { stroke-dashoffset: -120; opacity: 1; }
+  100% { stroke-dashoffset: -120; opacity: 0; }
+}
+
+/* ============================================================
+   Memphis buttons — pill, ink solid + ghost
+   ============================================================ */
+.btn-memphis {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.18s, background 0.18s, color 0.18s;
+}
+.btn-memphis:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--lestra);
+}
+.btn-memphis:active {
+  transform: translate(0, 0) scale(0.98);
+  box-shadow: none;
+}
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.18s, background 0.18s;
+}
+.btn-ghost:hover {
+  transform: translate(-2px, -2px);
+  background: var(--lestra-soft);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.btn-ghost:active {
+  transform: translate(0, 0) scale(0.98);
+  box-shadow: none;
+}
+
+/* ============================================================
    Reduced motion — respect user preference
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
@@ -342,4 +425,5 @@ section {
     transition-duration: 0.01ms !important;
   }
   .physics-layer { display: none !important; }
+  .marquee-track, .ecg-path { animation: none !important; }
 }

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { contributions, contributionStats } from "@/data/profile";
+import { CountUp } from "@/components/effects/CountUp";
 
 // ============================================================
 // CONTRIBUTIONS CHART — 52w x 7d grid with a real crawler
@@ -123,8 +124,13 @@ export function ContributionsChart() {
         <div>
           <p className="eyebrow mb-3">07 / Contributions</p>
           <h3 className="font-display text-3xl md:text-4xl font-light tracking-tight">
-            <em className="italic text-[var(--lestra)]">1,284</em> commits in
-            the last year
+            <em className="italic text-[var(--lestra)]">
+              <CountUp
+                to={contributionStats.total}
+                format={(n) => Math.round(n).toLocaleString()}
+              />
+            </em>{" "}
+            commits in the last year
           </h3>
           <p className="font-mono text-xs text-[var(--ink-3)] mt-2 uppercase tracking-widest">
             Live crawler walking real cells · 47-day streak
@@ -136,7 +142,10 @@ export function ContributionsChart() {
               total
             </div>
             <div className="text-[var(--ink)] text-xl">
-              {contributionStats.total.toLocaleString()}
+              <CountUp
+                to={contributionStats.total}
+                format={(n) => Math.round(n).toLocaleString()}
+              />
             </div>
           </div>
           <div>
@@ -144,7 +153,7 @@ export function ContributionsChart() {
               streak
             </div>
             <div className="text-[var(--lestra)] text-xl">
-              {contributionStats.streak}
+              <CountUp to={contributionStats.streak} />
             </div>
           </div>
           <div>
@@ -152,7 +161,7 @@ export function ContributionsChart() {
               longest
             </div>
             <div className="text-[var(--ink)] text-xl">
-              {contributionStats.longestStreak}
+              <CountUp to={contributionStats.longestStreak} />
             </div>
           </div>
         </div>
@@ -293,7 +302,7 @@ export function ContributionsChart() {
               />
             </div>
             <div className="font-display text-2xl font-light">
-              {lang.value}
+              <CountUp to={lang.value} />
             </div>
             <div className="mt-2 h-1 bg-[var(--rule)] overflow-hidden">
               <div

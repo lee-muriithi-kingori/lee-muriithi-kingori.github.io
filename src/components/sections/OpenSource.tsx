@@ -55,12 +55,12 @@ export function OpenSource() {
               href={o.href}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -24 : 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{
                 duration: 0.6,
-                delay: i * 0.06,
+                delay: (i % 2) * 0.06,
                 ease: [0.2, 0.8, 0.2, 1],
               }}
               className="group block bg-[var(--surface)] hover:bg-[var(--surface-2)] transition-colors p-6 md:p-7"

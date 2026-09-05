@@ -101,10 +101,17 @@ export function LanguageField() {
     matter.World.add(world, mouseConstraint);
 
     // Touch fallback — disable mouse wheel hijack
-    mouse.element.removeEventListener("wheel", mouse.mousewheel);
-    mouse.element.removeEventListener("touchstart", mouse.mousedown);
-    mouse.element.removeEventListener("touchmove", mouse.mousemove);
-    mouse.element.removeEventListener("touchend", mouse.mouseup);
+    // (handler refs exist at runtime; newer @types/matter-js omits them)
+    const mouseHandlers = mouse as unknown as {
+      mousewheel: EventListener;
+      mousedown: EventListener;
+      mousemove: EventListener;
+      mouseup: EventListener;
+    };
+    mouse.element.removeEventListener("wheel", mouseHandlers.mousewheel);
+    mouse.element.removeEventListener("touchstart", mouseHandlers.mousedown);
+    mouse.element.removeEventListener("touchmove", mouseHandlers.mousemove);
+    mouse.element.removeEventListener("touchend", mouseHandlers.mouseup);
     // Re-add as passive listeners
     mouse.element.addEventListener("touchstart", (e) => {
       const t = e.touches[0];
