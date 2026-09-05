@@ -34,7 +34,6 @@ export function Footer() {
             <span>Lestramk × Cronas — security by Cronas, private</span>
           </div>
           <div className="flex items-center gap-4 mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-3)]">
-            <span>7 categories · 70 agents · 9.5 quality bar</span>
             <a
               href={profile.github}
               target="_blank"

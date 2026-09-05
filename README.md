@@ -1,7 +1,6 @@
 # Lestramk Portfolio — Source
 
 Personal portfolio for **Lee Muriithi Kingori** (lestramk.org).
-Built under a 7-category agent methodology. 9.5/10 quality bar.
 
 ## Stack
 
@@ -59,14 +58,12 @@ src/
       TwoHalves.tsx           # Engineer + Nurse/Anaesthesia
       Timeline.tsx
       ContributionsChart.tsx  # 52w x 7d grid + real crawler
-      AgentConsensus.tsx      # 7-category methodology
       Contact.tsx
       Footer.tsx
 public/
   videos/
     code-rain.mp4    # Background (Pixabay, CC0)
     network.mp4      # Backup background
-worklog.md           # Full 7-category agent worklog
 ```
 
 ## Editing content

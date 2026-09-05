@@ -5,7 +5,6 @@ import { OpenSource } from "@/components/sections/OpenSource";
 import { TwoHalves } from "@/components/sections/TwoHalves";
 import { Timeline } from "@/components/sections/Timeline";
 import { ContributionsChart } from "@/components/sections/ContributionsChart";
-import { AgentConsensus } from "@/components/sections/AgentConsensus";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 import { BackgroundVideo } from "@/components/effects/BackgroundVideo";
@@ -17,7 +16,6 @@ import { Marquee } from "@/components/effects/Marquee";
 
 // ============================================================
 // LESTRAMK.ORG — Lee Muriithi Kingori
-// Mega revamp. 7-category agent methodology. 9.5 quality bar.
 // ============================================================
 
 export default function Home() {
@@ -51,7 +49,6 @@ export default function Home() {
               <ContributionsChart />
             </div>
           </section>
-          <AgentConsensus />
           <Contact />
         </main>
         <Footer />

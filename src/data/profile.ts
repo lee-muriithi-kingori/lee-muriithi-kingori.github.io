@@ -204,7 +204,7 @@ export const timeline: TimelineRow[] = [
     repo: "lestramk-website",
     title: "Rewrote the homepage. Editorial type, monochrome, physics.",
     body:
-      "Real matter-js language field. Real contributions crawler. Real SVG icons. No emoji, no AI slop. 7-category agent methodology ran the build.",
+      "Real matter-js language field. Real contributions crawler. Real SVG icons. No emoji, no AI slop.",
   },
   {
     date: "2026-06-30",
