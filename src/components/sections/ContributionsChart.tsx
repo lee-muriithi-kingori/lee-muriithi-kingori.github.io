@@ -18,7 +18,7 @@ const GAP = 3;
 const STEP = CELL + GAP;
 
 const LEVEL_FILL = [
-  "#ecdfc4", // 0 — empty
+  "#12201a", // 0 — empty
   "#ffd23f", // 1 — faint
   "#2fd4c6", // 2 — medium
   "#ff3e86", // 3 — strong
@@ -217,7 +217,7 @@ export function ContributionsChart() {
           <path
             d={pathD}
             fill="none"
-            stroke="rgba(184, 134, 11, 0.15)"
+            stroke="rgba(61, 245, 166, 0.22)"
             strokeWidth={1}
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -229,7 +229,7 @@ export function ContributionsChart() {
             cx={pathPoints[0].x}
             cy={pathPoints[0].y}
             r={3.5}
-            fill="#17141b"
+            fill="#3df5a6"
             opacity={0.9}
           />
           <circle
@@ -265,7 +265,7 @@ export function ContributionsChart() {
                 height={CELL + 2}
                 rx={2.5}
                 fill="none"
-                stroke="#17141b"
+                stroke="#e9f2ec"
                 strokeWidth={1}
               />
             </g>

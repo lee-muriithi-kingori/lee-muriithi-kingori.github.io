@@ -4,9 +4,10 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================
-   LESTRAMK × CRONAS — Memphis Design System
-   Cream base, ink type, hot-pink signature + cyan/yellow/violet
-   accent trio. Unbounded + Inter + JetBrains Mono.
+   LESTRAMK × CRONAS — Vitals-Monitor Design System
+   Phosphor-dark base, mint instrumentation, lestra pink speaks
+   (display emphasis only). Unbounded + Inter + JetBrains Mono.
+   System: pink speaks, mint measures.
    ============================================================ */
 
 @theme inline {
@@ -54,48 +55,52 @@
 :root {
   --radius: 1.25rem;
 
-  /* Surfaces — warm cream base */
-  --background: #fff7ec;
-  --surface: #fff0dc;
-  --surface-2: #ffe4c2;
-  --card: #fff7ec;
-  --card-foreground: #17141b;
-  --popover: #fff7ec;
-  --popover-foreground: #17141b;
+  /* Surfaces — phosphor-dark base */
+  --background: #060a08;
+  --surface: #0b1210;
+  --surface-2: #101915;
+  --card: #0b1210;
+  --card-foreground: #e9f2ec;
+  --popover: #0b1210;
+  --popover-foreground: #e9f2ec;
 
-  /* Ink scale — near-black with a violet undertone */
-  --foreground: #17141b;
-  --paper: #fff7ec;
-  --ink: #17141b;
-  --ink-2: #423b4d;
-  --ink-3: #766c85;
+  /* Ink scale — pale phosphor text on near-black */
+  --foreground: #e9f2ec;
+  --paper: #e9f2ec;
+  --ink: #e9f2ec;
+  --ink-2: #b9c9bf;
+  --ink-3: #6f857a;
 
-  /* Rules — warm sand borders */
-  --rule: #ecdfc4;
-  --rule-strong: #d9c5a0;
-  --border: #ecdfc4;
-  --input: #ecdfc4;
+  /* Rules — deep green hairlines */
+  --rule: #1d2b24;
+  --rule-strong: #2c4036;
+  --border: #1d2b24;
+  --input: #1d2b24;
 
-  /* Brand accent — signature Memphis hot pink */
+  /* Brand voice — lestra pink speaks (display emphasis only) */
   --lestra: #ff3e86;
-  --lestra-soft: rgba(255, 62, 134, 0.12);
-  --accent: #ff3e86;
-  --accent-foreground: #17141b;
+  --lestra-soft: rgba(255, 62, 134, 0.16);
+  --accent: #3df5a6;
+  --accent-foreground: #060a08;
   --amber: #ffd23f;
 
-  /* Memphis accent trio */
+  /* Instrument — mint measures (labels, links, live data) */
+  --pulse: #3df5a6;
+  --pulse-soft: rgba(61, 245, 166, 0.12);
+
+  /* Status trio (unchanged semantics) */
   --cyan: #2fd4c6;
   --yellow: #ffd23f;
   --violet: #7c4dff;
 
-  --primary: #17141b;
-  --primary-foreground: #fff7ec;
-  --secondary: #fff0dc;
-  --secondary-foreground: #17141b;
-  --muted: #fff0dc;
-  --muted-foreground: #766c85;
+  --primary: #3df5a6;
+  --primary-foreground: #060a08;
+  --secondary: #101915;
+  --secondary-foreground: #e9f2ec;
+  --muted: #101915;
+  --muted-foreground: #6f857a;
   --destructive: #e0403a;
-  --ring: #ff3e86;
+  --ring: #3df5a6;
 }
 
 @layer base {
@@ -142,13 +147,13 @@
   color: var(--lestra);
 }
 
-/* Eyebrow label */
+/* Eyebrow label — instrument mint */
 .eyebrow {
   font-family: var(--font-mono), 'JetBrains Mono', monospace;
   font-size: 0.7rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--lestra);
+  color: var(--pulse);
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
@@ -157,7 +162,7 @@
   content: '';
   width: 1.6rem;
   height: 2px;
-  background: var(--lestra);
+  background: var(--pulse);
   display: inline-block;
 }
 
@@ -214,8 +219,8 @@
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(184, 134, 11, 0.03) 0%, transparent 60%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.92) 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(61, 245, 166, 0.06) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(6, 10, 8, 0.55) 0%, rgba(6, 10, 8, 0.78) 50%, rgba(6, 10, 8, 0.92) 100%);
   pointer-events: none;
 }
 
@@ -281,9 +286,9 @@
   border: 1px solid;
   flex-shrink: 0;
 }
-.pill-shipped { color: var(--ink); border-color: var(--ink); background: var(--yellow); }
-.pill-beta    { color: var(--ink); border-color: var(--ink); background: var(--cyan); }
-.pill-wip     { color: var(--ink); border-color: var(--ink); background: var(--lestra); }
+.pill-shipped { color: #101410; border-color: var(--ink); background: var(--yellow); }
+.pill-beta    { color: #101410; border-color: var(--ink); background: var(--cyan); }
+.pill-wip     { color: #101410; border-color: var(--ink); background: var(--lestra); }
 
 /* ============================================================
    Disable horizontal scroll from matter.js bodies
@@ -301,8 +306,8 @@ body { overflow-x: hidden; }
   transition: color 0.18s, border-color 0.18s;
 }
 .link-underline:hover {
-  color: var(--lestra);
-  border-color: var(--lestra);
+  color: var(--pulse);
+  border-color: var(--pulse);
 }
 
 /* ============================================================
@@ -443,21 +448,21 @@ button:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--pulse);
+  color: #06110c;
   font-family: var(--font-mono), monospace;
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
   padding: 0.85rem 1.5rem;
   border-radius: 999px;
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--pulse);
   transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
               box-shadow 0.18s, background 0.18s, color 0.18s;
 }
 .btn-memphis:hover {
-  background: var(--lestra);
-  border-color: var(--lestra);
+  background: var(--paper);
+  border-color: var(--paper);
 }
 .btn-memphis:active {
   transform: translate(0, 0) scale(0.98);
@@ -475,12 +480,13 @@ button:focus-visible {
   letter-spacing: 0.16em;
   padding: 0.85rem 1.5rem;
   border-radius: 999px;
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--rule-strong);
   transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
-              box-shadow 0.18s, background 0.18s;
+              box-shadow 0.18s, background 0.18s, border-color 0.18s;
 }
 .btn-ghost:hover {
-  background: var(--lestra-soft);
+  background: var(--pulse-soft);
+  border-color: var(--pulse);
 }
 .btn-ghost:active {
   transform: translate(0, 0) scale(0.98);

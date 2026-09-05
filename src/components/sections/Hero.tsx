@@ -113,6 +113,9 @@ export function Hero() {
           01 / Identity · Lestramk
         </motion.p>
 
+        <div className="grid gap-10 lg:grid-cols-[1fr_300px] lg:gap-12 items-start">
+          <div>
+
         {/* Headline */}
         <h1 className="font-display font-light leading-[0.94] tracking-[-0.025em] text-[clamp(2.6rem,7vw,5.5rem)] mb-8">
           {WORDS.map((word, i) => (
@@ -182,31 +185,77 @@ export function Hero() {
             </a>
           </Magnetic>
         </motion.div>
+        </div>
 
-        {/* Meta grid */}
-        <motion.dl
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.1 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--rule)] border border-[var(--rule)] max-w-[44rem] mono text-[11px] uppercase tracking-[0.14em]"
+        {/* Vitals panel — the same meta facts as instrumentation */}
+        <motion.aside
+          initial={{ opacity: 0, x: 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 1.0 }}
+          className="border border-[var(--rule)] bg-[var(--surface)]"
+          aria-label="Vitals"
         >
-          {[
-            { k: "uid", v: profile.uid },
-            { k: "since", v: `${profile.since} · shipping` },
-            { k: "orgs", v: orgs.map((o) => o.name).join(" · ") },
-            { k: "study", v: "BSN · anaesthesia" },
-          ].map((row) => (
-            <div
-              key={row.k}
-              className="bg-[var(--background)] p-3.5 flex flex-col gap-1"
-            >
-              <dt className="text-[var(--lestra)]">{row.k}</dt>
-              <dd className="text-[var(--ink)] normal-case tracking-normal text-xs">
-                {row.v}
+          <div className="flex items-center gap-2.5 px-4 py-3 border-b border-[var(--rule)]">
+            <span className="relative inline-flex">
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full"
+                style={{ background: "var(--pulse)" }}
+              />
+              <span
+                className="absolute inset-0 rounded-full animate-ping"
+                style={{
+                  background: "var(--pulse)",
+                  opacity: 0.4,
+                  animationDuration: "2.4s",
+                }}
+              />
+            </span>
+            <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--pulse)]">
+              vitals // live
+            </span>
+          </div>
+          <svg
+            aria-hidden="true"
+            className="block w-full h-12 border-b border-[var(--rule)]"
+            viewBox="0 0 300 48"
+            preserveAspectRatio="none"
+            fill="none"
+          >
+            <path
+              className="ecg-path"
+              d="M0 24 H70 L80 24 L86 8 L94 40 L100 14 L104 24 H180 L190 24 L196 8 L204 40 L210 14 L214 24 H300"
+              stroke="var(--pulse)"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+            />
+          </svg>
+          <dl className="mono text-[11px] uppercase tracking-[0.14em]">
+            {[
+              { k: "uid", v: profile.uid },
+              { k: "since", v: `${profile.since} · shipping` },
+              { k: "orgs", v: orgs.map((o) => o.name).join(" · ") },
+              { k: "study", v: "BSN · anaesthesia" },
+            ].map((row) => (
+              <div
+                key={row.k}
+                className="flex flex-col gap-1 px-4 py-3 border-b border-[var(--rule)] last:border-b-0"
+              >
+                <dt className="text-[var(--pulse)] text-[9px]">{row.k}</dt>
+                <dd className="text-[var(--ink)] normal-case tracking-normal text-xs">
+                  {row.v}
+                </dd>
+              </div>
+            ))}
+            <div className="flex flex-col gap-1 px-4 py-3">
+              <dt className="text-[var(--pulse)] text-[9px]">local</dt>
+              <dd>
+                <NairobiClock className="text-[var(--ink)] normal-case tracking-normal text-xs" />
               </dd>
             </div>
-          ))}
-        </motion.dl>
+          </dl>
+        </motion.aside>
+        </div>
 
         {/* Status row */}
         <motion.div
@@ -219,7 +268,6 @@ export function Hero() {
             <PinIcon size={12} />
             {profile.location}
           </span>
-          <NairobiClock className="flex items-center gap-2 text-[var(--lestra)]" />
           <span className="flex items-center gap-2">
             <TerminalIcon size={12} />
             self-taught since 2020
